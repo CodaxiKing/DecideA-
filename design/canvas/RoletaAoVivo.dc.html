@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Roleta ao vivo</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..800&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s">
+  <div class="row sb"><a class="ib" href="Amigos.dc.html" aria-label="Sair"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></a><h1 class="d t3">Roleta ao vivo</h1><span class="tg">Ao vivo</span></div>
+  <div class="row" style="justify-content:center;gap:8px"><span class="pres"><span class="av a1">A</span><i></i></span><span class="pres"><span class="av a3">C</span><i></i></span><span class="pres"><span class="av a2">B</span><i></i></span></div>
+  <div style="position:relative;display:flex;flex-direction:column;align-items:center"><div class="pin" style="margin-bottom:-8px;position:relative;z-index:1"></div><div class="wheel" style="width:320px;height:320px;transform:rotate(24deg)"></div></div>
+  <p class="d t2 c" role="status">Caio está girando…</p>
+  <p class="m c">Todos veem o mesmo giro e o mesmo resultado.</p>
+  <div class="foot"><button class="btn w" disabled>Aguarde sua vez</button></div>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Passa o celular: voto</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..800&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s">
+  <dc-import name="SwipeDeck" items="{{items}}" height="824" label="Ana · opção" note="Caio, não olhe" end-href="PassaTroca.dc.html" end-label="Passar para Caio" hint-size="350px,824px"></dc-import>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { items: [
+      { title: 'Pizza', img: './img/mesa.jpg', tags: ['Massas', '40 min'] },
+      { title: 'Hambúrguer', img: './img/burger.jpg', tags: ['Lanches', '25 min'] },
+      { title: 'Lasanha', img: './img/lasanha.jpg', tags: ['Massas', '1 h'] }
+    ] };
+  }
+}
+</script>
+</body>
+</html>

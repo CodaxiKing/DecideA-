@@ -91,6 +91,8 @@ img.th{object-fit:cover;background:var(--sf2)}
 .pres.off i{display:none}
 .pick{display:flex;align-items:center;gap:12px;width:100%;border:0;border-radius:18px;background:var(--sf);color:var(--ink);padding:10px 14px;min-height:60px;font:inherit;text-align:left;cursor:pointer}
 .pick.on{background:var(--pri);color:var(--on)}
+.check{width:26px;height:26px;border-radius:9px;background:var(--sf2);flex:none;display:flex;align-items:center;justify-content:center;border:0;color:var(--on);padding:0;cursor:pointer}
+.check.on{background:var(--pri)}
 /* Marca */
 .mk{width:30px;height:30px;flex:none;display:block}
 .wm{position:relative;display:inline-block;font-family:Figtree,sans-serif;font-weight:800;font-size:21px;letter-spacing:-.02em;line-height:1;padding-right:.1em}

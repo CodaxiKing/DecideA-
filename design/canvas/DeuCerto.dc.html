@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Deu certo</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..800&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<div style="position:relative;width:390px;height:844px;overflow:hidden">
+<dc-import name="InicioV2" hint-size="390px,844px"></dc-import>
+<div class="s" style="position:absolute;inset:0;background:transparent;padding:0">
+  <div class="scrim"></div>
+  <section class="sheet" aria-label="Deu certo?">
+    <div class="grab"></div>
+    <div class="row"><img class="th" style="width:72px;height:72px;border-radius:20px" src="./img/temaki.jpg" alt=""><div class="f1"><p class="sm m">Ontem vocês decidiram</p><h1 class="d t2">Temaki de salmão</h1></div></div>
+    <h2 class="d t3">Deu certo?</h2>
+    <div class="col g8">
+      <button class="pick on"><span class="f1 b">Gostamos</span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></button>
+      <button class="pick"><span class="f1 b">Mais ou menos</span></button>
+      <button class="pick"><span class="f1 b">Não fizemos</span></button>
+    </div>
+    <p class="sm m">Isso melhora as próximas sugestões de vocês.</p>
+    <a class="btn w" href="InicioV2.dc.html">Enviar</a>
+  </section>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

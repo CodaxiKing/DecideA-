@@ -90,9 +90,29 @@
 "ConviteRecebido.dc.html":{"x":1880,"y":17668,"w":390,"h":844,"title":"Convite recebido"},
 "AmigosPrivacidade.dc.html":{"x":2350,"y":17668,"w":390,"h":844,"title":"Privacidade de amigos"},
 "AmigosVazio.dc.html":{"x":2820,"y":17668,"w":390,"h":844,"title":"Vazio: sem amigos"},
-"AmigosEscuro.dc.html":{"x":3290,"y":17668,"w":390,"h":844,"title":"Amigos · escuro","is_interactive":true}
+"AmigosEscuro.dc.html":{"x":3290,"y":17668,"w":390,"h":844,"title":"Amigos · escuro","is_interactive":true},
+
+"PassaConfig.dc.html":{"x":0,"y":18892,"w":390,"h":844,"title":"Passa o celular: quem vota"},
+"PassaVoto.dc.html":{"x":470,"y":18892,"w":390,"h":844,"title":"Passa o celular: voto","is_interactive":true},
+"PassaTroca.dc.html":{"x":940,"y":18892,"w":390,"h":844,"title":"Passa o celular: troca"},
+"Veto.dc.html":{"x":1410,"y":18892,"w":390,"h":844,"title":"Veto na votação"},
+"DeuCerto.dc.html":{"x":1880,"y":18892,"w":390,"h":844,"title":"Deu certo?"},
+
+"ListaCompras.dc.html":{"x":0,"y":20116,"w":390,"h":844,"title":"Lista de compras"},
+"ModoCozinha.dc.html":{"x":470,"y":20116,"w":390,"h":844,"title":"Modo cozinha"},
+"Cardapio.dc.html":{"x":940,"y":20116,"w":390,"h":844,"title":"Cardápio da semana"},
+"OndePedir.dc.html":{"x":1410,"y":20116,"w":390,"h":844,"title":"Onde pedir ou assistir"},
+
+"Lembretes.dc.html":{"x":0,"y":21340,"w":390,"h":844,"title":"Lembretes"},
+"Retrospectiva.dc.html":{"x":470,"y":21340,"w":390,"h":844,"title":"Retrospectiva do mês"},
+"Widget.dc.html":{"x":940,"y":21340,"w":390,"h":844,"title":"Widgets do Android"},
+"Conquistas.dc.html":{"x":1410,"y":21340,"w":390,"h":844,"title":"Conquistas"},
+
+"RoletaAoVivo.dc.html":{"x":0,"y":22564,"w":390,"h":844,"title":"Roleta ao vivo"},
+"Pacotes.dc.html":{"x":470,"y":22564,"w":390,"h":844,"title":"Pacotes temáticos"},
+"ModoFesta.dc.html":{"x":940,"y":22564,"w":1280,"h":720,"title":"Modo festa na TV"}
 },
-"order":["Splash.dc.html","Main.dc.html","InicioEscuro.dc.html","Historico.dc.html","Roletas.dc.html","Modelos.dc.html","Roleta.dc.html","RoletaResultado.dc.html","RoletaEditor.dc.html","RoletaEscuro.dc.html","Comer.dc.html","ComerResultado.dc.html","Ingredientes.dc.html","Receita.dc.html","ComerFiltros.dc.html","Favoritos.dc.html","Filmes.dc.html","FilmesFiltros.dc.html","QueroAssistir.dc.html","FilmesEscuro.dc.html","SalaCriar.dc.html","SalaCodigo.dc.html","SalaEntrar.dc.html","SalaVotar.dc.html","SalaAguardando.dc.html","SalaMatch.dc.html","SalaSemMatch.dc.html","SalaEmpate.dc.html","Entrar.dc.html","Perfil.dc.html","ExcluirConta.dc.html","Paywall.dc.html","Limite.dc.html","Sorteando.dc.html","SemConexao.dc.html","SalaExpirada.dc.html","FavoritosVazio.dc.html","DesignSystem.dc.html","SwipeDeck.dc.html","Marca.dc.html","MatchCriar.dc.html","MatchVoto.dc.html","MatchResultado.dc.html","RankingOrdenar.dc.html","RankingResultado.dc.html","ConviteQR.dc.html","VotoWeb.dc.html","ResultadoImagem.dc.html","Batalha.dc.html","BatalhaFinal.dc.html","BatalhaVencedor.dc.html","InicioV2.dc.html","Fazer.dc.html","FazerResultado.dc.html","Surpresa.dc.html","SurpresaResultado.dc.html","DuplaConectar.dc.html","Dupla.dc.html","Grupos.dc.html","GrupoDetalhe.dc.html","Preferencias.dc.html","VotoWebExpirado.dc.html","VotoWebJaVotou.dc.html","VotoWebCheia.dc.html","InicioV2Escuro.dc.html","MatchVotoEscuro.dc.html","BatalhaEscuro.dc.html","FazerEscuro.dc.html","Amigos.dc.html","AdicionarAmigo.dc.html","ConvidarAmigos.dc.html","ConviteEnviado.dc.html","ConviteRecebido.dc.html","AmigosPrivacidade.dc.html","AmigosVazio.dc.html","AmigosEscuro.dc.html"],
+"order":["Splash.dc.html","Main.dc.html","InicioEscuro.dc.html","Historico.dc.html","Roletas.dc.html","Modelos.dc.html","Roleta.dc.html","RoletaResultado.dc.html","RoletaEditor.dc.html","RoletaEscuro.dc.html","Comer.dc.html","ComerResultado.dc.html","Ingredientes.dc.html","Receita.dc.html","ComerFiltros.dc.html","Favoritos.dc.html","Filmes.dc.html","FilmesFiltros.dc.html","QueroAssistir.dc.html","FilmesEscuro.dc.html","SalaCriar.dc.html","SalaCodigo.dc.html","SalaEntrar.dc.html","SalaVotar.dc.html","SalaAguardando.dc.html","SalaMatch.dc.html","SalaSemMatch.dc.html","SalaEmpate.dc.html","Entrar.dc.html","Perfil.dc.html","ExcluirConta.dc.html","Paywall.dc.html","Limite.dc.html","Sorteando.dc.html","SemConexao.dc.html","SalaExpirada.dc.html","FavoritosVazio.dc.html","DesignSystem.dc.html","SwipeDeck.dc.html","Marca.dc.html","MatchCriar.dc.html","MatchVoto.dc.html","MatchResultado.dc.html","RankingOrdenar.dc.html","RankingResultado.dc.html","ConviteQR.dc.html","VotoWeb.dc.html","ResultadoImagem.dc.html","Batalha.dc.html","BatalhaFinal.dc.html","BatalhaVencedor.dc.html","InicioV2.dc.html","Fazer.dc.html","FazerResultado.dc.html","Surpresa.dc.html","SurpresaResultado.dc.html","DuplaConectar.dc.html","Dupla.dc.html","Grupos.dc.html","GrupoDetalhe.dc.html","Preferencias.dc.html","VotoWebExpirado.dc.html","VotoWebJaVotou.dc.html","VotoWebCheia.dc.html","InicioV2Escuro.dc.html","MatchVotoEscuro.dc.html","BatalhaEscuro.dc.html","FazerEscuro.dc.html","Amigos.dc.html","AdicionarAmigo.dc.html","ConvidarAmigos.dc.html","ConviteEnviado.dc.html","ConviteRecebido.dc.html","AmigosPrivacidade.dc.html","AmigosVazio.dc.html","AmigosEscuro.dc.html","PassaConfig.dc.html","PassaVoto.dc.html","PassaTroca.dc.html","Veto.dc.html","DeuCerto.dc.html","ListaCompras.dc.html","ModoCozinha.dc.html","Cardapio.dc.html","OndePedir.dc.html","Lembretes.dc.html","Retrospectiva.dc.html","Widget.dc.html","Conquistas.dc.html","RoletaAoVivo.dc.html","Pacotes.dc.html","ModoFesta.dc.html"],
 "notes":{
 "t1":{"x":0,"y":-260,"text":"Início","kind":"title1","maxW":1800},
 "t2":{"x":0,"y":964,"text":"Roleta DecideAí","kind":"title1","maxW":2740},
@@ -109,6 +129,12 @@
 "t13":{"x":0,"y":14960,"text":"Evolução: Dupla e grupos","kind":"title1","maxW":2270},
 "t14":{"x":0,"y":16184,"text":"Evolução: modo escuro","kind":"title1","maxW":1800},
 "t15":{"x":0,"y":17408,"text":"Evolução: Amigos","kind":"title1","maxW":3680},
+"t16":{"x":0,"y":18632,"text":"Novas: decidir junto","kind":"title1","maxW":2270},
+"t17":{"x":0,"y":19856,"text":"Novas: do resultado à ação","kind":"title1","maxW":1800},
+"t18":{"x":0,"y":21080,"text":"Novas: motivos para voltar","kind":"title1","maxW":1800},
+"t19":{"x":0,"y":22304,"text":"Novas: festa e Premium","kind":"title1","maxW":2220},
+"n7":{"x":1880,"y":20116,"w":340,"fill":"gray","text":"Parceiros de delivery e streaming são marcadores. Dependem de parceria, licença e aviso de link patrocinado."},
+"n8":{"x":1880,"y":21340,"w":340,"fill":"gray","text":"Os números da Retrospectiva e das Conquistas são amostras."},
 "n5":{"x":2820,"y":11548,"w":340,"fill":"gray","text":"O QR Code é ilustrativo e não abre nada. O voto web depende de domínio ainda não escolhido."},
 "n6":{"x":2350,"y":15220,"w":340,"fill":"purple","text":"Premium Dupla ainda precisa de validação nas regras das lojas. Preços são sugestões para teste."},
 "n1":{"x":2350,"y":6516,"w":320,"fill":"purple","text":"Preços do Paywall são sugestões para teste. No app vêm dos produtos da loja via RevenueCat. O Premium Dupla só entra na Fase 15; até lá, a tela mostra dois planos."},

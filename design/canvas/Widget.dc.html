@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Widgets</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..800&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s" style="background:#2159DB;color:#1B1036;gap:16px;padding-top:40px">
+  <h1 class="d t1" style="color:#fff">Widgets</h1>
+  <section class="card" style="background:#fff;border-radius:32px;padding:18px;color:#1B1036">
+    <div class="row sb"><div class="col g8"><span class="row g8"><img class="mk" src="./img/mark.svg" alt=""><span class="wm" style="font-size:17px">DecideAí</span></span><p class="d t2">O que comer hoje?</p></div><div class="wheel" style="width:86px;height:86px;flex:none"></div></div>
+    <button class="btn w h48" style="margin-top:12px;background:#5A2BE0;color:#fff">Sortear agora</button>
+  </section>
+  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px">
+    <section class="col g8" style="background:#5A2BE0;color:#fff;border-radius:32px;padding:18px;height:170px;justify-content:space-between"><div class="wheel" style="width:62px;height:62px"></div><p class="d t3">Girar a roleta</p></section>
+    <section style="position:relative;border-radius:32px;overflow:hidden;height:170px;color:#fff"><img src="./img/temaki.jpg" alt="" style="width:100%;height:100%;object-fit:cover;display:block"><div style="position:absolute;inset:0;background:rgba(10,6,24,.45)"></div><div style="position:absolute;left:16px;right:16px;bottom:14px"><p class="sm">Última decisão</p><p class="d t3">Temaki de salmão</p></div></section>
+  </div>
+  <section class="row" style="background:#fff;border-radius:32px;padding:14px 16px;color:#1B1036"><span class="pres"><span class="av a3">C</span><i style="box-shadow:0 0 0 3px #fff"></i></span><p class="f1 b">Caio está online</p><button class="btn h48" style="background:#5A2BE0;color:#fff">Convidar</button></section>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

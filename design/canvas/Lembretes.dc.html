@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Lembretes</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..800&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s">
+  <div class="row"><a class="ib" href="Perfil.dc.html" aria-label="Voltar"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a><h1 class="d t2">Lembretes</h1></div>
+  <section class="card row" style="background:var(--pri);color:var(--on)"><img class="mk" src="./img/mark.svg" alt="" style="background:#fff;border-radius:15px"><div class="f1"><p class="b">O que vai ser hoje?</p><p class="sm">Toque para sortear o jantar</p></div><span class="sm num">19:00</span></section>
+  <section class="col g8">
+    <div class="row sb"><h2 class="d t3">Jantar</h2><button class="sw on" aria-label="Lembrete de jantar"></button></div>
+    <div class="row g4"><button class="chip" style="padding:0 11px">Seg</button><button class="chip" style="padding:0 11px">Ter</button><button class="chip" style="padding:0 11px">Qua</button><button class="chip" style="padding:0 11px">Qui</button><button class="chip on" style="padding:0 11px">Sex</button><button class="chip on" style="padding:0 11px">Sáb</button><button class="chip" style="padding:0 11px">Dom</button></div>
+    <div class="row sb"><span>Horário</span><span class="b num">19:00</span></div>
+  </section>
+  <ul class="col g8">
+    <li class="card row sb"><div class="f1"><h2 class="b">Cardápio da semana</h2><p class="sm m">Domingo, 11:30</p></div><button class="sw on" aria-label="Lembrete do cardápio"></button></li>
+    <li class="card row sb"><div class="f1"><h2 class="b">Deu certo?</h2><p class="sm m">No dia seguinte a uma decisão</p></div><button class="sw on" aria-label="Pergunta deu certo"></button></li>
+    <li class="card row sb"><div class="f1"><h2 class="b">Retrospectiva do mês</h2><p class="sm m">No primeiro dia do mês</p></div><button class="sw" aria-label="Aviso da retrospectiva"></button></li>
+  </ul>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

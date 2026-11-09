@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Lista de compras</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..800&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s">
+  <div class="row"><a class="ib" href="Receita.dc.html" aria-label="Voltar"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a><h1 class="d t2">Lista de compras</h1></div>
+  <div class="row"><img class="th" src="./img/massa.jpg" alt=""><div class="f1"><p class="b">Macarrão com brócolis e alho</p><p class="sm m">4 porções</p></div></div>
+  <section class="col g8">
+    <h2 class="d t3">Falta comprar</h2>
+    <ul class="col g4">
+      <li class="row" style="min-height:48px"><button class="check" aria-label="Marcar azeite"></button><span class="f1">Azeite de oliva</span><span class="b num">4 colheres de sopa</span></li>
+      <li class="row" style="min-height:48px"><button class="check" aria-label="Marcar parmesão"></button><span class="f1">Parmesão ralado</span><span class="b num">50 g</span></li>
+    </ul>
+  </section>
+  <section class="col g8">
+    <h2 class="d t3">Você já tem</h2>
+    <ul class="col g4 m">
+      <li class="row" style="min-height:48px"><button class="check on" aria-label="Macarrão marcado"><svg class="i" style="width:16px;height:16px" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></button><span class="f1">Macarrão penne</span><span class="num">400 g</span></li>
+      <li class="row" style="min-height:48px"><button class="check on" aria-label="Brócolis marcado"><svg class="i" style="width:16px;height:16px" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></button><span class="f1">Brócolis em floretes</span><span class="num">300 g</span></li>
+      <li class="row" style="min-height:48px"><button class="check on" aria-label="Alho marcado"><svg class="i" style="width:16px;height:16px" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></button><span class="f1">Alho laminado</span><span class="num">4 dentes</span></li>
+    </ul>
+  </section>
+  <div class="foot"><button class="btn w"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4m-4 4l4-4 4 4M5 13v7h14v-7"></path></svg>Enviar pelo WhatsApp</button><a class="btn ghost w" href="Cardapio.dc.html">Juntar à lista da semana</a></div>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

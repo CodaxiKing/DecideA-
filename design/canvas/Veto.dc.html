@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Veto</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..800&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s" style="gap:12px">
+  <div class="col g8"><div class="row sb"><h1 class="b num">Opção 3 de 10</h1><span class="tg">1 veto restante</span></div><div class="bar"><i style="width:30%"></i></div></div>
+  <div class="poster" style="height:440px;flex:none;background:var(--sf2)"><img src="./img/lasanha.jpg" alt="Lasanha"><div class="fade"></div><h2 class="d" style="position:absolute;left:20px;bottom:16px;font-size:44px;color:#fff">Lasanha</h2></div>
+  <div class="card row" style="padding:10px 14px"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M5.700 5.700l12.600 12.600"></path></svg><p class="sm f1">Sushi foi vetado e saiu da votação.</p></div>
+  <div class="row" style="position:absolute;left:12px;right:12px;bottom:18px;justify-content:space-around;align-items:flex-end">
+    <div class="col g4" style="align-items:center"><button class="vote" aria-label="Não quero"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button><span class="sm">Não quero</span></div>
+    <div class="col g4" style="align-items:center"><button class="vote" style="background:var(--neg);color:var(--bg)" aria-label="Vetar esta opção"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M5.700 5.700l12.600 12.600"></path></svg></button><span class="sm b">Vetar</span></div>
+    <div class="col g4" style="align-items:center"><button class="vote" aria-label="Talvez"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 9a3 3 0 1 1 4.500 2.600c-1 .6-1.500 1.200-1.500 2.400M12 18v.01"></path></svg></button><span class="sm">Talvez</span></div>
+    <div class="col g4" style="align-items:center"><button class="vote yes" aria-label="Quero"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></button><span class="sm b">Quero</span></div>
+  </div>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>
