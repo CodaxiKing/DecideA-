@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Voto no navegador</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..800&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s" style="gap:12px">
+  <header class="row g8"><img class="mk" src="./img/mark.svg" alt=""><span class="wm">DecideAí</span></header>
+  <div class="row g8"><div class="av a1" style="width:36px;height:36px">A</div><h1 class="d t3 f1">Ana quer decidir o jantar com você</h1></div>
+  <dc-import name="SwipeDeck" items="{{items}}" height="716" pb="46" end-href="VotoWebJaVotou.dc.html" end-label="Acompanhar votação" hint-size="350px,716px"></dc-import>
+  <p class="sm m c" style="position:absolute;left:20px;right:20px;bottom:14px">Sem cadastro e sem instalar. <a class="b" style="text-decoration:underline;text-underline-offset:3px" href="InicioV2.dc.html">Baixar o app</a></p>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { items: [
+      { title: 'Hambúrguer', img: './img/burger.jpg', tags: ['Lanches', '25 min'] },
+      { title: 'Temaki de salmão', img: './img/temaki.jpg', tags: ['Comida japonesa', '30 min'] },
+      { title: 'Pizza', img: './img/mesa.jpg', tags: ['Massas', '40 min'] }
+    ] };
+  }
+}
+</script>
+</body>
+</html>

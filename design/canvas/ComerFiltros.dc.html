@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Filtros de comida</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..700&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<div style="position:relative;width:390px;height:844px;overflow:hidden">
+<dc-import name="Comer" hint-size="390px,844px"></dc-import>
+<div class="s" style="position:absolute;inset:0;background:transparent;padding:0">
+  <div class="scrim"></div>
+  <section class="sheet" aria-label="Filtros">
+    <div class="grab"></div>
+    <div class="row sb"><h1 class="d t2">Filtros</h1><button class="link">Limpar</button></div>
+    <div class="col g8"><h2 class="b sm">Tempo de preparo</h2><div class="row g8"><button class="chip">Até 15 min</button><button class="chip on">Até 30 min</button><button class="chip">Até 1 h</button></div></div>
+    <div class="col g8"><h2 class="b sm">Refeição</h2><div class="row g8 wrap"><button class="chip">Café</button><button class="chip">Almoço</button><button class="chip on">Jantar</button><button class="chip">Lanche</button></div></div>
+    <div class="col g8"><h2 class="b sm">Preferências</h2><div class="row g8 wrap"><button class="chip on">Vegetariano</button><button class="chip">Vegano</button><button class="chip">Sem glúten</button><button class="chip">Sem lactose</button></div></div>
+    <div class="col g8"><label class="b sm" for="ev">Ingredientes a evitar</label><input class="inp" id="ev" placeholder="Ex.: amendoim"><div class="row g8"><button class="chip">Camarão<svg class="i" style="width:16px;height:16px" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></div></div>
+    <div class="row sb sm"><span class="row g8"><button class="sw" aria-label="Salvar preferências"></button>Salvar para a próxima</span><a class="tg pr" href="Paywall.dc.html">Premium</a></div>
+    <a class="btn w" href="Comer.dc.html">Ver 14 receitas</a>
+  </section>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

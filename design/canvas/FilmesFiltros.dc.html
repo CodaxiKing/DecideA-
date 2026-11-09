@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Filtros de filme</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..700&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<div style="position:relative;width:390px;height:844px;overflow:hidden">
+<dc-import name="Filmes" hint-size="390px,844px"></dc-import>
+<div class="s" style="position:absolute;inset:0;background:transparent;padding:0">
+  <div class="scrim"></div>
+  <section class="sheet" aria-label="Filtros" style="gap:14px">
+    <div class="grab"></div>
+    <div class="row sb"><h1 class="d t2">Filtros</h1><button class="link">Limpar</button></div>
+    <div class="col g8"><h2 class="b sm">Tipo</h2><div class="row g8"><button class="chip on">Filme</button><button class="chip">Série</button></div></div>
+    <div class="col g8"><h2 class="b sm">Gênero</h2><div class="row g8 wrap"><button class="chip on">Drama</button><button class="chip">Comédia</button><button class="chip">Terror</button><button class="chip">Ação</button><button class="chip on">Romance</button></div></div>
+    <div class="col g8"><h2 class="b sm">Duração</h2><div class="row g8"><button class="chip">Até 90 min</button><button class="chip on">Até 2 h</button><button class="chip">Qualquer</button></div></div>
+    <div class="col g8"><h2 class="b sm">Ano</h2><div class="row g8"><button class="chip on">2020+</button><button class="chip">2010+</button><button class="chip">Clássicos</button></div></div>
+    <div class="col g8"><h2 class="b sm">Classificação indicativa</h2><div class="row g8"><button class="chip">L</button><button class="chip">10</button><button class="chip on">12</button><button class="chip">14</button><button class="chip">16</button><button class="chip">18</button></div></div>
+    <p class="sm m">Filtro por plataforma de streaming aparece quando o catálogo licenciado tiver esse dado.</p>
+    <a class="btn w" href="Filmes.dc.html">Ver 18 títulos</a>
+  </section>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

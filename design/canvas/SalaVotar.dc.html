@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Votação</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..800&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s">
+  <dc-import name="SwipeDeck" items="{{items}}" height="824" label="Título" offset="{{offset}}" total="{{total}}" end-href="SalaAguardando.dc.html" end-label="Ver quem falta" hint-size="350px,824px"></dc-import>
+  <div class="row g4" style="position:absolute;right:20px;top:20px"><div class="av a1" style="width:32px;height:32px;font-size:13px">A</div><div class="av a2" style="width:32px;height:32px;font-size:13px">B</div><div class="av a3" style="width:32px;height:32px;font-size:13px">C</div><div class="av a4" style="width:32px;height:32px;font-size:13px">D</div></div>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return { offset: 8, total: 12, items: [
+      { title: 'Ladeira Abaixo', img: './img/ladeira.jpg', tags: ['Comédia', '2021', '1h38', '10 anos'] },
+      { title: 'Noite em Olinda', img: './img/noite.jpg', tags: ['Suspense', '2024', '2h04', '16 anos'] },
+      { title: 'Três Verões', img: './img/verao.jpg', tags: ['Série', '2022', '14 anos'] },
+      { title: 'A Última Balsa', img: './img/balsa.jpg', tags: ['Drama', '2023', '1h52', '12 anos'] }
+    ] };
+  }
+}
+</script>
+</body>
+</html>

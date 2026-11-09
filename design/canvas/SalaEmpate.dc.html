@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Empate</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..700&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s">
+  <h1 class="d" style="font-size:44px">Deu empate</h1>
+  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
+    <div class="poster" style="height:290px;background:var(--sf2);color:#fff"><img src="./img/ladeira.jpg" alt=""><div class="fade"></div><div style="position:absolute;left:14px;right:14px;bottom:14px"><h2 class="d t2">Ladeira Abaixo</h2><p class="num">3 de 4</p></div></div>
+    <div class="poster" style="height:290px;background:var(--sf2);color:#fff"><img src="./img/noite.jpg" alt=""><div class="fade"></div><div style="position:absolute;left:14px;right:14px;bottom:14px"><h2 class="d t2">Noite em Olinda</h2><p class="num">3 de 4</p></div></div>
+  </div>
+  <section class="col g8">
+    <h2 class="d t3">Como desempatar?</h2>
+    <p class="sm m num">3 de 4 já escolheram. Vale a maioria.</p>
+    <button class="card row sb" style="border:0;color:inherit;font:inherit;width:100%;background:var(--pri);color:var(--on)"><span class="b">Sorteio</span><span class="b num">2</span></button>
+    <button class="card row sb" style="border:0;color:inherit;font:inherit;width:100%"><span class="b">Rodada final</span><span class="b num">1</span></button>
+  </section>
+  <div class="foot"><a class="btn ghost w" href="Main.dc.html">Sair da sala</a></div>
+  <ul class="row g8"><li class="av a1">A</li><li class="av a2">B</li><li class="av a3">C</li><li class="av" style="background:var(--sf);color:var(--mut)">D</li></ul>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

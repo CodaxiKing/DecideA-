@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Batalha de opções</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..700&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s" style="gap:14px">
+  <sc-if value="{{playing}}" hint-placeholder-val="{{ true }}">
+    <div class="col g8">
+      <div class="row sb"><h1 class="d t3">{{title}}</h1><span class="sm m">Toque na sua preferida</span></div>
+      <div class="bar"><i style="width:{{pct}}%"></i></div>
+    </div>
+    <div style="position:relative;display:flex;flex-direction:column;gap:8px;margin-top:14px">
+      <button class="bt" style="height:350px" onClick="{{pickL}}"><img src="{{left.img}}" alt=""><span class="fade"></span><span class="d nm">{{left.name}}</span></button>
+      <span class="or d">ou</span>
+      <button class="bt" style="height:350px" onClick="{{pickR}}"><img src="{{right.img}}" alt=""><span class="fade"></span><span class="d nm">{{right.name}}</span></button>
+    </div>
+  </sc-if>
+  <sc-if value="{{won}}" hint-placeholder-val="{{ false }}">
+    <section class="res" style="margin-top:8px;min-height:520px;justify-content:flex-end;overflow:hidden">
+      <img src="{{winner.img}}" alt="" style="position:absolute;left:0;top:0;width:100%;height:360px;object-fit:cover">
+      <p>Venceu a batalha</p>
+      <h1 class="d" style="font-size:64px">{{winner.name}}</h1>
+      <p>Depois de 3 duelos entre 4 opções.</p>
+    </section>
+    <div class="foot"><button class="btn w" onClick="{{again}}">Batalhar de novo</button><a class="btn ghost w" href="ResultadoImagem.dc.html">Compartilhar resultado</a></div>
+  </sc-if>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"start":{"editor":"enum","options":["semi","final","win"],"default":"semi"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  pick(side, items, winners, pair) {
+    this.setState({ winners: winners.concat(side === 'L' ? pair[0] : pair[1]) });
+  }
+  renderVals() {
+    const I = { p: { name: 'Pizza', img: './img/mesa.jpg' }, h: { name: 'Hambúrguer', img: './img/burger.jpg' }, s: { name: 'Sushi', img: './img/temaki.jpg' }, l: { name: 'Lasanha', img: './img/lasanha.jpg' } };
+    const start = this.props.start ?? 'semi';
+    const initial = start === 'final' ? [I.p, I.s] : start === 'win' ? [I.p, I.s, I.s] : [];
+    const w = this.state?.winners ?? initial;
+    const step = w.length;
+    const pair = step === 0 ? [I.p, I.h] : step === 1 ? [I.s, I.l] : step === 2 ? [w[0], w[1]] : [];
+    return {
+      playing: step < 3, won: step >= 3, winner: w[2] ?? I.p,
+      left: pair[0] ?? I.p, right: pair[1] ?? I.h,
+      title: ['Semifinal 1 de 2', 'Semifinal 2 de 2', 'Grande final'][step] ?? '',
+      pct: Math.round((step + 1) / 3 * 100),
+      pickL: () => this.pick('L', I, w, pair),
+      pickR: () => this.pick('R', I, w, pair),
+      again: () => this.setState({ winners: [] })
+    };
+  }
+}
+</script>
+</body>
+</html>

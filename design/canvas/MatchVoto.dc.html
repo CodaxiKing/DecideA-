@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Voto secreto</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..800&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s">
+  <dc-import name="SwipeDeck" items="{{items}}" height="824" label="Opção" note="Voto secreto" offset="{{offset}}" total="{{total}}" end-href="MatchResultado.dc.html" end-label="Ver o que combinou" hint-size="350px,824px"></dc-import>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const text = 'Caio também está votando. Nenhum dos dois vê o voto do outro.';
+    return { offset: 5, total: 10, items: [
+      { title: 'Temaki de salmão', img: './img/temaki.jpg', tags: ['Comida japonesa', '30 min', 'Médio'], text },
+      { title: 'Pizza', img: './img/mesa.jpg', tags: ['Massas', '40 min', 'Médio'], text },
+      { title: 'Hambúrguer', img: './img/burger.jpg', tags: ['Lanches', '25 min', 'Fácil'], text },
+      { title: 'Lasanha', img: './img/lasanha.jpg', tags: ['Massas', '1 h', 'Médio'], text },
+      { title: 'Macarrão com brócolis', img: './img/massa.jpg', tags: ['Massas', '25 min', 'Fácil'], text }
+    ] };
+  }
+}
+</script>
+</body>
+</html>

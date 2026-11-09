@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Sorteando</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..700&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s" style="align-items:center;justify-content:center;gap:28px">
+  <a href="ComerResultado.dc.html" aria-label="Ver resultado do sorteio" style="display:flex;flex-direction:column;align-items:center;gap:0">
+    <div class="pin" style="margin-bottom:-8px;position:relative;z-index:1"></div>
+    <div class="wheel" style="width:260px;height:260px;transform:rotate(47deg)"></div>
+  </a>
+  <h1 class="d t1 c" role="status">Sorteando…</h1>
+  <p class="m c">Massas, lanches e comida caseira</p>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Código da sala</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..700&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s">
+  <div class="row sb"><a class="ib" href="SalaCriar.dc.html" aria-label="Voltar"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a><span class="sm m num">Expira em 28 min</span></div>
+  <section class="card col" style="background:var(--pri);color:var(--on);padding:24px">
+    <h1 class="d t2">Sala de filme</h1>
+    <p class="code">K7QF-2M9X</p>
+    <div class="row g8"><button class="btn f1" style="background:var(--bg);color:var(--ink)"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4m-4 4l4-4 4 4M5 13v7h14v-7"></path></svg>Compartilhar link</button><button class="ib" style="width:56px;height:56px;border-radius:28px;background:var(--bg)" aria-label="Copiar código"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 9h11v11H9zM5 15H4V4h11v1"></path></svg></button></div>
+  </section>
+  <section class="col g4">
+    <h2 class="d t3 num">3 de 4 na sala</h2>
+    <ul>
+      <li class="li"><div class="av a1">A</div><p class="f1 b">Ana (você)</p><span class="sm m">Criou a sala</span></li>
+      <li class="li"><div class="av a2">B</div><p class="f1 b">Bia</p><span class="sm m">Convidada</span></li>
+      <li class="li"><div class="av a3">C</div><p class="f1 b">Caio</p><span class="sm m">Convidado</span></li>
+      <li class="li"><div class="av" style="background:var(--sf);color:var(--mut)">?</div><p class="f1 m">Esperando mais alguém</p></li>
+    </ul>
+  </section>
+  <div class="foot"><a class="btn w" href="SalaVotar.dc.html">Começar votação</a></div>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

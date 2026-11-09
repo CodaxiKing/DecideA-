@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Design system</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..700&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s" style="width:1800px;height:980px;padding:48px;display:grid;grid-template-columns:400px 400px minmax(0,1fr);gap:56px;align-items:start">
+  <section class="col g20">
+    <h1 class="d t1">Cores</h1>
+    <div class="col g8">
+      <h2 class="b">Claro</h2>
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px" class="sm">
+        <div><div style="height:72px;border-radius:16px;background:#F8F6FF;box-shadow:inset 0 0 0 1px #DCD3FB"></div>Fundo</div>
+        <div><div style="height:72px;border-radius:16px;background:#EDE8FD"></div>Superfície</div>
+        <div><div style="height:72px;border-radius:16px;background:#1B1036"></div>Texto</div>
+        <div><div style="height:72px;border-radius:16px;background:#5A2BE0"></div>Roxo</div>
+      </div>
+    </div>
+    <div class="col g8">
+      <h2 class="b">Escuro</h2>
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px" class="sm">
+        <div><div style="height:72px;border-radius:16px;background:#110B20"></div>Fundo</div>
+        <div><div style="height:72px;border-radius:16px;background:#1F1736"></div>Superfície</div>
+        <div><div style="height:72px;border-radius:16px;background:#F4F0FF;box-shadow:inset 0 0 0 1px #DCD3FB"></div>Texto</div>
+        <div><div style="height:72px;border-radius:16px;background:#9478FF"></div>Roxo</div>
+      </div>
+    </div>
+    <div class="col g8">
+      <h2 class="b">Apoio e setores da roleta</h2>
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px" class="sm">
+        <div><div style="height:72px;border-radius:16px;background:#2159DB"></div>Azul</div>
+        <div><div style="height:72px;border-radius:16px;background:#C9DCFF"></div>Céu</div>
+        <div><div style="height:72px;border-radius:16px;background:#B9A2FF"></div>Lilás</div>
+        <div><div style="height:72px;border-radius:16px;background:#B4233F"></div>Perigo</div>
+      </div>
+    </div>
+    <div class="col g8">
+      <h2 class="b">Raios e espaços</h2>
+      <p class="sm m num">Raio 16 · 24 · 32 e pílula</p>
+      <p class="sm m num">Espaço 4 · 8 · 12 · 20 · 24</p>
+      <p class="sm m">Sombra só no que flutua: modal e folha</p>
+    </div>
+  </section>
+  <section class="col g20">
+    <h2 class="d t1">Tipografia</h2>
+    <div><p class="d xl">Bricolage</p><p class="sm m num">Títulos · 48 · 36 · 26 · 20 · 700</p></div>
+    <div><p class="d t1">O Que Comer?</p><p class="sm m num">36/37</p></div>
+    <div><p class="d t2">Macarrão com brócolis</p><p class="sm m num">26/27</p></div>
+    <div><p style="font-size:16px">Figtree para texto corrido, em 16 px com entrelinha de 1,45.</p><p class="sm m num">Texto · 16 · 400</p></div>
+    <div><p class="b sm">Rótulos e apoio em 14 px</p><p class="sm m num">Apoio · 14 · 400 e 600</p></div>
+    <div class="card col g8"><h3 class="b">Acessibilidade</h3><p class="sm">Alvos de toque de 44 px ou mais. Com redução de movimento, a roleta para direto no setor sorteado.</p></div>
+  </section>
+  <section class="col g20">
+    <h2 class="d t1">Componentes</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px 28px;align-items:start">
+      <div class="col g8"><h3 class="b sm m">AppButton</h3><button class="btn w">Sortear</button><button class="btn ghost w">Agora não</button><button class="btn w" disabled>Girando…</button></div>
+      <div class="col g8"><h3 class="b sm m">AppInput</h3><label class="lb" for="ds1" style="margin:0">Nome da roleta</label><input class="inp" id="ds1" value="Sábado à noite"><input class="inp" aria-label="Exemplo vazio" placeholder="Ex.: tomate"></div>
+      <div class="col g8"><h3 class="b sm m">AppHeader</h3><div class="row sb card" style="background:transparent;padding:0"><button class="ib" aria-label="Voltar"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></button><span class="d t3">O que comer?</span><button class="ib" aria-label="Filtros"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"></path></svg></button></div></div>
+      <div class="col g8"><h3 class="b sm m">AppCard</h3><div class="card"><p class="b">Omelete de brócolis</p><p class="sm m">15 min · Fácil · 1 porção</p></div></div>
+      <div class="col g8"><h3 class="b sm m">FilterChip</h3><div class="row g8"><button class="chip on">Jantar</button><button class="chip">Almoço</button></div></div>
+      <div class="col g8"><h3 class="b sm m">AppBadge e PremiumBadge</h3><div class="row g8"><span class="tg">25 min</span><span class="tg">Fácil</span><span class="tg pr">Premium</span></div></div>
+      <div class="col g8"><h3 class="b sm m">DecisionResultCard</h3><div class="res" style="padding-top:48px"><p>Deu</p><p class="d" style="font-size:40px">Sushi</p></div></div>
+      <div class="col g8"><h3 class="b sm m">AppModal</h3><div class="card col g8" style="background:var(--bg);box-shadow:0 8px 28px rgba(20,10,45,.2);padding:20px;border-radius:32px"><p class="d t3">Excluir sua conta?</p><p class="sm">Essa ação não pode ser desfeita.</p><button class="btn danger w h48">Excluir</button></div></div>
+      <div class="col g8"><h3 class="b sm m">AppBottomSheet</h3><div class="col" style="background:var(--bg);border-radius:32px 32px 0 0;box-shadow:0 -6px 24px rgba(20,10,45,.2);padding:12px 20px 20px;gap:12px"><div class="grab"></div><p class="d t3">Filtros</p><div class="row g8"><button class="chip on">Até 30 min</button></div></div></div>
+      <div class="col g8" style="align-items:center;text-align:center"><h3 class="b sm m" style="align-self:flex-start">LoadingState</h3><div class="col g4" style="align-items:center"><div class="pin" style="margin-bottom:-6px;position:relative;z-index:1;border-width:10px;border-top-width:16px"></div><div class="wheel" style="width:88px;height:88px"></div></div><p class="d t3">Sorteando…</p></div>
+      <div class="col g8" style="align-items:center;text-align:center"><h3 class="b sm m" style="align-self:flex-start">EmptyState</h3><svg width="64" height="64" viewBox="0 0 24 24" fill="var(--soft)" stroke="var(--pri)" stroke-width="1.2" aria-hidden="true"><path d="M12 20s-7-4.6-9-9a4.8 4.8 0 0 1 9-3 4.8 4.8 0 0 1 9 3c-2 4.4-9 9-9 9z"></path></svg><p class="d t3">Nada salvo ainda</p></div>
+    </div>
+  </section>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1800,"height":980}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

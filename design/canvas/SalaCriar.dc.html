@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Criar sala</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..700&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s">
+  <a class="ib" href="Main.dc.html" aria-label="Voltar"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a>
+  <h1 class="d t1">Nova sala</h1>
+  <div class="col g8">
+    <h2 class="b sm">O que vão decidir?</h2>
+    <div class="row g8"><button class="chip">Comida</button><button class="chip on">Filme</button><button class="chip">Lista própria</button></div>
+  </div>
+  <div><label class="lb" for="nm">Seu nome na sala</label><input class="inp" id="nm" value="Ana"></div>
+  <div class="card row sb">
+    <div class="f1"><h2 class="b">Participantes</h2><p class="sm m">Até 4 no plano grátis</p></div>
+    <div class="row g8"><button class="ib" style="background:var(--bg)" aria-label="Menos participantes"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path></svg></button><span class="d t2 num" aria-live="polite">4</span><button class="ib" style="background:var(--bg)" aria-label="Mais participantes"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button></div>
+  </div>
+  <section class="col g8">
+    <div class="row sb"><h2 class="b sm">12 títulos para votar</h2><a class="link" href="FilmesFiltros.dc.html">Filtrar</a></div>
+    <div class="row g8">
+      <div class="poster" style="width:66px;height:92px;border-radius:12px;flex:none"><img src="./img/balsa.jpg" alt=""></div>
+      <div class="poster" style="width:66px;height:92px;border-radius:12px;flex:none"><img src="./img/ladeira.jpg" alt=""></div>
+      <div class="poster" style="width:66px;height:92px;border-radius:12px;flex:none"><img src="./img/noite.jpg" alt=""></div>
+      <div class="poster" style="width:66px;height:92px;border-radius:12px;flex:none"><img src="./img/verao.jpg" alt=""></div>
+      <div class="th f1" style="height:92px;border-radius:12px;font-weight:700">+8</div>
+    </div>
+  </section>
+  <div class="row sb"><span>A sala expira em</span><span class="b num">30 min</span></div>
+  <div class="foot"><a class="btn w" href="SalaCodigo.dc.html">Criar sala e gerar código</a></div>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

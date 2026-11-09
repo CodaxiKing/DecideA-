@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Dupla fixa</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..700&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s">
+  <div class="row sb"><a class="ib" href="InicioV2.dc.html" aria-label="Voltar"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a><button class="link">Ajustes da dupla</button></div>
+  <div class="row"><div class="row"><div class="av a1" style="width:60px;height:60px;border-radius:30px;font-size:22px">A</div><div class="av a3" style="width:60px;height:60px;border-radius:30px;font-size:22px;margin-left:-28px">C</div></div><h1 class="d t1 f1">Ana e Caio</h1></div>
+  <a class="btn w" href="MatchVoto.dc.html">Decidir agora</a>
+  <section class="col g8">
+    <h2 class="d t3">Vocês dois gostam de</h2>
+    <div class="row g8 wrap"><span class="tg">Comida japonesa</span><span class="tg">Comédia</span><span class="tg">Filmes curtos</span><span class="tg">Ao ar livre</span></div>
+  </section>
+  <section class="col g8">
+    <h2 class="d t3">Favoritos em comum</h2>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px">
+      <div class="poster" style="height:112px;border-radius:18px;color:#fff;background:var(--sf2)"><img src="./img/temaki.jpg" alt=""><div class="fade"></div><p class="sm b" style="position:absolute;left:10px;bottom:8px">Temaki</p></div>
+      <div class="poster" style="height:112px;border-radius:18px;color:#fff;background:var(--sf2)"><img src="./img/lasanha.jpg" alt=""><div class="fade"></div><p class="sm b" style="position:absolute;left:10px;bottom:8px">Lasanha</p></div>
+      <div class="poster" style="height:112px;border-radius:18px;color:#fff;background:var(--sf2)"><img src="./img/ladeira.jpg" alt=""><div class="fade"></div><p class="sm b" style="position:absolute;left:10px;bottom:8px">Ladeira Abaixo</p></div>
+    </div>
+  </section>
+  <section class="col g4">
+    <h2 class="d t3">Decisões recentes</h2>
+    <ul>
+      <li class="li"><img class="th" src="./img/temaki.jpg" alt=""><div class="f1"><p class="b">Temaki de salmão</p><p class="sm m">Match · hoje</p></div></li>
+      <li class="li"><img class="th" src="./img/balsa.jpg" alt=""><div class="f1"><p class="b">A Última Balsa</p><p class="sm m">Match · ontem</p></div></li>
+      <li class="li"><img class="th" src="./img/piquenique.jpg" alt=""><div class="f1"><p class="b">Piquenique no parque</p><p class="sm m">O Que Fazer? · sábado</p></div></li>
+    </ul>
+  </section>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

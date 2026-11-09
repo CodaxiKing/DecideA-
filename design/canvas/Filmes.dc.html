@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Qual Filme</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..800&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s" style="gap:14px">
+  <div class="row sb">
+    <a class="ib" href="Main.dc.html" aria-label="Voltar"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a>
+    <h1 class="d t3">Qual Filme?</h1>
+    <a class="ib" href="FilmesFiltros.dc.html" aria-label="Filtros"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"></path></svg></a>
+  </div>
+  <dc-import name="SwipeDeck" items="{{items}}" height="766" end-href="QueroAssistir.dc.html" end-label="Ver meus votos" hint-size="350px,766px"></dc-import>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const badge = 'Catálogo demonstrativo';
+    return { items: [
+      { title: 'A Última Balsa', img: './img/balsa.jpg', badge, tags: ['Drama', '2023', '1h52', '12 anos', 'Nota 7,8'], text: 'Na véspera de a ponte abrir, o último balseiro de uma cidade do interior faz sua travessia final.' },
+      { title: 'Ladeira Abaixo', img: './img/ladeira.jpg', badge, tags: ['Comédia', '2021', '1h38', '10 anos'], text: 'Um carrinho de rolimã desgovernado une quatro vizinhos que não se falavam havia anos.' },
+      { title: 'Noite em Olinda', img: './img/noite.jpg', badge, tags: ['Suspense', '2024', '2h04', '16 anos'], text: 'Durante uma noite de apagão, uma guia turística descobre um segredo no casario antigo.' },
+      { title: 'Três Verões', img: './img/verao.jpg', badge, tags: ['Série', '2022', '2 temporadas', '14 anos'], text: 'Três amigas voltam à mesma praia a cada verão e nunca são as mesmas pessoas.' }
+    ] };
+  }
+}
+</script>
+</body>
+</html>

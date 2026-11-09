@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Receita</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..700&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s" style="height:1280px;gap:18px">
+  <div class="row sb">
+    <a class="ib" href="ComerResultado.dc.html" aria-label="Voltar"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a>
+    <button class="ib" aria-label="Salvar nos favoritos"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.6-9-9a4.8 4.8 0 0 1 9-3 4.8 4.8 0 0 1 9 3c-2 4.4-9 9-9 9z"></path></svg></button>
+  </div>
+  <img src="./img/massa.jpg" alt="Prato de macarrão com brócolis" style="width:100%;height:220px;object-fit:cover;border-radius:24px;flex:none">
+  <h1 class="d t1">Macarrão com brócolis e alho</h1>
+  <dl style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0">
+    <div class="card" style="padding:12px 14px"><dt class="sm m">Tempo</dt><dd class="d t3" style="margin:0">25 min</dd></div>
+    <div class="card" style="padding:12px 14px"><dt class="sm m">Dificuldade</dt><dd class="d t3" style="margin:0">Fácil</dd></div>
+    <div class="card" style="padding:12px 14px"><dt class="sm m">Porções</dt><dd class="d t3" style="margin:0">4</dd></div>
+  </dl>
+  <div class="row g8 wrap"><span class="tg">Massas</span><span class="tg">Vegetariano</span><span class="tg">Jantar</span></div>
+  <section class="col g8">
+    <h2 class="d t2">Ingredientes</h2>
+    <ul class="col g8 num">
+      <li class="row sb"><span>Macarrão penne</span><span class="b">400 g</span></li>
+      <li class="row sb"><span>Brócolis em floretes</span><span class="b">300 g</span></li>
+      <li class="row sb"><span>Alho laminado</span><span class="b">4 dentes</span></li>
+      <li class="row sb"><span>Azeite de oliva</span><span class="b">4 colheres de sopa</span></li>
+      <li class="row sb"><span>Parmesão ralado</span><span class="b">50 g</span></li>
+      <li class="row sb"><span>Sal e pimenta-do-reino</span><span class="b">a gosto</span></li>
+    </ul>
+  </section>
+  <section class="col">
+    <h2 class="d t2">Modo de preparo</h2>
+    <ol class="col" style="margin:0;padding-left:22px">
+      <li>Cozinhe o macarrão em água fervente com sal. Três minutos antes do fim, junte o brócolis.</li>
+      <li>Em fogo baixo, doure o alho no azeite por cerca de 2 minutos, sem deixar queimar.</li>
+      <li>Escorra o macarrão e o brócolis, guardando 1 xícara da água do cozimento.</li>
+      <li>Misture tudo na panela do alho, acrescentando a água aos poucos até formar um molho leve.</li>
+      <li>Tempere com sal e pimenta e finalize com o parmesão.</li>
+    </ol>
+  </section>
+  <button class="btn w"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4m-4 4l4-4 4 4M5 13v7h14v-7"></path></svg>Compartilhar receita</button>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":1280}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

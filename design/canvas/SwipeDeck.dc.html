@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Cartão de arrastar</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..800&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<div class="s" data-deck style="width:350px;height:{{h}}px;padding:0 0 {{pb}}px;gap:0;background:transparent;overflow:visible">
+  <sc-if value="{{hasHeader}}" hint-placeholder-val="{{ false }}">
+    <div class="col g8" style="margin-bottom:12px">
+      <div class="row sb" style="min-height:32px"><p class="b num">{{headerText}}</p><sc-if value="{{hasNote}}" hint-placeholder-val="{{ false }}"><span class="tg">{{note}}</span></sc-if></div>
+      <div class="bar"><i style="width:{{pct}}%"></i></div>
+    </div>
+  </sc-if>
+  <sc-if value="{{playing}}" hint-placeholder-val="{{ true }}">
+    <div style="position:relative;height:{{stackH}}px">
+      <sc-if value="{{hasNext}}" hint-placeholder-val="{{ true }}">
+        <div class="swipe-card" aria-hidden="true" style="transform:scale({{nextScale}})"><div class="poster" style="flex:1;border-radius:0;background:var(--sf2)"><img src="{{next.img}}" alt=""></div></div>
+      </sc-if>
+      <article class="swipe-card top" aria-label="{{top.title}}" style="transform:translate({{dx}}px,{{dy}}px) rotate({{rot}}deg);transition:{{tr}}" onPointerDown="{{down}}" onPointerMove="{{move}}" onPointerUp="{{up}}" onPointerCancel="{{up}}">
+        <div class="poster" style="flex:1;min-height:0;border-radius:0;background:var(--sf2)">
+          <img src="{{top.img}}" alt="" draggable="false"><div class="fade"></div>
+          <sc-if value="{{top.badge}}" hint-placeholder-val="{{ false }}"><span class="tg" style="position:absolute;left:14px;bottom:{{badgeBottom}}px;background:#fff;color:#1B1036">{{top.badge}}</span></sc-if>
+          <h2 class="d" style="position:absolute;left:20px;right:20px;bottom:16px;font-size:44px;color:#fff">{{top.title}}</h2>
+          <span class="stamp yes d" style="opacity:{{yes}}">Quero</span>
+          <span class="stamp no d" style="opacity:{{no}}">Não</span>
+          <span class="stamp may d" style="opacity:{{may}}">Talvez</span>
+        </div>
+        <div class="col g8" style="padding:12px 14px 14px">
+          <div class="row g8 wrap"><sc-for list="{{top.tagList}}" as="tag" hint-placeholder-count="3"><span class="tg">{{tag.t}}</span></sc-for></div>
+          <sc-if value="{{top.text}}" hint-placeholder-val="{{ true }}"><p class="sm">{{top.text}}</p></sc-if>
+        </div>
+      </article>
+    </div>
+    <div class="row" style="justify-content:space-around;align-items:flex-end;margin-top:12px">
+      <div class="col g4" style="align-items:center"><button class="vote" aria-label="Não quero" onClick="{{voteNo}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button><span class="sm">Não quero</span></div>
+      <div class="col g4" style="align-items:center"><button class="vote" aria-label="Talvez" onClick="{{voteMay}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 9a3 3 0 1 1 4.500 2.600c-1 .6-1.500 1.200-1.500 2.400M12 18v.01"></path></svg></button><span class="sm">Talvez</span></div>
+      <div class="col g4" style="align-items:center"><button class="vote yes" aria-label="Quero" onClick="{{voteYes}}"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></button><span class="sm b">Quero</span></div>
+    </div>
+  </sc-if>
+  <sc-if value="{{end}}" hint-placeholder-val="{{ false }}">
+    <div class="col g20" style="height:{{stackH}}px;align-items:center;justify-content:center;text-align:center">
+      <p class="d t1">Votos enviados</p>
+      <p class="m num">{{yesCount}} quero · {{mayCount}} talvez · {{noCount}} não</p>
+      <a class="btn" href="{{endHref}}">{{endLabel}}</a>
+      <button class="link" onClick="{{restart}}">Votar de novo</button>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"items":{"editor":null},"height":{"editor":"int","default":766},"pb":{"editor":"int","default":18},"label":{"editor":null},"note":{"editor":null},"offset":{"editor":null},"total":{"editor":null},"endHref":{"editor":null},"endLabel":{"editor":null},"$preview":{"width":350,"height":766}}'>
+class Component extends DCLogic {
+  state = { i: 0, dx: 0, dy: 0, drag: false, leaving: null, instant: false, votes: [] };
+  componentWillUnmount() { clearTimeout(this.t); }
+  reduce() { return typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+  down = (e) => {
+    if (this.state.leaving) return;
+    this.sx = e.clientX; this.sy = e.clientY;
+    if (e.currentTarget && e.currentTarget.setPointerCapture) e.currentTarget.setPointerCapture(e.pointerId);
+    this.setState({ drag: true, instant: false, dx: 0, dy: 0 });
+  };
+  move = (e) => {
+    if (!this.state.drag) return;
+    this.setState({ dx: e.clientX - this.sx, dy: (e.clientY - this.sy) * 0.4 });
+  };
+  up = () => {
+    if (!this.state.drag) return;
+    const { dx } = this.state;
+    if (dx > 100) this.commit('quero');
+    else if (dx < -100) this.commit('nao');
+    else this.setState({ drag: false, dx: 0, dy: 0 });
+  };
+  commit(v) {
+    if (this.state.leaving) return;
+    const dx = v === 'quero' ? 560 : v === 'nao' ? -560 : 0;
+    const dy = v === 'talvez' ? -900 : this.state.dy;
+    this.setState({ drag: false, instant: false, leaving: v, dx, dy });
+    this.t = setTimeout(() => {
+      this.setState((s) => ({ i: s.i + 1, dx: 0, dy: 0, leaving: null, instant: true, votes: s.votes.concat(v) }));
+    }, this.reduce() ? 0 : 240);
+  }
+  renderVals() {
+    const items = this.props.items ?? [
+      { title: 'A Última Balsa', img: './img/balsa.jpg', tags: ['Drama', '2023', '1h52'] },
+      { title: 'Ladeira Abaixo', img: './img/ladeira.jpg', tags: ['Comédia', '2021', '1h38'] }
+    ];
+    const s = this.state, n = items.length;
+    const offset = this.props.offset ?? 0, total = this.props.total ?? n;
+    const deco = (it) => it ? ({ ...it, tagList: (it.tags ?? []).map((t) => ({ t })) }) : { tagList: [] };
+    const reduce = this.reduce();
+    const mag = Math.min(1, Math.abs(s.dx) / 100);
+    const has = !!this.props.label;
+    const count = (v) => s.votes.filter((x) => x === v).length;
+    return {
+      h: this.props.height ?? 766, pb: this.props.pb ?? 18,
+      hasHeader: has, headerText: has ? this.props.label + ' ' + Math.min(offset + s.i + 1, total) + ' de ' + total : '',
+      note: this.props.note ?? '', hasNote: !!this.props.note,
+      stackH: (this.props.height ?? 766) - (this.props.pb ?? 18) - 122 - (has ? 60 : 0),
+      pct: Math.round(Math.min(offset + s.i + 1, total) / total * 100),
+      playing: s.i < n, end: s.i >= n, hasNext: s.i + 1 < n,
+      top: deco(items[s.i]), next: deco(items[s.i + 1]), badgeBottom: 72,
+      dx: s.dx, dy: s.dy, rot: reduce ? 0 : s.dx / 16,
+      tr: s.drag || s.instant || reduce ? 'none' : 'transform .24s ease-out',
+      nextScale: (0.95 + 0.05 * mag).toFixed(3),
+      yes: s.dx > 0 ? Math.min(1, s.dx / 100) : 0, no: s.dx < 0 ? Math.min(1, -s.dx / 100) : 0, may: s.leaving === 'talvez' ? 1 : 0,
+      down: this.down, move: this.move, up: this.up,
+      voteYes: () => this.commit('quero'), voteNo: () => this.commit('nao'), voteMay: () => this.commit('talvez'),
+      yesCount: count('quero'), mayCount: count('talvez'), noCount: count('nao'),
+      endHref: this.props.endHref ?? 'QueroAssistir.dc.html', endLabel: this.props.endLabel ?? 'Ver resultado',
+      restart: () => this.setState({ i: 0, votes: [], dx: 0, dy: 0, instant: true })
+    };
+  }
+}
+</script>
+</body>
+</html>

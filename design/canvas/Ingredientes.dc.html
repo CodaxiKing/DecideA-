@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Tenho estes ingredientes</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..700&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s" style="gap:16px">
+  <div class="row"><a class="ib" href="Comer.dc.html" aria-label="Voltar"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a><h1 class="d t2">O que tem em casa?</h1></div>
+  <div><label class="lb" for="ing">Adicionar ingrediente</label><input class="inp" id="ing" placeholder="Ex.: tomate"></div>
+  <div class="row g8 wrap">
+    <button class="chip on">Macarrão<svg class="i" style="width:16px;height:16px" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+    <button class="chip on">Alho<svg class="i" style="width:16px;height:16px" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+    <button class="chip on">Brócolis<svg class="i" style="width:16px;height:16px" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+    <button class="chip on">Ovo<svg class="i" style="width:16px;height:16px" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
+  </div>
+  <section class="col g8">
+    <div class="row sb"><h2 class="d t3">3 receitas possíveis</h2><a class="link" href="ComerFiltros.dc.html">Filtrar</a></div>
+    <a class="card col g8" href="Receita.dc.html"><div class="row sb"><p class="b">Omelete de brócolis</p><span class="sm m num">15 min</span></div><div class="bar"><i style="width:67%"></i></div><p class="sm m">Você tem 2 de 3. Falta queijo.</p></a>
+    <a class="card col g8" href="Receita.dc.html"><div class="row sb"><p class="b">Macarrão alho e óleo</p><span class="sm m num">20 min</span></div><div class="bar"><i style="width:67%"></i></div><p class="sm m">Você tem 2 de 3. Falta azeite.</p></a>
+    <a class="card col g8" href="Receita.dc.html"><div class="row sb"><p class="b">Macarrão com brócolis e alho</p><span class="sm m num">25 min</span></div><div class="bar"><i style="width:60%"></i></div><p class="sm m">Você tem 3 de 5. Faltam azeite e parmesão.</p></a>
+  </section>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

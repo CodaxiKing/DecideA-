@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>O Que Comer</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..700&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s">
+  <div class="row sb">
+    <a class="ib" href="Main.dc.html" aria-label="Voltar"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a>
+    <a class="ib" href="ComerFiltros.dc.html" aria-label="Filtros"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"></path></svg></a>
+  </div>
+  <h1 class="d t1">O Que Comer?</h1>
+  <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
+    <button class="chip on" style="height:60px;border-radius:20px">Comida caseira</button>
+    <button class="chip" style="height:60px;border-radius:20px">Fast-food</button>
+    <button class="chip on" style="height:60px;border-radius:20px">Lanches</button>
+    <button class="chip on" style="height:60px;border-radius:20px">Massas</button>
+    <button class="chip" style="height:60px;border-radius:20px">Comida japonesa</button>
+    <button class="chip" style="height:60px;border-radius:20px">Sobremesas</button>
+    <button class="chip" style="height:60px;border-radius:20px">Vegetarianas</button>
+    <button class="chip" style="height:60px;border-radius:20px">Surpreenda-me</button>
+  </div>
+  <a class="card row sb" href="Ingredientes.dc.html"><div class="f1"><h2 class="b">Tenho estes ingredientes</h2><p class="sm m">Veja o que dá para fazer com o que há em casa</p></div><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg></a>
+  <div class="foot"><a class="btn w" href="Sorteando.dc.html">Sortear entre 3 categorias</a><a class="btn ghost w" href="SalaCriar.dc.html">Decidir em grupo</a></div>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

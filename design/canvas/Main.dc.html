@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Início</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..700&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s" style="gap:14px">
+  <header class="row sb">
+    <div class="row g8">
+      <img class="mk" src="./img/mark.svg" alt="">
+      <span class="wm">DecideAí</span>
+    </div>
+    <a class="btn ghost h48" href="Entrar.dc.html">Entrar</a>
+  </header>
+  <h1 class="d t1">O que vamos decidir agora?</h1>
+  <nav class="col g8" aria-label="Ferramentas">
+    <a class="tile p" href="Comer.dc.html" style="height:132px">
+      <img class="ph" src="./img/mesa.jpg" alt="">
+      <h2 class="d t2">O Que Comer?</h2><p>Sorteio ou seus ingredientes</p>
+    </a>
+    <a class="tile bl" href="Filmes.dc.html" style="height:132px">
+      <img class="ph" src="./img/cinema.jpg" alt="">
+      <h2 class="d t2">Qual Filme?</h2><p>Vote e descubra títulos</p>
+    </a>
+    <a class="tile l" href="Roletas.dc.html" style="height:132px">
+      <div class="art wheel" style="top:-22px;right:-30px"></div>
+      <h2 class="d t2">Roleta</h2><p>Crie e gire a sua</p>
+    </a>
+  </nav>
+  <section class="card col g8" aria-label="Decidir em grupo" style="padding:12px 12px 12px 16px">
+    <div class="row sb"><h2 class="b">Decidir em grupo</h2><a class="btn h48" href="SalaCriar.dc.html">Criar sala</a></div>
+    <a class="row sb sm" href="SalaEntrar.dc.html" style="min-height:32px"><span class="b" style="text-decoration:underline;text-underline-offset:3px">Tenho um código de sala</span></a>
+  </section>
+  <nav class="nav" aria-label="Principal">
+    <a class="ni on" href="Main.dc.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"></path></svg>Início</a>
+    <a class="ni" href="Favoritos.dc.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.6-9-9a4.8 4.8 0 0 1 9-3 4.8 4.8 0 0 1 9 3c-2 4.4-9 9-9 9z"></path></svg>Favoritos</a>
+    <a class="ni" href="Historico.dc.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Histórico</a>
+    <a class="ni" href="Perfil.dc.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1-5 4-7 8-7s7 2 8 7"></path></svg>Perfil</a>
+  </nav>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

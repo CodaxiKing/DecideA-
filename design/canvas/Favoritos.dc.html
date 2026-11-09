@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Favoritos</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..700&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s">
+  <h1 class="d t1">Favoritos</h1>
+  <div class="row g8"><button class="chip on">Pratos</button><button class="chip">Filmes</button></div>
+  <ul class="col g8">
+    <li><a class="card row" href="Receita.dc.html"><img class="th" src="./img/massa.jpg" alt=""><div class="f1"><p class="b">Macarrão com brócolis e alho</p><p class="sm m">25 min · Fácil · 4 porções</p></div></a></li>
+    <li><a class="card row" href="Receita.dc.html"><img class="th" src="./img/omelete.jpg" alt=""><div class="f1"><p class="b">Omelete de brócolis</p><p class="sm m">15 min · Fácil · 1 porção</p></div></a></li>
+    <li><a class="card row" href="Receita.dc.html"><img class="th" src="./img/escondidinho.jpg" alt=""><div class="f1"><p class="b">Escondidinho de carne</p><p class="sm m">50 min · Médio · 6 porções</p></div></a></li>
+    <li><a class="card row" href="Receita.dc.html"><img class="th" src="./img/bolo.jpg" alt=""><div class="f1"><p class="b">Bolo de cenoura</p><p class="sm m">45 min · Fácil · 10 porções</p></div></a></li>
+    <li><a class="card row" href="Receita.dc.html"><img class="th" src="./img/temaki.jpg" alt=""><div class="f1"><p class="b">Temaki de salmão</p><p class="sm m">30 min · Médio · 4 porções</p></div></a></li>
+  </ul>
+  <div class="col g8"><div class="row sb sm"><span class="b num">5 de 20 favoritos no plano grátis</span></div><div class="bar"><i style="width:25%"></i></div></div>
+  <nav class="nav" aria-label="Principal">
+    <a class="ni" href="Main.dc.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"></path></svg>Início</a>
+    <a class="ni on" href="Favoritos.dc.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.6-9-9a4.8 4.8 0 0 1 9-3 4.8 4.8 0 0 1 9 3c-2 4.4-9 9-9 9z"></path></svg>Favoritos</a>
+    <a class="ni" href="Historico.dc.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Histórico</a>
+    <a class="ni" href="Perfil.dc.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1-5 4-7 8-7s7 2 8 7"></path></svg>Perfil</a>
+  </nav>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

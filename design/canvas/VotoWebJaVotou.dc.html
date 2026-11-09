@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Você já votou</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..700&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s">
+  <header class="row g8"><img class="mk" src="./img/mark.svg" alt=""><span class="wm">DecideAí</span></header>
+  <h1 class="d" style="font-size:44px;margin-top:24px">Seu voto já foi registrado</h1>
+  <p>Este link só vale um voto por pessoa. O resultado aparece aqui quando todos terminarem.</p>
+  <ul class="col g4">
+    <li class="li"><div class="av a1">A</div><p class="f1 b">Ana</p><span class="tg">Votou</span></li>
+    <li class="li"><div class="av a2">B</div><p class="f1 b">Bia (você)</p><span class="tg">Votou</span></li>
+    <li class="li"><div class="av a3">C</div><p class="f1 b">Caio</p><span class="tg">Votou</span></li>
+    <li class="li"><div class="av a4">D</div><p class="f1 b">Duda</p><span class="sm m">Votando</span></li>
+  </ul>
+  <div class="foot"><button class="btn w">Atualizar</button></div>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Início com quatro categorias</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..700&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s" style="gap:12px">
+  <header class="row sb">
+    <div class="row g8"><img class="mk" src="./img/mark.svg" alt=""><span class="wm">DecideAí</span></div>
+    <a class="row g8" href="Dupla.dc.html" aria-label="Sua dupla"><div class="av a1" style="width:36px;height:36px">A</div><div class="av a3" style="width:36px;height:36px;margin-left:-16px">C</div></a>
+  </header>
+  <h1 class="d t2">O que vamos decidir agora?</h1>
+  <nav class="col g8" aria-label="Ferramentas">
+    <a class="tile p" href="Comer.dc.html" style="height:122px;padding:20px"><img class="ph" src="./img/mesa.jpg" alt=""><h2 class="d t2">O Que Comer?</h2><p class="sm">Sorteio ou ingredientes</p></a>
+    <a class="tile bl" href="Filmes.dc.html" style="height:122px;padding:20px"><img class="ph" src="./img/cinema.jpg" alt=""><h2 class="d t2">Qual Filme?</h2><p class="sm">Vote e descubra títulos</p></a>
+    <a class="tile l" href="Fazer.dc.html" style="height:122px;padding:20px"><img class="ph" src="./img/piquenique.jpg" alt=""><h2 class="d t2">O Que Fazer?</h2><p class="sm">Atividades para agora</p></a>
+    <a class="tile" href="Roletas.dc.html" style="height:122px;padding:20px;background:var(--sf)"><div class="art wheel" style="width:130px;height:130px;top:-15px;right:-10px"></div><h2 class="d t2">Roleta</h2><p class="sm">Crie e gire a sua</p></a>
+  </nav>
+  <div class="row g8">
+    <a class="btn f1 h48" href="MatchCriar.dc.html">Match a dois</a>
+    <a class="btn ghost f1 h48" href="Batalha.dc.html">Batalha</a>
+    <a class="btn ghost f1 h48" href="Surpresa.dc.html">Surpresa</a>
+  </div>
+  <nav class="nav" aria-label="Principal">
+    <a class="ni on" href="InicioV2.dc.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"></path></svg>Início</a>
+    <a class="ni" href="Grupos.dc.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20c.7-4 3-6 6.5-6s5.800 2 6.500 6M16 4.800a3.500 3.500 0 0 1 0 6.400M18 14.500c2 .8 3.100 2.600 3.500 5.500"></path></svg>Grupos</a>
+    <a class="ni" href="Historico.dc.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Histórico</a>
+    <a class="ni" href="Perfil.dc.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1-5 4-7 8-7s7 2 8 7"></path></svg>Perfil</a>
+  </nav>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

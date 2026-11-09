@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Favoritos vazio</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..700&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s">
+  <h1 class="d t1">Favoritos</h1>
+  <div class="row g8"><button class="chip on">Pratos</button><button class="chip">Filmes</button></div>
+  <section class="col g20" style="align-items:center;text-align:center;margin-top:90px">
+    <svg width="110" height="110" viewBox="0 0 24 24" fill="var(--soft)" stroke="var(--pri)" stroke-width="1.2" stroke-linejoin="round" aria-hidden="true"><path d="M12 20s-7-4.6-9-9a4.8 4.8 0 0 1 9-3 4.8 4.8 0 0 1 9 3c-2 4.4-9 9-9 9z"></path></svg>
+    <h2 class="d t2">Nada salvo ainda</h2>
+    <p class="m">Toque no coração de um prato que você quer lembrar.</p>
+    <a class="btn" href="Comer.dc.html">Sortear um prato</a>
+  </section>
+  <nav class="nav" aria-label="Principal">
+    <a class="ni" href="Main.dc.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9h-5v-6H9v6H4z"></path></svg>Início</a>
+    <a class="ni on" href="Favoritos.dc.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.6-9-9a4.8 4.8 0 0 1 9-3 4.8 4.8 0 0 1 9 3c-2 4.4-9 9-9 9z"></path></svg>Favoritos</a>
+    <a class="ni" href="Historico.dc.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Histórico</a>
+    <a class="ni" href="Perfil.dc.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1-5 4-7 8-7s7 2 8 7"></path></svg>Perfil</a>
+  </nav>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

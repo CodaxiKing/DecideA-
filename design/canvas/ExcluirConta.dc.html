@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Excluir conta</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..700&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<div style="position:relative;width:390px;height:844px;overflow:hidden">
+<dc-import name="Perfil" hint-size="390px,844px"></dc-import>
+<div class="s" style="position:absolute;inset:0;background:transparent;padding:0">
+  <div class="scrim"></div>
+  <section class="modal" role="dialog" aria-label="Excluir conta">
+    <h1 class="d t2">Excluir sua conta?</h1>
+    <p>Roletas, favoritos e histórico serão apagados para sempre. Uma assinatura ativa precisa ser cancelada na loja.</p>
+    <div><label class="lb" for="cf">Digite EXCLUIR para confirmar</label><input class="inp" id="cf" placeholder="EXCLUIR"></div>
+    <button class="btn danger w">Excluir conta e dados</button>
+    <a class="btn ghost w" href="Perfil.dc.html">Manter conta</a>
+  </section>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>
