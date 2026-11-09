@@ -1,6 +1,6 @@
 # Design do DecideAí
 
-Código-fonte do canvas de telas: [DecideAí — Telas](https://claude.ai/artifact/FCpBGU3vPQYLRza8tcCQoN).
+Código-fonte do canvas de telas: [DecideAí — Telas](https://claude.ai/artifact/6wmYMEaGpwAxT4oAxMszw1).
 
 - `canvas/canvas.json`: mapa das pranchas.
 - `canvas/*.dc.html`: uma prancha por tela.
