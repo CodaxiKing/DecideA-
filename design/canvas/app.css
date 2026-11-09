@@ -84,6 +84,13 @@ img.th{object-fit:cover;background:var(--sf2)}
 .rank .p{width:36px;height:36px;border-radius:18px;background:var(--pri);color:var(--on);display:flex;align-items:center;justify-content:center;font-weight:700;flex:none}
 .plan{display:block;width:100%;border:0;border-radius:24px;background:var(--sf);color:var(--ink);padding:16px 18px;text-align:left;font:inherit;cursor:pointer}
 .plan.on{background:var(--pri);color:var(--on)}
+/* Amigos */
+.pres{position:relative;flex:none;display:block}
+.pres i{position:absolute;right:-1px;bottom:-1px;width:15px;height:15px;border-radius:8px;background:#13A36E;box-shadow:0 0 0 3px var(--bg)}
+.pres.busy i{background:#D9822B}
+.pres.off i{display:none}
+.pick{display:flex;align-items:center;gap:12px;width:100%;border:0;border-radius:18px;background:var(--sf);color:var(--ink);padding:10px 14px;min-height:60px;font:inherit;text-align:left;cursor:pointer}
+.pick.on{background:var(--pri);color:var(--on)}
 /* Marca */
 .mk{width:30px;height:30px;flex:none;display:block}
 .wm{position:relative;display:inline-block;font-family:Figtree,sans-serif;font-weight:800;font-size:21px;letter-spacing:-.02em;line-height:1;padding-right:.1em}

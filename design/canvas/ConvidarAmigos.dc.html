@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Convidar para decidir</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..800&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<div style="position:relative;width:390px;height:844px;overflow:hidden">
+<dc-import name="Amigos" hint-size="390px,844px"></dc-import>
+<div class="s" style="position:absolute;inset:0;background:transparent;padding:0">
+  <div class="scrim"></div>
+  <section class="sheet" aria-label="Convidar para decidir" style="gap:14px">
+    <div class="grab"></div>
+    <h1 class="d t2">Convidar para decidir</h1>
+    <div class="row g8">
+      <span class="pres"><span class="av a3">C</span><i></i></span><span class="pres"><span class="av a2">B</span><i></i></span>
+      <a class="ib" href="Amigos.dc.html" aria-label="Escolher mais amigos"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></a>
+      <p class="sm m f1">Caio e Bia estão online</p>
+    </div>
+    <div class="col g8">
+      <h2 class="b sm">Modo</h2>
+      <button class="pick on"><span class="f1"><span class="b" style="display:block">Batalha</span><span class="sm">Votem juntos em cada duelo</span></span><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg></button>
+      <button class="pick"><span class="f1"><span class="b" style="display:block">Match</span><span class="sm m">Só aparece o que agrada a todos</span></span></button>
+      <button class="pick"><span class="f1"><span class="b" style="display:block">Ranking</span><span class="sm m">Cada um ordena suas favoritas</span></span></button>
+      <button class="pick"><span class="f1"><span class="b" style="display:block">Roleta ao vivo</span><span class="sm m">Todos veem o mesmo giro</span></span></button>
+    </div>
+    <div class="col g8">
+      <h2 class="b sm">Sobre o quê?</h2>
+      <div class="row g8"><button class="chip on">Comida</button><button class="chip">Filme</button><button class="chip">Atividade</button></div>
+    </div>
+    <a class="btn w" href="ConviteEnviado.dc.html">Enviar convite</a>
+  </section>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

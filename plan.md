@@ -7,7 +7,7 @@
 | | |
 |---|---|
 | **Estado atual** | Só o design existe. O projeto Expo ainda não foi criado e a pasta contém apenas este arquivo. |
-| **Design** | [Canvas DecideAí — Telas](https://claude.ai/artifact/FCpBGU3vPQYLRza8tcCQoN), com 68 pranchas |
+| **Design** | [Canvas DecideAí — Telas](https://claude.ai/artifact/FCpBGU3vPQYLRza8tcCQoN), com 76 pranchas |
 | **Próximo passo** | Fase 1: fundação em Expo |
 | **Última revisão** | 2026-11-09 |
 
@@ -67,6 +67,8 @@ Pontos em que o material tem lacunas ou divergências. A coluna "Assumido" vale 
 | 5 | Limites do plano grátis não têm número definido. | Exemplos do canvas: 3 roletas, 20 favoritos, 10 itens de histórico, salas de 4 pessoas, expiração em 30 minutos. |
 | 6 | Modo Surpresa, Ranking coletivo, filtros por humor, sugestões por contexto e resultados compartilháveis não têm posição na ordem de prioridades. | Resultados compartilháveis na Fase 11; os demais na Fase 16. |
 | 7 | Premium Dupla é viável nas regras das lojas? | Precisa de validação antes de qualquer implementação (seção 8). |
+| 8 | Amigos são grátis ou Premium? | Grátis, porque trazem novos usuários. Grupos permanentes seguem Premium. |
+| 9 | Em que fase entram os amigos? | Fase 14, depois de Convites e Batalha, pois dependem de ambos. |
 
 ## 3. Stack
 
@@ -291,6 +293,15 @@ Implementadas com regras e filtros.
 
 **Grupos permanentes.** Grupos como "Casal", "Família" ou "Amigos", sem precisar convidar as mesmas pessoas toda vez.
 
+**Amigos.** Área própria na barra inferior, com Grupos dentro dela. Exige conta.
+
+- Adicionar por nome de usuário, link, QR Code ou entre quem já decidiu com você; o pedido precisa ser aceito.
+- Lista separada em online agora, ocupado e offline, com "visto por último".
+- Convidar um ou mais amigos para Batalha, Match, Ranking ou Roleta ao vivo, sobre comida, filme ou atividade.
+- Convite com expiração curta, aviso no app e notificação push.
+- Na Batalha entre amigos, todos votam em cada duelo; vence a opção mais votada e o empate no duelo vai a sorteio.
+- Privacidade: esconder o status online, definir quem pode convidar e encontrar, além de bloquear pessoas.
+
 ### 9.5 Priorização
 
 Estimativas relativas para orientar o desenvolvimento, não métricas de usuários.
@@ -315,7 +326,7 @@ Tabelas auxiliares só quando justificadas. Definir chaves primárias, relaciona
 
 ### Preparação na v1
 
-Para não reescrever as salas depois, `rooms` já nasce com tipo de item (`food`, `movie`, `activity`, `custom`) e modo de decisão (`vote`, `match`, `ranking`).
+Para não reescrever as salas depois, `rooms` já nasce com tipo de item (`food`, `movie`, `activity`, `custom`) e modo de decisão (`vote`, `match`, `ranking`, `battle`).
 
 ### Acréscimos previstos
 
@@ -327,6 +338,8 @@ Para não reescrever as salas depois, `rooms` já nasce com tipo de item (`food`
 | 11 | `room_invites` | Token de convite com expiração e limite de uso |
 | 13 | `activities` | Catálogo do O Que Fazer? |
 | 14 | `groups`, `group_members`, `pair_links` | Grupos permanentes e dupla fixa, com vínculo aceito pelos dois lados |
+| 14 | `username` em `profiles`, `friendships`, `user_blocks`, `friend_invites` | Nome de usuário único, amizades aceitas, bloqueios e convites com expiração |
+| 14 | Supabase Realtime Presence | Status online sem tabela nova e sem gravar histórico de presença |
 | 15 | `shared_entitlements` | Direito Premium concedido à segunda conta da dupla |
 | 16 | `room_rankings` | Ordem de preferência de cada participante |
 
@@ -353,6 +366,7 @@ src/
     battle/           # Fase 12
     activities/       # Fase 13
     groups/           # Fase 14
+    friends/          # Fase 14
   hooks/
   services/
   stores/
@@ -389,6 +403,7 @@ Lógica de negócio, acesso a dados e componentes visuais ficam separados. Evita
 - **Dupla e grupos:** o compartilhamento exige aceite dos dois lados e desfazer o vínculo precisa ser simples, com regra definida para os dados em comum.
 - **Votação pela web:** convidados sem conta exigem token temporário e limitação por sala, com proteção contra votos automatizados.
 - **Votos secretos:** garantidos no banco, não só escondidos na interface.
+- **Amigos e presença:** status online visível só para amigos, e desligável. Bloqueio impede pedidos, convites e busca. Pedidos e convites têm limite de envio para conter assédio e spam. Exclusão de conta remove amizades e convites.
 
 ### Imagens e APIs de terceiros
 
@@ -415,6 +430,10 @@ As fotos do canvas vêm do Pexels e servem para o protótipo, com créditos regi
 - Combinação do Ranking coletivo e seus empates.
 - Convite expirado, reutilizado e voto pela web sem conta.
 - Vínculo e desvínculo de dupla.
+- Pedido de amizade duplicado, recusado e entre pessoas bloqueadas.
+- Presença: usuário oculto não aparece online e estranhos não veem status.
+- Convite expirado, aceito depois do início e enviado a quem bloqueou.
+- Batalha entre amigos: empate no duelo e participante que sai no meio.
 - Premium Dupla: concessão, cancelamento e expiração.
 
 Validar TypeScript, lint e testes automatizados, e testar em dispositivos Android reais quando disponíveis. Não afirmar que algo foi testado se o ambiente não permitir executar o teste.
@@ -445,7 +464,7 @@ A Fase 8 também prepara nome e identificador do app, ícones e splash, descriç
 | **11. Convites** | Link, QR Code, voto pelo navegador e imagem de resultado compartilhável | Convidado vota sem instalar o app |
 | **12. Batalha** | Modo de eliminação entre pares | Decisão por rodadas até a final |
 | **13. O Que Fazer?** | Quarta categoria, sobre o mesmo motor | Atividades com sorteio, filtros e votação |
-| **14. Grupos** | Grupos permanentes e dupla fixa | Decidir sem reconvidar as mesmas pessoas |
+| **14. Amigos e grupos** | Amigos, presença online, convites diretos, Batalha entre amigos, grupos permanentes e dupla fixa | Chamar quem está online e decidir sem reconvidar as mesmas pessoas |
 | **15. Premium Dupla** | Plano para duas contas, depois de validar as regras das lojas | Compra e compartilhamento em ambiente de testes |
 | **16. Expansão** | Modo Surpresa, Ranking coletivo, humor, contexto e demais categorias | Definido conforme o uso real |
 
@@ -539,7 +558,7 @@ Manter um checklist de implementação atualizado.
 
 ## 19. Estado do canvas
 
-São 68 pranchas: 40 da v1, incluindo o componente de arrastar e a logo, e 28 da evolução. O código-fonte do canvas fica em `design/canvas/`. Os títulos de filmes, as receitas, as pessoas e os limites do plano grátis são amostras.
+São 76 pranchas: 40 da v1, incluindo o componente de arrastar e a logo, e 36 da evolução. O código-fonte do canvas fica em `design/canvas/`. Os títulos de filmes, as receitas, as pessoas e os limites do plano grátis são amostras.
 
 | Área | Pranchas |
 |---|---|
@@ -550,6 +569,7 @@ São 68 pranchas: 40 da v1, incluindo o componente de arrastar e a logo, e 28 da
 | **O Que Fazer? e Surpresa** | Início com quatro categorias, filtros e sugestão de atividade, Modo Surpresa e sua sugestão |
 | **Dupla e grupos** | Conectar dupla, dupla fixa, grupos, detalhe do grupo e memória de preferências |
 | **Modo escuro da evolução** | Início com quatro categorias, voto secreto, Batalha e O Que Fazer? |
+| **Amigos** | Lista com quem está online, adicionar, convidar, convite enviado e recebido, privacidade, estado vazio e versão escura |
 
 O Paywall, na linha Conta e Premium, já mostra os três planos. O Premium Dupla só entra na Fase 15; até lá, o app exibe dois planos. O QR Code é ilustrativo. A prancha da Roleta e a da Batalha têm lógica funcional no modo Play.
 

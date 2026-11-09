@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="pt-BR">
+<head><meta charset="utf-8"><title>Adicionar amigos</title><script src="./support.js"></script><link rel="stylesheet" href="./app.css"></head>
+<body>
+<x-dc>
+<helmet><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&amp;family=Figtree:wght@400..800&amp;display=swap" rel="stylesheet"><style>body{margin:0}</style></helmet>
+<main class="s" style="gap:16px">
+  <div class="row"><a class="ib" href="Amigos.dc.html" aria-label="Voltar"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg></a><h1 class="d t2">Adicionar amigos</h1></div>
+  <div><label class="lb" for="us">Nome de usuário</label><input class="inp" id="us" placeholder="@usuario"></div>
+  <section class="card col" style="background:var(--pri);color:var(--on);padding:18px 20px">
+    <div class="row sb"><div><h2 class="sm">Seu usuário</h2><p class="d t2">@ana.decide</p></div><button class="ib" style="background:var(--bg)" aria-label="Copiar usuário"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 9h11v11H9zM5 15H4V4h11v1"></path></svg></button></div>
+    <div class="row g8"><button class="btn f1 h48" style="background:var(--bg);color:var(--ink)">Enviar meu link</button><button class="btn f1 h48" style="background:var(--bg);color:var(--ink)">Ler QR Code</button></div>
+  </section>
+  <section>
+    <h2 class="d t3">Pedidos de amizade</h2>
+    <ul>
+      <li class="li"><span class="av a4">L</span><div class="f1"><p class="b">Lia</p><p class="sm m">@lia.reis</p></div><button class="btn h48">Aceitar</button><button class="ib" aria-label="Recusar pedido de Lia"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></li>
+      <li class="li"><span class="av a3">T</span><div class="f1"><p class="b">Téo</p><p class="sm m">@teo_m</p></div><button class="btn h48">Aceitar</button><button class="ib" aria-label="Recusar pedido de Téo"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></li>
+    </ul>
+  </section>
+  <section>
+    <h2 class="d t3">Decidiram com você</h2>
+    <ul>
+      <li class="li"><span class="av a2">R</span><div class="f1"><p class="b">Rafa</p><p class="sm m">Sala de filme · sábado</p></div><button class="btn ghost h48">Adicionar</button></li>
+      <li class="li"><span class="av a1">J</span><div class="f1"><p class="b">Jô</p><p class="sm m">Match · semana passada</p></div><button class="btn ghost h48">Adicionar</button></li>
+    </ul>
+  </section>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>
