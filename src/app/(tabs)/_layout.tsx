@@ -6,7 +6,7 @@ import { fontFamily } from '../../theme/tokens';
 
 const tabs: { name: string; title: string; icon: TabIconName }[] = [
   { name: 'index', title: 'Início', icon: 'home' },
-  { name: 'favoritos', title: 'Favoritos', icon: 'heart' },
+  { name: 'amigos', title: 'Amigos', icon: 'users' },
   { name: 'historico', title: 'Histórico', icon: 'clock' },
   { name: 'perfil', title: 'Perfil', icon: 'person' },
 ];

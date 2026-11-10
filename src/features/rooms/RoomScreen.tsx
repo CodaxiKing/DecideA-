@@ -12,6 +12,7 @@ import { useTheme } from '../../theme/ThemeProvider';
 import { radius, spacing } from '../../theme/tokens';
 import { itemInfo } from '../catalog/items';
 import { hasWebInvites, inviteLink, inviteMessage } from './inviteLink';
+import { GroupBattleView, LiveWheelView, RankingResultView, RankingView } from './ModeViews';
 import { roomOptionToDeckItem } from './roomOptions';
 import { isRoomExpired, roomErrorMessage, type RoomState } from './types';
 import { roomsRepo, useRoomState } from './useRoom';
@@ -52,11 +53,21 @@ function RoomContent({ state }: { state: RoomState }) {
   const mine = participants.find((p) => p.user_id === me);
   const expired = isRoomExpired(room);
 
+  const mode = room.decision_mode;
   let body: React.ReactNode;
-  if (room.status === 'closed' && result) body = <ResultView state={state} />;
+  if (mode === 'wheel' && (room.status === 'closed' || room.status === 'lobby') && !expired)
+    body = (
+      <>
+        {room.status === 'lobby' ? <LobbyView state={state} isHost={isHost} /> : null}
+        <LiveWheelView state={state} isHost={isHost} />
+      </>
+    );
+  else if (room.status === 'closed' && result) body = mode === 'ranking' ? <RankingResultView state={state} /> : <ResultView state={state} />;
   else if (expired) body = <ExpiredView />;
   else if (room.status === 'lobby') body = <LobbyView state={state} isHost={isHost} />;
+  else if (mode === 'battle') body = <GroupBattleView state={state} />;
   else if (mine?.finished_at) body = <WaitingView state={state} isHost={isHost} />;
+  else if (mode === 'ranking') body = <RankingView state={state} />;
   else body = <VotingView state={state} />;
 
   return (
@@ -157,7 +168,7 @@ function LobbyView({ state, isHost }: { state: RoomState; isHost: boolean }) {
       </View>
       <AppText variant="title3">Quem já entrou</AppText>
       <People state={state} />
-      {isHost ? (
+      {room.decision_mode === 'wheel' ? null : isHost ? (
         <AppButton
           label={busy ? 'Começando…' : 'Começar votação'}
           onPress={start}
@@ -281,6 +292,7 @@ function ResultView({ state }: { state: RoomState }) {
   const logged = useRef(false);
   const winner = options.find((o) => o.id === result?.winner_option_id);
   const isMatch = room.decision_mode === 'match';
+  const isBattle = room.decision_mode === 'battle';
 
   useEffect(() => {
     if (logged.current || !winner || room.item_type === 'custom') return;
@@ -313,7 +325,12 @@ function ResultView({ state }: { state: RoomState }) {
     <>
       {winner ? (
         <ShareableResult fallbackText={`${isMatch ? 'Deu match' : 'Decidimos'} no DecideAí: ${winner.title}!`}>
-          <DecisionResultCard eyebrow={isMatch ? 'Deu match!' : 'A sala decidiu'} title={winner.title} caption={caption} image={image} />
+          <DecisionResultCard
+            eyebrow={isMatch ? 'Deu match!' : isBattle ? 'Venceu a batalha' : 'A sala decidiu'}
+            title={winner.title}
+            caption={isBattle ? `Depois de ${state.options.length - 1} duelos entre ${state.options.length} opções, com ${result.voters} pessoas.` : caption}
+            image={image}
+          />
         </ShareableResult>
       ) : isMatch ? (
         <EmptyState
@@ -324,7 +341,7 @@ function ResultView({ state }: { state: RoomState }) {
       ) : (
         <EmptyState title="Ninguém quis nada" message="Todos disseram não a todas as opções. Que tal criar outra sala?" />
       )}
-      <View style={{ gap: spacing.sm }}>
+      <View style={{ gap: spacing.sm, display: result.ranking.length ? 'flex' : 'none' }}>
         <AppText variant="title3">Como ficou</AppText>
         {result.ranking.map((r, i) => (
           <AppCard

@@ -9,6 +9,7 @@ const room = (over: Partial<Room>): Room => ({
   status: 'lobby',
   max_participants: 4,
   vetoes_per_person: 0,
+  battle_state: null,
   expires_at: '2026-11-10T12:30:00Z',
   created_at: '2026-11-10T12:00:00Z',
   closed_at: null,
@@ -42,5 +43,25 @@ describe('mensagens de erro', () => {
     expect(roomErrorMessage(new Error('room_full'))).toBe('Essa sala está cheia.');
     expect(roomErrorMessage({ message: 'TypeError: Network request failed' })).toMatch(/Sem conexão/);
     expect(roomErrorMessage(new Error('duplicate key value violates unique constraint "x"'))).toBe('Algo deu errado. Tente de novo.');
+  });
+});
+
+describe('amigos: rótulos', () => {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { lastSeenLabel, personName } = require('../src/features/friends/useSocial') as typeof import('../src/features/friends/useSocial');
+  const now = new Date('2026-11-10T20:00:00.000Z');
+
+  it('visto por último', () => {
+    expect(lastSeenLabel(null, now)).toBe('Offline');
+    expect(lastSeenLabel('2026-11-10T19:50:00.000Z', now)).toBe('Visto há 10 min');
+    expect(lastSeenLabel('2026-11-10T18:00:00.000Z', now)).toBe('Visto há 2 h');
+    expect(lastSeenLabel('2026-11-09T19:00:00.000Z', now)).toBe('Visto ontem');
+    expect(lastSeenLabel('2026-11-06T19:00:00.000Z', now)).toBe('Visto há 4 dias');
+  });
+
+  it('nome de exibição', () => {
+    expect(personName({ display_name: 'Bia', username: 'bia_1' })).toBe('Bia');
+    expect(personName({ display_name: null, username: 'bia_1' })).toBe('@bia_1');
+    expect(personName({ display_name: null, username: null })).toBe('Alguém');
   });
 });

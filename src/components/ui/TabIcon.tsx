@@ -1,7 +1,7 @@
 import type { ColorValue } from 'react-native';
 import Svg, { Circle, Path } from 'react-native-svg';
 
-export type TabIconName = 'home' | 'heart' | 'clock' | 'person';
+export type TabIconName = 'home' | 'heart' | 'clock' | 'person' | 'users';
 
 /** Ícones de traço da barra inferior, copiados do canvas (Main.dc.html). */
 export function TabIcon({ name, color, size = 22 }: { name: TabIconName; color: ColorValue; size?: number }) {
@@ -14,6 +14,12 @@ export function TabIcon({ name, color, size = 22 }: { name: TabIconName; color: 
         <>
           <Circle cx="12" cy="12" r="9" {...stroke} />
           <Path d="M12 7v5l3 2" {...stroke} />
+        </>
+      )}
+      {name === 'users' && (
+        <>
+          <Circle cx="9" cy="8" r="3.5" {...stroke} />
+          <Path d="M3 20c.6-3.5 3-5.5 6-5.5s5.4 2 6 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18 14.8c1.6.8 2.7 2.6 3 5.2" {...stroke} />
         </>
       )}
       {name === 'person' && (

@@ -1,4 +1,4 @@
-import { useRouter } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { useState } from 'react';
 import { Image, Pressable, View } from 'react-native';
 
@@ -29,7 +29,8 @@ export function FavoritesScreen() {
       : favoriteMovieRows(items, router);
 
   return (
-    <Screen>
+    <Screen edges={['bottom']}>
+      <Stack.Screen options={{ title: '' }} />
       <AppText variant="title1">Favoritos</AppText>
       <View accessibilityRole="radiogroup" style={{ flexDirection: 'row', gap: spacing.sm }}>
         <FilterChip label="Pratos" selected={tab === 'food'} onPress={() => setTab('food')} />

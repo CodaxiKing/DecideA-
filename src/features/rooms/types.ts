@@ -7,13 +7,24 @@ export interface Room {
   code: string;
   host_id: string;
   item_type: RoomItemType;
-  decision_mode: 'vote' | 'match' | 'ranking' | 'battle';
+  decision_mode: 'vote' | 'match' | 'ranking' | 'battle' | 'wheel';
   status: RoomStatus;
   max_participants: number;
   vetoes_per_person: number;
+  battle_state: BattleState | null;
   expires_at: string;
   created_at: string;
   closed_at: string | null;
+}
+
+/** Estado da Batalha em grupo, mantido pelo servidor. */
+export interface BattleState {
+  current: string[];
+  next: string[];
+  index: number;
+  duel: number;
+  round: number;
+  total: number;
 }
 
 export interface RoomParticipant {
@@ -51,6 +62,7 @@ export interface RoomResult {
   tied_option_ids: string[];
   voters: number;
   vetoed_option_ids: string[];
+  spin_offset: number | null;
   computed_at: string;
 }
 
@@ -80,6 +92,13 @@ export const roomErrorMessages: Record<string, string> = {
   invite_expired: 'Esse convite expirou. Peça um link novo.',
   invite_used_up: 'Esse convite já foi usado por gente demais. Peça um link novo.',
   invalid_mode: 'Modo de decisão inválido.',
+  account_required: 'Isso precisa de uma conta. Entre em Perfil.',
+  premium_required: 'Isso é do Premium.',
+  username_taken: 'Esse nome de usuário já existe.',
+  invalid_username: 'Use de 3 a 20 letras minúsculas, números, ponto ou _.',
+  not_friends: 'Vocês precisam ser amigos.',
+  already_paired: 'Alguém aqui já tem uma dupla.',
+  user_not_found: 'Não achamos essa pessoa.',
   backend_unavailable: 'As salas precisam do servidor, que não está configurado neste app.',
   auth_required: 'Não deu para identificar este aparelho. Tente de novo.',
 };

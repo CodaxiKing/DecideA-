@@ -29,7 +29,7 @@ export function roomsRepository(client: SupabaseClient) {
       displayName: string;
       options: { ref_id: string; title: string }[];
       maxParticipants: number;
-      mode?: 'vote' | 'match';
+      mode?: 'vote' | 'match' | 'battle' | 'ranking' | 'wheel';
       vetoes?: number;
     }) =>
       rpc<Room>('create_room', {
@@ -51,6 +51,10 @@ export function roomsRepository(client: SupabaseClient) {
     startVoting: (roomId: string) => rpc<void>('start_voting', { p_room_id: roomId }),
     castVote: (roomId: string, optionId: string, vote: RoomVote) =>
       rpc<void>('cast_vote', { p_room_id: roomId, p_option_id: optionId, p_vote: vote }),
+    voteDuel: (roomId: string, duelNo: number, optionId: string) =>
+      rpc<void>('vote_duel', { p_room_id: roomId, p_duel_no: duelNo, p_option_id: optionId }),
+    submitRanking: (roomId: string, optionIds: string[]) => rpc<void>('submit_ranking', { p_room_id: roomId, p_option_ids: optionIds }),
+    spinLiveWheel: (roomId: string) => rpc<string>('spin_live_wheel', { p_room_id: roomId }),
     castVeto: (roomId: string, optionId: string) => rpc<void>('cast_veto', { p_room_id: roomId, p_option_id: optionId }),
     finishVoting: (roomId: string) => rpc<void>('finish_voting', { p_room_id: roomId }),
     leaveRoom: (roomId: string) => rpc<void>('leave_room', { p_room_id: roomId }),

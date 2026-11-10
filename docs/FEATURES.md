@@ -21,3 +21,8 @@ Estado de cada módulo no app. A descrição completa de cada um está na [seç�
 | Batalha de opções | Pronto (local) | 12 |
 | O Que Fazer? com sugestão por contexto e humor | Pronto | 13 |
 | Modo Surpresa | Pronto | 16 |
+| Amigos, presença, privacidade e bloqueio | Pronto | 14 |
+| Convites diretos, Batalha entre amigos, Roleta ao vivo | Pronto | 14 |
+| Ranking coletivo (Borda) | Pronto | 16 |
+| Grupos permanentes e dupla fixa | Pronto | 14 |
+| Push dos convites | Pendente (credenciais) | 14 |

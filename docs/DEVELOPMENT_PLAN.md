@@ -161,3 +161,21 @@ Ficaram para as fases que os usam: `AppModal`, `AppBottomSheet`, `AppInput`, `Ap
 - [x] Tempo disponível, companhia e o que vale (cozinhar, sair, assistir, jogar)
 - [x] Sugere receitas, filmes ou atividades que cabem no tempo, preferindo o que a pessoa nunca decidiu
 - [x] Conferido no emulador
+
+## Fase 14: Amigos, grupos e dupla
+
+- [x] Aba Amigos na barra inferior (Favoritos foi para o Perfil, como no canvas)
+- [x] Nome de usuário único; busca exata que respeita quem não quer ser achado e bloqueios
+- [x] Pedido de amizade aceito pelos dois lados, pedido duplicado, recusa, pedido cruzado vira aceite, limite de 30 pedidos por dia
+- [x] Convite de amizade por link e QR Code (7 dias) e lista "Decidiram com você"
+- [x] Presença (online, ocupado em votação, offline e "visto por último") com um sinal por minuto, sem histórico; quem esconde a presença aparece offline e não vê os outros
+- [x] Privacidade: presença, quem pode convidar (amigos, só online, ninguém), quem pode achar, avisos; bloqueio que desfaz amizade, some da busca e impede pedidos e convites; lista de bloqueados
+- [x] Convites diretos para Batalha, Match, Ranking e Roleta ao vivo sobre comida, filme ou atividade, com expiração de 10 minutos e caixa de entrada em tempo real
+- [x] Batalha entre amigos: todos votam em cada duelo, vence a mais votada, empate vai a sorteio, tudo no servidor
+- [x] Ranking coletivo (Fase 16): contagem de Borda no servidor
+- [x] Roleta ao vivo: o servidor sorteia o resultado e o deslocamento; todos os aparelhos animam até o mesmo setor
+- [x] Grupos permanentes (Premium, conferido no servidor): criar com amigos, decidir com o grupo, sair, apagar
+- [x] Dupla fixa: pedido, aceite dos dois lados, favoritos compartilhados (RLS), favoritos em comum, decidir agora e desfazer
+- [x] 11 testes de integração da parte social e dos novos modos
+- [x] Conferido no emulador: conta, nome de usuário, pedido em tempo real, Bia online, convite para Batalha, três duelos votados pelas duas, vencedor igual nos dois lados
+- [ ] Notificação push dos convites: precisa de development build, projeto no EAS e credenciais do FCM; hoje o aviso é no app, em tempo real

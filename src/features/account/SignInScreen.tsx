@@ -19,6 +19,9 @@ export function SignInScreen() {
   const [error, setError] = useState<string>();
   const [info, setInfo] = useState<string>();
 
+  // Aberta por link não tem tela anterior: volta ao Perfil.
+  const leave = () => (router.canGoBack() ? router.back() : router.replace('/perfil'));
+
   const submit = async () => {
     setError(undefined);
     setInfo(undefined);
@@ -38,10 +41,10 @@ export function SignInScreen() {
     try {
       if (mode === 'signin') {
         await signIn(email, password);
-        router.back();
+        leave();
       } else if (mode === 'signup') {
         await signUp(email, password);
-        router.back();
+        leave();
       } else {
         await requestPasswordReset(email);
         setInfo('Se existir uma conta com esse e-mail, enviamos um link para criar uma nova senha.');

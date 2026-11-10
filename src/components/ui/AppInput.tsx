@@ -8,9 +8,11 @@ export interface AppInputProps extends TextInputProps {
   label?: string;
   error?: string;
   compact?: boolean;
+  /** Dentro de um cartão: usa a cor do fundo para o campo não sumir. */
+  onSurface?: boolean;
 }
 
-export function AppInput({ label, error, compact, style, accessibilityLabel, ...rest }: AppInputProps) {
+export function AppInput({ label, error, compact, onSurface, style, accessibilityLabel, ...rest }: AppInputProps) {
   const { colors } = useTheme();
   return (
     <View style={{ gap: 6, flexShrink: 1 }}>
@@ -24,7 +26,7 @@ export function AppInput({ label, error, compact, style, accessibilityLabel, ...
             height: compact ? 48 : 56,
             borderRadius: 18,
             paddingHorizontal: 16,
-            backgroundColor: colors.surface,
+            backgroundColor: onSurface ? colors.background : colors.surface,
             color: colors.text,
             borderWidth: error ? 2 : 0,
             borderColor: colors.danger,

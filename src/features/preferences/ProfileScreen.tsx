@@ -117,7 +117,12 @@ export function ProfileScreen() {
       </AppCard>
 
       <AppCard>
-        <AppInput label="Seu nome nas salas" value={name} onChangeText={setName} onBlur={saveName} onSubmitEditing={saveName} maxLength={20} placeholder="Ex.: Ana" />
+        <AppInput onSurface label="Seu nome nas salas" value={name} onChangeText={setName} onBlur={saveName} onSubmitEditing={saveName} maxLength={20} placeholder="Ex.: Ana" />
+      </AppCard>
+
+      <AppCard>
+        <AppText variant="bodyStrong">Seus favoritos</AppText>
+        <AppButton label="Ver favoritos" size="sm" variant="ghost" onPress={() => router.push('/favoritos')} />
       </AppCard>
 
       <AppCard>

@@ -78,6 +78,21 @@ Roda os testes de integração das salas com dois clientes anônimos, como se fo
 - `room_invites`: token de 32 caracteres, expira com a sala, `max_uses` de 2× o limite de pessoas; leitura só por membros.
 - `create_invite` reaproveita o convite válido; `invite_preview` funciona sem login e não mostra dados de ninguém; `join_room_by_invite` valida token, expiração, usos e limite de 20 entradas por hora por aparelho (`invite_joins`).
 
+## Social (Fase 14) — `20261116000000_social.sql`
+
+- `profiles` ganha `username` (único), privacidade (`show_presence`, `invite_policy`, `discoverable`, `notify_invites`), `status` e `last_seen_at` (só o último sinal).
+- `friendships` (um vínculo por par), `user_blocks`, `friend_invites`, `room_friend_invites`, `groups`, `group_members`, `pair_links` (uma dupla por pessoa), `push_tokens`.
+- Leitura de perfis alheios só por funções (`my_friends`, `find_user`, `decided_with_me`…) que aplicam privacidade e bloqueio. Escrita só por funções.
+- A dupla aceita lê os favoritos e sinais de preferência da outra pessoa (políticas `pair_partner`).
+- Grupos exigem Premium no servidor (`has_premium`).
+
+## Modos de sala (Fases 14 e 16) — `20261117000000_room_modes.sql`
+
+- `rooms.decision_mode` aceita `battle`, `ranking` e `wheel`.
+- Batalha: `rooms.battle_state` e `room_duel_votes`; `vote_duel` resolve o duelo quando todos votaram (empate: sorteio) e avança as rodadas.
+- Ranking: `room_rankings` e `submit_ranking`; resultado por contagem de Borda.
+- Roleta ao vivo: `spin_live_wheel` (só o anfitrião) grava vencedor e `room_results.spin_offset`.
+
 ## Próximas tabelas
 
 As demais estão listadas na [seção 10 do plano](../plan.md#10-banco-de-dados).
