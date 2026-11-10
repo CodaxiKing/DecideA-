@@ -13,7 +13,7 @@ Critérios da beta na [seção 17 do plano](../plan.md#17-critérios-de-conclus�
 - [x] Os fluxos críticos têm testes (unitários e de integração; ver `docs/TESTING.md`)
 - [x] Nenhum erro bloqueante conhecido
 - [x] Documentação atualizada
-- [ ] Build Android instalável — **bloqueado no Windows:** o `ninja` 1.10 do CMake 3.22.1 do Android SDK não aceita caminhos longos ao compilar o C++ do Reanimated e do Gesture Handler. Corrigir trocando o `ninja.exe` por 1.12+ ou gerar pelo EAS (nuvem)
+- [x] Build Android instalável: APK de release local (arm64-v8a e x86_64, assinado com a chave de debug) instalado e validado no emulador — tela inicial, sorteio, receita e tela Premium sem erros. Salas e contas no APK precisam do Supabase em HTTPS: o Android bloqueia `http://` em release, então o servidor local só serve ao Expo Go
 
 ## Antes de publicar
 
@@ -42,6 +42,11 @@ Critérios da beta na [seção 17 do plano](../plan.md#17-critérios-de-conclus�
 - [ ] Capturas de tela
 - [ ] Rever termos do Pexels para as fotos (`docs/CREDITS.md`)
 - [ ] Catálogo de filmes: manter o demonstrativo ou contratar um provedor licenciado
+
+### Build no Windows
+
+- O `ninja.exe` do CMake 3.22.1 do Android SDK foi trocado pela versão 1.12.1, que aceita caminhos longos (o original ficou como `ninja-1.10.2-original.exe` na mesma pasta).
+- Comando: `cd android && ./gradlew assembleRelease -PreactNativeArchitectures=arm64-v8a,x86_64` depois de `npx expo prebuild --platform android`.
 
 ### Qualidade
 

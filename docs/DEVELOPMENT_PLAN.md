@@ -100,5 +100,5 @@ Ficaram para as fases que os usam: `AppModal`, `AppBottomSheet`, `AppInput`, `Ap
 - [x] Política de privacidade (rascunho para revisão jurídica), texto da loja e formulário de segurança de dados
 - [x] Checklist de lançamento (`docs/RELEASE_CHECKLIST.md`)
 - [x] `expo-doctor` 20/20, TypeScript, lint e testes passando
-- [ ] APK local: bloqueado pelo `ninja` 1.10 do Android SDK com caminhos longos no Windows (ver checklist)
+- [x] APK de release local gerado (ninja 1.12.1 no Android SDK) e validado no emulador
 - [ ] Teste em celular real e com TalkBack
