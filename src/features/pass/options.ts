@@ -3,7 +3,8 @@ import { recipeSummary } from '../../components/food/RecipeTags';
 import type { PassKind } from '../../stores/passStore';
 import { emptyFilters, recipesForChoices, type DrawChoice, type FoodFilters } from '../food/engine';
 import { findRecipe, recipes } from '../food/recipes';
-import { recipeToDeckItem, movieToDeckItem } from '../movies/deckItems';
+import { activities, activityById, matchesActivity, type ActivityFilters } from '../activities/catalog';
+import { activityToDeckItem, recipeToDeckItem, movieToDeckItem } from '../movies/deckItems';
 import { demoTitles } from '../movies/demoCatalog';
 import { findDemoTitle, matchesMovieFilters, movieCatalog, type MovieFilters } from '../movies/catalog';
 import { sample } from '../../utils/shuffle';
@@ -24,7 +25,17 @@ export function pickMovieOptions(filters: MovieFilters, preferIds: string[] = []
   return sample(pool, PASS_OPTION_COUNT).map((t) => t.id);
 }
 
+export function pickActivityOptions(filters: ActivityFilters): string[] {
+  let pool = activities.filter((a) => matchesActivity(a, filters));
+  if (pool.length < 3) pool = activities;
+  return sample(pool, PASS_OPTION_COUNT).map((a) => a.id);
+}
+
 export function optionToDeckItem(kind: PassKind, id: string, index: number): DeckItem | undefined {
+  if (kind === 'activity') {
+    const a = activityById(id);
+    return a ? activityToDeckItem(a, index) : undefined;
+  }
   if (kind === 'food') {
     const r = findRecipe(id);
     return r ? recipeToDeckItem(r, index) : undefined;
@@ -34,6 +45,7 @@ export function optionToDeckItem(kind: PassKind, id: string, index: number): Dec
 }
 
 export function optionTitle(kind: PassKind, id: string): string {
+  if (kind === 'activity') return activityById(id)?.name ?? id;
   return kind === 'food' ? (findRecipe(id)?.name ?? id) : (findDemoTitle(id)?.title ?? id);
 }
 

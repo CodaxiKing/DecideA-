@@ -173,4 +173,52 @@ describe('salas em dispositivos distintos', () => {
     await changed;
     expect(calls).toBeGreaterThanOrEqual(2);
   });
+
+  it('Match a dois: só vale o que os dois quiserem, com veto e no máximo 2 pessoas', async () => {
+    const ana = await signedIn();
+    const caio = await signedIn();
+    const extra = await signedIn();
+    const four = [...options, { ref_id: 'tapioca', title: 'Tapioca' }];
+    const room = await ana.repo.createRoom({ itemType: 'food', displayName: 'Ana', options: four, maxParticipants: 4, mode: 'match', vetoes: 1 });
+    expect(room.decision_mode).toBe('match');
+    expect(room.max_participants).toBe(2);
+    expect(room.vetoes_per_person).toBe(1);
+    await caio.repo.joinRoom(room.code, 'Caio');
+    await expect(extra.repo.joinRoom(room.code, 'Extra')).rejects.toThrow('room_full');
+    await ana.repo.startVoting(room.id);
+    const s = await ana.repo.fetchState(room.id);
+    const id = (ref: string) => s.options.find((o) => o.ref_id === ref)!.id;
+
+    // Pizza: os dois querem, mas Caio veta. Sushi: os dois querem. Massa: só Ana quer.
+    for (const ref of ['pizza', 'sushi', 'massa', 'tapioca']) await ana.repo.castVote(room.id, id(ref), ref === 'tapioca' ? 'no' : 'yes');
+    for (const ref of ['pizza', 'sushi']) await caio.repo.castVote(room.id, id(ref), 'yes');
+    await caio.repo.castVote(room.id, id('massa'), 'no');
+    await caio.repo.castVote(room.id, id('tapioca'), 'no');
+    await caio.repo.castVeto(room.id, id('pizza'));
+    await expect(caio.repo.castVeto(room.id, id('sushi'))).rejects.toThrow('no_vetoes_left');
+    // O veto é secreto até o resultado.
+    expect((await ana.repo.fetchState(room.id)).myVetoes).toEqual([]);
+
+    await ana.repo.finishVoting(room.id);
+    await caio.repo.finishVoting(room.id);
+    const r = (await ana.repo.fetchState(room.id)).result!;
+    expect(r.winner_option_id).toBe(id('sushi'));
+    expect(r.vetoed_option_ids).toEqual([id('pizza')]);
+    expect(r.ranking.find((x) => x.option_id === id('pizza'))?.vetoed).toBe(true);
+  });
+
+  it('Match sem nenhuma opção em comum termina sem vencedor', async () => {
+    const ana = await signedIn();
+    const caio = await signedIn();
+    const room = await ana.repo.createRoom({ itemType: 'movie', displayName: 'Ana', options, maxParticipants: 2, mode: 'match' });
+    await caio.repo.joinRoom(room.code, 'Caio');
+    await ana.repo.startVoting(room.id);
+    const s = await ana.repo.fetchState(room.id);
+    await ana.repo.castVote(room.id, s.options[0].id, 'yes');
+    await caio.repo.castVote(room.id, s.options[1].id, 'yes');
+    await ana.repo.finishVoting(room.id);
+    await caio.repo.finishVoting(room.id);
+    const r = (await caio.repo.fetchState(room.id)).result!;
+    expect(r.winner_option_id).toBeNull();
+  });
 });

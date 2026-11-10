@@ -9,8 +9,7 @@ import { AppButton, AppCard, AppText, DecisionResultCard, EmptyState, LoadingSta
 import { useHistoryStore } from '../../stores/historyStore';
 import { useTheme } from '../../theme/ThemeProvider';
 import { radius, spacing } from '../../theme/tokens';
-import { findRecipe } from '../food/recipes';
-import { findDemoTitle } from '../movies/catalog';
+import { itemInfo } from '../catalog/items';
 import { roomOptionToDeckItem } from './roomOptions';
 import { isRoomExpired, roomErrorMessage, type RoomState } from './types';
 import { roomsRepo, useRoomState } from './useRoom';
@@ -175,6 +174,8 @@ function VotingView({ state }: { state: RoomState }) {
   const { room, options } = state;
   const pending = useRef<Promise<unknown>[]>([]);
   const [sending, setSending] = useState(false);
+  const [vetoesUsed, setVetoesUsed] = useState(state.myVetoes.length);
+  const isMatch = room.decision_mode === 'match';
   const items = useMemo<DeckItem[]>(
     // Quem volta para a sala continua de onde parou.
     () => options.filter((o) => !state.myVotes[o.id]).map((o) => roomOptionToDeckItem(room.item_type, o)),
@@ -185,6 +186,14 @@ function VotingView({ state }: { state: RoomState }) {
   const onVote = useCallback(
     (item: DeckItem, v: DeckVote) => {
       pending.current.push(roomsRepo().castVote(room.id, item.id, v));
+    },
+    [room.id],
+  );
+
+  const onVeto = useCallback(
+    (item: DeckItem) => {
+      setVetoesUsed((n) => n + 1);
+      pending.current.push(roomsRepo().castVeto(room.id, item.id));
     },
     [room.id],
   );
@@ -219,7 +228,9 @@ function VotingView({ state }: { state: RoomState }) {
       onVote={onVote}
       onEnd={finish}
       label={(pos, total) => `Opção ${Math.min(pos + options.length - total, options.length)} de ${options.length}`}
-      cardHeight={340}
+      cardHeight={room.vetoes_per_person > 0 ? 300 : 340}
+      allowMaybe={!isMatch}
+      veto={room.vetoes_per_person > 0 ? { left: room.vetoes_per_person - vetoesUsed, onVeto } : undefined}
     />
   );
 }
@@ -259,23 +270,30 @@ function ResultView({ state }: { state: RoomState }) {
   const { room, result, options } = state;
   const logged = useRef(false);
   const winner = options.find((o) => o.id === result?.winner_option_id);
+  const isMatch = room.decision_mode === 'match';
 
   useEffect(() => {
-    if (logged.current || !winner || room.item_type === 'activity' || room.item_type === 'custom') return;
+    if (logged.current || !winner || room.item_type === 'custom') return;
     logged.current = true;
     useHistoryStore.getState().addEntry({
       kind: room.item_type,
       title: winner.title,
-      source: `Sala com ${result?.voters ?? 0} pessoas`,
+      source: isMatch ? 'Match a dois' : `Sala com ${result?.voters ?? 0} pessoas`,
       refId: winner.ref_id,
     });
-  }, [winner, room.item_type, result?.voters]);
+  }, [winner, room.item_type, result?.voters, isMatch]);
 
   if (!result) return null;
-  const image = winner ? (room.item_type === 'food' ? findRecipe(winner.ref_id)?.image : findDemoTitle(winner.ref_id)?.image) : undefined;
+  const info = winner ? itemInfo(room.item_type, winner.ref_id) : undefined;
+  const image = info?.image;
+  const matches = result.tied_option_ids.length || 1;
   const caption = !winner
     ? ''
-    : result.unanimous
+    : isMatch
+      ? matches > 1
+        ? `Vocês combinaram em ${matches} opções; o app sorteou uma.`
+        : 'Os dois disseram quero.'
+      : result.unanimous
       ? `Todo mundo quis. ${result.voters} de ${result.voters} votos.`
       : result.tied_option_ids.length
         ? `Empate entre ${result.tied_option_ids.length} opções, resolvido no sorteio.`
@@ -284,7 +302,13 @@ function ResultView({ state }: { state: RoomState }) {
   return (
     <>
       {winner ? (
-        <DecisionResultCard eyebrow="A sala decidiu" title={winner.title} caption={caption} image={image} />
+        <DecisionResultCard eyebrow={isMatch ? 'Deu match!' : 'A sala decidiu'} title={winner.title} caption={caption} image={image} />
+      ) : isMatch ? (
+        <EmptyState
+          title="Sem match desta vez"
+          message="Nenhuma opção agradou aos dois. Tentem uma nova rodada com outras opções ou filtros mais soltos."
+          action={<AppButton label="Nova rodada" onPress={() => router.replace({ pathname: '/sala/criar', params: { kind: room.item_type, mode: 'match' } })} />}
+        />
       ) : (
         <EmptyState title="Ninguém quis nada" message="Todos disseram não a todas as opções. Que tal criar outra sala?" />
       )}
@@ -303,18 +327,15 @@ function ResultView({ state }: { state: RoomState }) {
             <View style={{ flex: 1 }}>
               <AppText variant="bodyStrong">{r.title}</AppText>
               <AppText variant="small" color="textMuted">
-                {r.yes} quero · {r.maybe} talvez · {r.no} não
+                {r.vetoed ? 'Vetada · ' : ''}
+                {r.yes} quero · {isMatch ? '' : `${r.maybe} talvez · `}
+                {r.no} não
               </AppText>
             </View>
           </AppCard>
         ))}
       </View>
-      {winner && room.item_type === 'food' && findRecipe(winner.ref_id) ? (
-        <AppButton label="Ver receita" onPress={() => router.push({ pathname: '/comer/receita/[id]', params: { id: winner.ref_id } })} fullWidth />
-      ) : null}
-      {winner && room.item_type === 'movie' && findDemoTitle(winner.ref_id) ? (
-        <AppButton label="Ver título" onPress={() => router.push({ pathname: '/filmes/[id]', params: { id: winner.ref_id } })} fullWidth />
-      ) : null}
+      {info ? <AppButton label="Ver detalhes" onPress={() => router.push(info.href)} fullWidth /> : null}
       <AppButton label="Voltar ao início" variant="ghost" onPress={() => router.dismissTo('/')} fullWidth />
     </>
   );

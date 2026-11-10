@@ -45,6 +45,7 @@ export function HomeScreen() {
           </AppText>
           <AppButton label="Criar sala" size="sm" onPress={() => router.push('/sala/criar')} />
         </View>
+        <AppButton label="Match a dois" size="sm" variant="ghost" onPress={() => router.push({ pathname: '/sala/criar', params: { mode: 'match' } })} />
         <AppButton label="Tenho um código de sala" variant="ghost" size="sm" onPress={() => router.push('/sala/entrar')} />
         <AppButton label="Estão juntos? Votem neste celular" variant="ghost" size="sm" onPress={() => router.push('/passa')} />
       </AppCard>

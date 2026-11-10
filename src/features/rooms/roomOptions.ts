@@ -2,13 +2,18 @@ import type { DeckItem } from '../../components/swipe/SwipeDeck';
 import { useFoodStore } from '../../stores/foodStore';
 import { useMovieStore } from '../../stores/movieStore';
 import { findRecipe } from '../food/recipes';
-import { recipeToDeckItem, movieToDeckItem } from '../movies/deckItems';
+import { useActivityStore } from '../../stores/activityStore';
+import { activityById } from '../activities/catalog';
+import { activityToDeckItem, recipeToDeckItem, movieToDeckItem } from '../movies/deckItems';
 import { findDemoTitle, movieCatalog } from '../movies/catalog';
-import { pickFoodOptions, pickMovieOptions } from '../pass/options';
+import { pickActivityOptions, pickFoodOptions, pickMovieOptions } from '../pass/options';
 import type { RoomItemType, RoomOption } from './types';
 
 /** Monta as opções da sala com as escolhas e filtros atuais de cada ferramenta. */
 export function buildRoomOptions(itemType: RoomItemType): { ref_id: string; title: string }[] {
+  if (itemType === 'activity') {
+    return pickActivityOptions(useActivityStore.getState().filters).map((id) => ({ ref_id: id, title: activityById(id)?.name ?? id }));
+  }
   if (itemType === 'food') {
     const { choices, filters } = useFoodStore.getState();
     return pickFoodOptions(choices, filters).map((id) => ({ ref_id: id, title: findRecipe(id)?.name ?? id }));
@@ -24,6 +29,10 @@ export function roomOptionToDeckItem(itemType: RoomItemType, option: RoomOption)
   if (itemType === 'food') {
     const r = findRecipe(option.ref_id);
     if (r) return { ...recipeToDeckItem(r, option.position), id: option.id };
+  }
+  if (itemType === 'activity') {
+    const a = activityById(option.ref_id);
+    if (a) return { ...activityToDeckItem(a, option.position), id: option.id };
   }
   if (itemType === 'movie') {
     const t = findDemoTitle(option.ref_id);

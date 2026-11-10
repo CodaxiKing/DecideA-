@@ -61,6 +61,18 @@ Roda os testes de integração das salas com dois clientes anônimos, como se fo
 - **Exclusão de conta:** `delete_account()` apaga o usuário em `auth.users` e, em cascata, perfil, preferências, favoritos, roletas, histórico e participação e votos em salas.
 - **Senha:** mínimo de 8 caracteres. Recuperação por link de e-mail (`decideai://conta/nova-senha?code=`), com troca do código por sessão (PKCE).
 
+## Preferências (Fase 9) — `20261113000000_preferences.sql`
+
+- `preference_signals`: aceites e recusas por item, por pessoa (RLS só da própria conta).
+- `decision_history.feedback`: resposta do "Deu certo?".
+
+## Match e veto (Fase 10) — `20261114000000_match_vetoes.sql`
+
+- `rooms.vetoes_per_person` e `room_vetoes` (um veto por pessoa por opção, limite validado em `cast_veto`, leitura só do próprio veto).
+- `create_room` aceita `p_decision_mode` (`vote` ou `match`) e `p_vetoes`. Match é sempre a dois.
+- `_compute_room_result`: opções vetadas nunca vencem; no Match, só vence o que todos marcaram "quero".
+- `room_results.vetoed_option_ids` mostra o que caiu.
+
 ## Próximas tabelas
 
 As demais estão listadas na [seção 10 do plano](../plan.md#10-banco-de-dados).

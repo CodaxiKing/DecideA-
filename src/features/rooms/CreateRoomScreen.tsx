@@ -6,19 +6,31 @@ import { AppButton, AppInput, AppText, FilterChip, Screen } from '../../componen
 import { ensureSession, isBackendConfigured } from '../../services/supabase';
 import { useProfileStore } from '../../stores/profileStore';
 import { spacing } from '../../theme/tokens';
+import { usePremium } from '../premium/usePremium';
 import { BackendNotice } from './BackendNotice';
 import { buildRoomOptions } from './roomOptions';
 import { roomErrorMessage, type RoomItemType } from './types';
-import { usePremium } from '../premium/usePremium';
 import { roomsRepo } from './useRoom';
+
+type Mode = 'vote' | 'match';
+
+const kindHints: Record<'food' | 'movie' | 'activity', string> = {
+  food: '8 pratos das categorias e filtros que você escolheu no O Que Comer?',
+  movie: '8 títulos da sua lista de "quero", ou do catálogo com os seus filtros.',
+  activity: '8 atividades com os filtros do O Que Fazer?',
+};
 
 export function CreateRoomScreen() {
   const router = useRouter();
-  const params = useLocalSearchParams<{ kind?: RoomItemType }>();
+  const params = useLocalSearchParams<{ kind?: RoomItemType; mode?: Mode }>();
   const savedName = useProfileStore((s) => s.displayName);
   const setDisplayName = useProfileStore((s) => s.setDisplayName);
   const { limits } = usePremium();
-  const [itemType, setItemType] = useState<RoomItemType>(params.kind === 'movie' ? 'movie' : 'food');
+  const [itemType, setItemType] = useState<'food' | 'movie' | 'activity'>(
+    params.kind === 'movie' || params.kind === 'activity' ? params.kind : 'food',
+  );
+  const [mode, setMode] = useState<Mode>(params.mode === 'match' ? 'match' : 'vote');
+  const [vetoes, setVetoes] = useState(mode === 'match' ? 1 : 0);
   const [name, setName] = useState(savedName);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string>();
@@ -37,7 +49,9 @@ export function CreateRoomScreen() {
         itemType,
         displayName: name.trim(),
         options: buildRoomOptions(itemType),
-        maxParticipants: limits.roomSize,
+        maxParticipants: mode === 'match' ? 2 : limits.roomSize,
+        mode,
+        vetoes,
       });
       router.replace({ pathname: '/sala/[id]', params: { id: room.id } });
     } catch (e) {
@@ -47,37 +61,61 @@ export function CreateRoomScreen() {
     }
   };
 
+  const isMatch = mode === 'match';
+
   return (
     <Screen edges={['bottom']} contentStyle={{ gap: spacing.lg }}>
-      <Stack.Screen options={{ title: 'Criar sala' }} />
-      <AppText variant="title1">Decidir em grupo</AppText>
-      <AppText color="textMuted">Cada pessoa vota no próprio celular. O resultado aparece para todos ao mesmo tempo.</AppText>
+      <Stack.Screen options={{ title: isMatch ? 'Match a dois' : 'Criar sala' }} />
+      <AppText variant="title1">{isMatch ? 'Match a dois' : 'Decidir em grupo'}</AppText>
+      <AppText color="textMuted">
+        {isMatch
+          ? 'Cada um vota no próprio celular, em segredo. Só vale o que os dois quiserem.'
+          : 'Cada pessoa vota no próprio celular. O resultado aparece para todos ao mesmo tempo.'}
+      </AppText>
       {!isBackendConfigured ? (
         <BackendNotice />
       ) : (
         <>
           <View style={{ gap: spacing.sm }}>
+            <AppText variant="smallStrong">Como decidir?</AppText>
+            <View accessibilityRole="radiogroup" style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm }}>
+              <FilterChip label="Votação em grupo" selected={!isMatch} onPress={() => setMode('vote')} />
+              <FilterChip label="Match a dois" selected={isMatch} onPress={() => setMode('match')} />
+            </View>
+          </View>
+          <View style={{ gap: spacing.sm }}>
             <AppText variant="smallStrong">O que vão decidir?</AppText>
-            <View accessibilityRole="radiogroup" style={{ flexDirection: 'row', gap: spacing.sm }}>
+            <View accessibilityRole="radiogroup" style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm }}>
               <FilterChip label="Comida" selected={itemType === 'food'} onPress={() => setItemType('food')} />
               <FilterChip label="Filme" selected={itemType === 'movie'} onPress={() => setItemType('movie')} />
+              <FilterChip label="Atividade" selected={itemType === 'activity'} onPress={() => setItemType('activity')} />
             </View>
             <AppText variant="small" color="textMuted">
-              {itemType === 'food'
-                ? '8 pratos das categorias e filtros que você escolheu no O Que Comer?'
-                : '8 títulos da sua lista de "quero", ou do catálogo com os seus filtros.'}
+              {kindHints[itemType]}
+            </AppText>
+          </View>
+          <View style={{ gap: spacing.sm }}>
+            <AppText variant="smallStrong">Vetos por pessoa</AppText>
+            <View accessibilityRole="radiogroup" style={{ flexDirection: 'row', gap: spacing.sm }}>
+              {[0, 1, 2].map((n) => (
+                <FilterChip key={n} label={String(n)} selected={vetoes === n} onPress={() => setVetoes(n)} />
+              ))}
+            </View>
+            <AppText variant="small" color="textMuted">
+              Um veto tira a opção da rodada para todo mundo, mesmo que os outros queiram.
             </AppText>
           </View>
           <AppInput label="Seu nome na sala" value={name} onChangeText={setName} maxLength={20} placeholder="Ex.: Ana" />
           <AppText variant="small" color="textMuted">
-            Até {limits.roomSize} pessoas. A sala expira em {limits.roomMinutes >= 120 ? '2 horas' : `${limits.roomMinutes} minutos`}.
+            {isMatch ? 'Só vocês dois.' : `Até ${limits.roomSize} pessoas.`} A sala expira em{' '}
+            {limits.roomMinutes >= 120 ? '2 horas' : `${limits.roomMinutes} minutos`}.
           </AppText>
           {error ? (
             <AppText variant="small" color="danger" accessibilityLiveRegion="polite">
               {error}
             </AppText>
           ) : null}
-          <AppButton label={busy ? 'Criando…' : 'Criar sala'} onPress={create} disabled={busy} fullWidth />
+          <AppButton label={busy ? 'Criando…' : isMatch ? 'Criar Match' : 'Criar sala'} onPress={create} disabled={busy} fullWidth />
           <AppButton label="Tenho um código" variant="ghost" onPress={() => router.replace('/sala/entrar')} fullWidth />
         </>
       )}

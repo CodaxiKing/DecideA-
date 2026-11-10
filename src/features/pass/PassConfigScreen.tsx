@@ -8,7 +8,8 @@ import { useMovieStore } from '../../stores/movieStore';
 import { MAX_PASS_PEOPLE, usePassStore, type PassKind } from '../../stores/passStore';
 import { spacing } from '../../theme/tokens';
 import { newId } from '../../utils/random';
-import { pickFoodOptions, pickMovieOptions } from './options';
+import { useActivityStore } from '../../stores/activityStore';
+import { pickActivityOptions, pickFoodOptions, pickMovieOptions } from './options';
 
 const avatarColors = ['#D3C4FF', '#F3C9EC', '#BFD6FF', '#BFEBE6'];
 
@@ -18,7 +19,8 @@ export function PassConfigScreen() {
   const session = usePassStore((s) => s.session);
   const start = usePassStore((s) => s.start);
   const clear = usePassStore((s) => s.clear);
-  const [kind, setKind] = useState<PassKind>(params.kind === 'movie' ? 'movie' : 'food');
+  const [kind, setKind] = useState<PassKind>(params.kind === 'movie' || params.kind === 'activity' ? params.kind : 'food');
+  const [vetoes, setVetoes] = useState(1);
   const [people, setPeople] = useState([
     { id: newId(), name: '' },
     { id: newId(), name: '' },
@@ -35,7 +37,9 @@ export function PassConfigScreen() {
       return;
     }
     const optionIds =
-      kind === 'food'
+      kind === 'activity'
+        ? pickActivityOptions(useActivityStore.getState().filters)
+        : kind === 'food'
         ? pickFoodOptions(useFoodStore.getState().choices, useFoodStore.getState().filters)
         : pickMovieOptions(
             useMovieStore.getState().filters,
@@ -43,7 +47,7 @@ export function PassConfigScreen() {
               ? Object.entries(useMovieStore.getState().votes).filter(([, v]) => v.vote === 'yes').map(([id]) => id)
               : [],
           );
-    start(kind, names, optionIds);
+    start(kind, names, optionIds, vetoes);
     router.replace('/passa/votar');
   };
 
@@ -112,13 +116,23 @@ export function PassConfigScreen() {
 
       <View style={{ gap: spacing.sm }}>
         <AppText variant="smallStrong">O que vão decidir?</AppText>
-        <View accessibilityRole="radiogroup" style={{ flexDirection: 'row', gap: spacing.sm }}>
+        <View accessibilityRole="radiogroup" style={{ flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm }}>
           <FilterChip label="Comida" selected={kind === 'food'} onPress={() => setKind('food')} />
           <FilterChip label="Filme" selected={kind === 'movie'} onPress={() => setKind('movie')} />
+          <FilterChip label="Atividade" selected={kind === 'activity'} onPress={() => setKind('activity')} />
         </View>
         <AppText variant="small" color="textMuted">
           Cada pessoa vota nas mesmas 8 opções. Os votos ficam escondidos até o fim.
         </AppText>
+      </View>
+
+      <View style={{ gap: spacing.sm }}>
+        <AppText variant="smallStrong">Vetos por pessoa</AppText>
+        <View accessibilityRole="radiogroup" style={{ flexDirection: 'row', gap: spacing.sm }}>
+          {[0, 1, 2].map((n) => (
+            <FilterChip key={n} label={String(n)} selected={vetoes === n} onPress={() => setVetoes(n)} />
+          ))}
+        </View>
       </View>
 
       <AppButton label={names[0] ? `${names[0]} começa` : 'Começar'} onPress={begin} fullWidth />

@@ -10,6 +10,7 @@ export interface Room {
   decision_mode: 'vote' | 'match' | 'ranking' | 'battle';
   status: RoomStatus;
   max_participants: number;
+  vetoes_per_person: number;
   expires_at: string;
   created_at: string;
   closed_at: string | null;
@@ -39,6 +40,7 @@ export interface RankingRow {
   maybe: number;
   no: number;
   score: number;
+  vetoed?: boolean;
 }
 
 export interface RoomResult {
@@ -48,6 +50,7 @@ export interface RoomResult {
   unanimous: boolean;
   tied_option_ids: string[];
   voters: number;
+  vetoed_option_ids: string[];
   computed_at: string;
 }
 
@@ -56,6 +59,7 @@ export interface RoomState {
   participants: RoomParticipant[];
   options: RoomOption[];
   myVotes: Record<string, RoomVote>;
+  myVetoes: string[];
   result: RoomResult | null;
   me: string;
 }
@@ -71,6 +75,8 @@ export const roomErrorMessages: Record<string, string> = {
   not_voting: 'A votação não está aberta.',
   already_finished: 'Você já terminou de votar.',
   invalid_options: 'A sala precisa de 2 a 20 opções.',
+  no_vetoes_left: 'Você já usou todos os seus vetos.',
+  invalid_mode: 'Modo de decisão inválido.',
   backend_unavailable: 'As salas precisam do servidor, que não está configurado neste app.',
   auth_required: 'Não deu para identificar este aparelho. Tente de novo.',
 };

@@ -8,6 +8,7 @@ const room = (over: Partial<Room>): Room => ({
   decision_mode: 'vote',
   status: 'lobby',
   max_participants: 4,
+  vetoes_per_person: 0,
   expires_at: '2026-11-10T12:30:00Z',
   created_at: '2026-11-10T12:00:00Z',
   closed_at: null,

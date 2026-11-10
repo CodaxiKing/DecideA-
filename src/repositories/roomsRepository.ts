@@ -14,17 +14,27 @@ export function roomsRepository(client: SupabaseClient) {
   };
 
   return {
-    createRoom: (input: { itemType: RoomItemType; displayName: string; options: { ref_id: string; title: string }[]; maxParticipants: number }) =>
+    createRoom: (input: {
+      itemType: RoomItemType;
+      displayName: string;
+      options: { ref_id: string; title: string }[];
+      maxParticipants: number;
+      mode?: 'vote' | 'match';
+      vetoes?: number;
+    }) =>
       rpc<Room>('create_room', {
         p_item_type: input.itemType,
         p_display_name: input.displayName,
         p_options: input.options,
         p_max_participants: input.maxParticipants,
+        p_decision_mode: input.mode ?? 'vote',
+        p_vetoes: input.vetoes ?? 0,
       }),
     joinRoom: (code: string, displayName: string) => rpc<Room>('join_room', { p_code: code, p_display_name: displayName }),
     startVoting: (roomId: string) => rpc<void>('start_voting', { p_room_id: roomId }),
     castVote: (roomId: string, optionId: string, vote: RoomVote) =>
       rpc<void>('cast_vote', { p_room_id: roomId, p_option_id: optionId, p_vote: vote }),
+    castVeto: (roomId: string, optionId: string) => rpc<void>('cast_veto', { p_room_id: roomId, p_option_id: optionId }),
     finishVoting: (roomId: string) => rpc<void>('finish_voting', { p_room_id: roomId }),
     leaveRoom: (roomId: string) => rpc<void>('leave_room', { p_room_id: roomId }),
     closeRoom: (roomId: string) => rpc<void>('close_room', { p_room_id: roomId }),
@@ -32,14 +42,15 @@ export function roomsRepository(client: SupabaseClient) {
     async fetchState(roomId: string): Promise<RoomState> {
       const { data: auth } = await client.auth.getUser();
       const me = auth.user?.id ?? '';
-      const [room, participants, options, votes, result] = await Promise.all([
+      const [room, participants, options, votes, result, vetoes] = await Promise.all([
         client.from('rooms').select('*').eq('id', roomId).single(),
         client.from('room_participants').select('*').eq('room_id', roomId).order('joined_at'),
         client.from('room_options').select('*').eq('room_id', roomId).order('position'),
         client.from('room_votes').select('option_id, vote').eq('room_id', roomId),
         client.from('room_results').select('*').eq('room_id', roomId).maybeSingle(),
+        client.from('room_vetoes').select('option_id').eq('room_id', roomId),
       ]);
-      for (const r of [room, participants, options, votes, result]) {
+      for (const r of [room, participants, options, votes, result, vetoes]) {
         if (r.error) throw new Error(r.error.code === 'PGRST116' ? 'room_not_found' : r.error.message);
       }
       return {
@@ -48,6 +59,7 @@ export function roomsRepository(client: SupabaseClient) {
         options: options.data ?? [],
         myVotes: Object.fromEntries((votes.data ?? []).map((v: { option_id: string; vote: RoomVote }) => [v.option_id, v.vote])),
         result: result.data ?? null,
+        myVetoes: (vetoes.data ?? []).map((v: { option_id: string }) => v.option_id),
         me,
       };
     },

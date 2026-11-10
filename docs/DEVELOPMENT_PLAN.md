@@ -113,3 +113,15 @@ Ficaram para as fases que os usam: `AppModal`, `AppBottomSheet`, `AppInput`, `Ap
 - [x] Sincronização dos sinais (`preference_signals`) e da resposta do "Deu certo?" (`decision_history.feedback`)
 - [x] Catálogo de 26 atividades para o O Que Fazer? (usado a partir da Fase 13)
 - [x] Conferido no emulador: cartão "Deu certo?" → resposta salva na conta → tela de preferências
+
+## Fase 10: Match a dois e veto
+
+- [x] Salas com modo `match` (sempre 2 pessoas): só vale o que os dois marcaram "quero"; com várias combinações, o servidor sorteia uma
+- [x] Sem match: tela com "Nova rodada"
+- [x] Vetos configuráveis (0, 1 ou 2 por pessoa), validados no servidor (`cast_veto`, tabela `room_vetoes`), secretos até o resultado
+- [x] Opção vetada nunca vence, nem na votação em grupo
+- [x] Vetos também no Passa o celular
+- [x] Salas e Passa o celular aceitam atividades (base da Fase 13)
+- [x] `SwipeDeck` com botão Vetar e modo sem "talvez"
+- [x] 2 testes de integração (Match com veto e limite de 2 pessoas; Match sem combinação)
+- [x] Conferido no emulador: Ana vetou uma atividade, votou, Caio votou por script, deu match

@@ -6,8 +6,7 @@ import { AppButton, AppCard, AppText, DecisionResultCard, EmptyState, Screen } f
 import { useHistoryStore } from '../../stores/historyStore';
 import { usePassStore } from '../../stores/passStore';
 import { spacing } from '../../theme/tokens';
-import { findRecipe } from '../food/recipes';
-import { findDemoTitle } from '../movies/catalog';
+import { itemInfo } from '../catalog/items';
 import { optionTitle } from './options';
 
 export function PassResultScreen() {
@@ -39,7 +38,8 @@ export function PassResultScreen() {
   const people = session.people.length;
   const winner = result.winnerId;
   const title = winner ? optionTitle(session.kind, winner) : '';
-  const image = winner ? (session.kind === 'food' ? findRecipe(winner)?.image : findDemoTitle(winner)?.image) : undefined;
+  const info = winner ? itemInfo(session.kind, winner) : undefined;
+  const image = info?.image;
   const caption = !winner
     ? ''
     : result.unanimous
@@ -76,6 +76,7 @@ export function PassResultScreen() {
             <View style={{ flex: 1 }}>
               <AppText variant="bodyStrong">{optionTitle(session.kind, t.id)}</AppText>
               <AppText variant="small" color="textMuted">
+                {t.vetoed ? 'Vetada · ' : ''}
                 {t.yes} quero · {t.maybe} talvez · {t.no} não
               </AppText>
             </View>
@@ -83,12 +84,7 @@ export function PassResultScreen() {
         ))}
       </View>
       <View style={{ gap: 10 }}>
-        {winner && session.kind === 'food' ? (
-          <AppButton label="Ver receita" onPress={() => router.push({ pathname: '/comer/receita/[id]', params: { id: winner } })} fullWidth />
-        ) : null}
-        {winner && session.kind === 'movie' ? (
-          <AppButton label="Ver título" onPress={() => router.push({ pathname: '/filmes/[id]', params: { id: winner } })} fullWidth />
-        ) : null}
+        {info ? <AppButton label="Ver detalhes" onPress={() => router.push(info.href)} fullWidth /> : null}
         {winner ? (
           <AppButton
             label="Compartilhar resultado"

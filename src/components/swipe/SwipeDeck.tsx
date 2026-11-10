@@ -39,6 +39,10 @@ export interface SwipeDeckProps {
   label?: (position: number, total: number) => string;
   note?: string;
   cardHeight?: number;
+  /** Match usa só "quero" e "não" (sem talvez). */
+  allowMaybe?: boolean;
+  /** Vetos restantes; ao vetar, a opção sai da rodada e conta como "não". */
+  veto?: { left: number; onVeto: (item: DeckItem) => void };
 }
 
 const THRESHOLD = 110;
@@ -48,7 +52,7 @@ const THRESHOLD = 110;
  * Os três botões ficam sempre disponíveis (acessibilidade). Com movimento reduzido,
  * o cartão troca sem animação. Serve a filmes, salas, Match e Passa o celular.
  */
-export function SwipeDeck({ items, onVote, onEnd, label, note, cardHeight = 420 }: SwipeDeckProps) {
+export function SwipeDeck({ items, onVote, onEnd, label, note, cardHeight = 420, allowMaybe = true, veto }: SwipeDeckProps) {
   const { colors } = useTheme();
   const { width } = useWindowDimensions();
   const reduceMotion = useReducedMotion();
@@ -96,7 +100,7 @@ export function SwipeDeck({ items, onVote, onEnd, label, note, cardHeight = 420 
       'worklet';
       if (e.translationX > THRESHOLD) scheduleOnRN(fling, 'yes');
       else if (e.translationX < -THRESHOLD) scheduleOnRN(fling, 'no');
-      else if (e.translationY < -THRESHOLD) scheduleOnRN(fling, 'maybe');
+      else if (allowMaybe && e.translationY < -THRESHOLD) scheduleOnRN(fling, 'maybe');
       else {
         tx.value = withSpring(0);
         ty.value = withSpring(0);
@@ -119,7 +123,7 @@ export function SwipeDeck({ items, onVote, onEnd, label, note, cardHeight = 420 
 
   const buttons: { vote: DeckVote; label: string; icon: IconName }[] = [
     { vote: 'no', label: 'Não quero', icon: 'close' },
-    { vote: 'maybe', label: 'Talvez', icon: 'clock' },
+    ...(allowMaybe ? [{ vote: 'maybe' as const, label: 'Talvez', icon: 'clock' as const }] : []),
     { vote: 'yes', label: 'Quero', icon: 'heart' },
   ];
 
@@ -212,6 +216,32 @@ export function SwipeDeck({ items, onVote, onEnd, label, note, cardHeight = 420 
           );
         })}
       </View>
+      {veto ? (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={veto.left > 0 ? `Vetar ${top.title}. ${veto.left} ${veto.left === 1 ? 'veto restante' : 'vetos restantes'}` : 'Sem vetos restantes'}
+          accessibilityState={{ disabled: veto.left <= 0 }}
+          disabled={veto.left <= 0}
+          onPress={() => {
+            veto.onVeto(top);
+            fling('no');
+          }}
+          style={({ pressed }) => ({
+            alignSelf: 'center',
+            minHeight: 44,
+            paddingHorizontal: 18,
+            borderRadius: radius.pill,
+            borderWidth: 2,
+            borderColor: colors.danger,
+            justifyContent: 'center',
+            opacity: veto.left <= 0 ? 0.4 : pressed ? 0.7 : 1,
+          })}
+        >
+          <AppText variant="bodyStrong" color="danger">
+            Vetar · {veto.left} {veto.left === 1 ? 'restante' : 'restantes'}
+          </AppText>
+        </Pressable>
+      ) : null}
     </View>
   );
 }

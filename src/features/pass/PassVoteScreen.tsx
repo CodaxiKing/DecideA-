@@ -12,6 +12,7 @@ export function PassVoteScreen() {
   const vote = usePassStore((s) => s.vote);
   const finishTurn = usePassStore((s) => s.finishTurn);
   const restartTurn = usePassStore((s) => s.restartTurn);
+  const veto = usePassStore((s) => s.veto);
   const restarted = useRef(false);
 
   // Se o app fechou no meio da vez de alguém, essa pessoa recomeça do zero.
@@ -57,7 +58,12 @@ export function PassVoteScreen() {
         onEnd={onEnd}
         label={(pos, total) => `${me} · opção ${Math.min(pos, total)} de ${total}`}
         note={note}
-        cardHeight={360}
+        cardHeight={session.vetoesPerPerson ? 320 : 360}
+        veto={
+          session.vetoesPerPerson
+            ? { left: session.vetoesPerPerson - (session.vetoes?.[session.current]?.length ?? 0), onVeto: (item) => veto(item.id) }
+            : undefined
+        }
       />
     </Screen>
   );

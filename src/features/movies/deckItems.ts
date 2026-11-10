@@ -1,6 +1,7 @@
 import type { DeckItem } from '../../components/swipe/SwipeDeck';
 import { recipeSummary } from '../../components/food/RecipeTags';
 import { wheelColors } from '../../theme/tokens';
+import { formatMinutes, type Activity } from '../activities/catalog';
 import type { Recipe } from '../food/types';
 import { formatDuration, genreLabels, ratingLabel, type MovieTitle } from './types';
 
@@ -23,5 +24,16 @@ export function recipeToDeckItem(r: Recipe, index = 0): DeckItem {
     image: r.image,
     color: wheelColors[index % wheelColors.length],
     tags: recipeSummary(r).split(' · '),
+  };
+}
+
+export function activityToDeckItem(a: Activity, index = 0): DeckItem {
+  return {
+    id: a.id,
+    title: a.name,
+    image: a.image,
+    color: wheelColors[index % wheelColors.length],
+    tags: [formatMinutes(a.minutes), ...a.tags],
+    text: a.description,
   };
 }

@@ -2,7 +2,7 @@ import { activeMovieFilterCount, demoProvider, emptyMovieFilters, matchesMovieFi
 import { demoTitles } from '../src/features/movies/demoCatalog';
 import { formatDuration, titleSummary } from '../src/features/movies/types';
 import { computeGroupResult } from '../src/features/pass/engine';
-import { pickFoodOptions, pickMovieOptions, PASS_OPTION_COUNT } from '../src/features/pass/options';
+import { pickActivityOptions, pickFoodOptions, pickMovieOptions, PASS_OPTION_COUNT } from '../src/features/pass/options';
 import { useMovieStore } from '../src/stores/movieStore';
 import { usePassStore } from '../src/stores/passStore';
 import type { RandomSource } from '../src/utils/random';
@@ -159,5 +159,40 @@ describe('votos de filmes', () => {
     expect(useMovieStore.getState().votes['ultima-balsa'].vote).toBe('maybe');
     clearVote('ultima-balsa');
     expect(useMovieStore.getState().votes['ultima-balsa']).toBeUndefined();
+  });
+});
+
+describe('veto', () => {
+  it('opção vetada nunca vence e vai para o fim', () => {
+    const r = computeGroupResult(['a', 'b'], [{ a: 'yes', b: 'maybe' }, { a: 'yes', b: 'maybe' }], undefined, ['a']);
+    expect(r.winnerId).toBe('b');
+    expect(r.ranking[r.ranking.length - 1]).toMatchObject({ id: 'a', vetoed: true });
+  });
+
+  it('tudo vetado: sem vencedor', () => {
+    expect(computeGroupResult(['a'], [{ a: 'yes' }], undefined, ['a']).winnerId).toBeUndefined();
+  });
+
+  it('cada pessoa gasta só os vetos que tem, e eles valem no resultado', () => {
+    usePassStore.setState({ session: undefined });
+    const s = usePassStore.getState();
+    s.start('activity', ['Ana', 'Caio'], ['x', 'y', 'z'], 1);
+    expect(s.veto('x')).toBe(true);
+    expect(s.veto('y')).toBe(false); // sem vetos restantes
+    s.vote('y', 'yes');
+    s.vote('z', 'maybe');
+    s.finishTurn();
+    s.beginTurn();
+    s.vote('x', 'yes');
+    s.vote('y', 'no');
+    s.vote('z', 'yes');
+    s.finishTurn();
+    const session = usePassStore.getState().session!;
+    expect(session.result?.winnerId).toBe('z');
+    expect(session.result?.ranking.find((t) => t.id === 'x')?.vetoed).toBe(true);
+  });
+
+  it('opções de atividade no Passa o celular', () => {
+    expect(pickActivityOptions({})).toHaveLength(PASS_OPTION_COUNT);
   });
 });
