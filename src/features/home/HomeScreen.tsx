@@ -32,11 +32,23 @@ export function HomeScreen() {
         />
         <DecisionTile
           tone="lilac"
+          title="O Que Fazer?"
+          subtitle="Atividades para agora"
+          image={require('../../../assets/images/movies/piquenique.jpg')}
+          onPress={() => router.push('/fazer')}
+        />
+        <DecisionTile
+          tone="surface"
           title="Roleta"
           subtitle="Crie e gire a sua"
           art={<WheelArt size={172} />}
           onPress={() => router.push('/roleta')}
         />
+      </View>
+      <View style={{ flexDirection: 'row', gap: spacing.sm }}>
+        <AppButton label="Match a dois" size="sm" style={{ flex: 1 }} onPress={() => router.push({ pathname: '/sala/criar', params: { mode: 'match' } })} />
+        <AppButton label="Batalha" size="sm" variant="ghost" style={{ flex: 1 }} onPress={() => router.push('/batalha')} />
+        <AppButton label="Surpresa" size="sm" variant="ghost" style={{ flex: 1 }} onPress={() => router.push('/surpresa')} />
       </View>
       <AppCard style={{ gap: spacing.sm }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: spacing.sm }}>
@@ -45,7 +57,6 @@ export function HomeScreen() {
           </AppText>
           <AppButton label="Criar sala" size="sm" onPress={() => router.push('/sala/criar')} />
         </View>
-        <AppButton label="Match a dois" size="sm" variant="ghost" onPress={() => router.push({ pathname: '/sala/criar', params: { mode: 'match' } })} />
         <AppButton label="Tenho um código de sala" variant="ghost" size="sm" onPress={() => router.push('/sala/entrar')} />
         <AppButton label="Estão juntos? Votem neste celular" variant="ghost" size="sm" onPress={() => router.push('/passa')} />
       </AppCard>

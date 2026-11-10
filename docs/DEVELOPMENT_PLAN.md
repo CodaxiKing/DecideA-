@@ -137,3 +137,27 @@ Ficaram para as fases que os usam: `AppModal`, `AppBottomSheet`, `AppInput`, `Ap
 - [x] Teste de integração do convite (prévia anônima, entrada, reuso, sala cheia, token inválido, sigilo)
 - [x] Conferido: Ana criou a sala no emulador, Bia entrou e votou pelo navegador, o resultado chegou aos dois; imagem compartilhada pelo menu do Android
 - [ ] Publicar a versão web num domínio e definir `EXPO_PUBLIC_WEB_URL` (ver `docs/RELEASE_CHECKLIST.md`)
+
+## Fase 12: Batalha
+
+- [x] Batalha de opções local: comida, filme, atividade ou uma roleta própria, com 4 ou 8 opções
+- [x] Chaveamento com sorteio; com quantidade ímpar, uma opção sorteada passa direto de fase; sempre n-1 duelos
+- [x] Fases nomeadas (quartas, semifinal, grande final), progresso, retomada após fechar o app
+- [x] Vencedor no histórico e na memória de preferências, com imagem compartilhável
+- [x] Conferido no emulador: duelos e vencedor
+- [ ] Batalha entre amigos (todos votam em cada duelo): entra com Amigos (Fase 14)
+
+## Fase 13: O Que Fazer?
+
+- [x] Quarta ferramenta na tela inicial (layout `InicioV2` do canvas, com atalhos para Match, Batalha e Surpresa)
+- [x] Filtros de companhia, tempo, lugar e clima (filtro por humor)
+- [x] Sugestão por contexto: prefere atividades que combinam com a hora do dia
+- [x] Sorteio com antirrepetição e memória de preferências; "Vamos nessa" e "Sugerir outra" alimentam a memória
+- [x] Página da atividade, "Decidir a dois" (Match de atividades), atividades no histórico com filtro próprio
+- [x] Conferido no emulador
+
+## Fase 16 (parte): Modo Surpresa
+
+- [x] Tempo disponível, companhia e o que vale (cozinhar, sair, assistir, jogar)
+- [x] Sugere receitas, filmes ou atividades que cabem no tempo, preferindo o que a pessoa nunca decidiu
+- [x] Conferido no emulador

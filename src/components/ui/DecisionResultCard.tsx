@@ -36,7 +36,7 @@ export function DecisionResultCard({ eyebrow = 'Deu', title, caption, image, chi
         />
       ) : null}
       <AppText color="onPrimary">{eyebrow}</AppText>
-      <AppText variant={title.length > 18 ? 'title1' : 'display'} color="onPrimary" numberOfLines={3}>
+      <AppText variant={title.length > 36 ? 'title2' : title.length > 18 ? 'title1' : 'display'} color="onPrimary" numberOfLines={4}>
         {title}
       </AppText>
       {caption ? <AppText color="onPrimary">{caption}</AppText> : null}

@@ -6,12 +6,13 @@ import { useTheme } from '../../theme/ThemeProvider';
 import type { ThemeColors } from '../../theme/tokens';
 import { AppText } from './AppText';
 
-type Tone = 'primary' | 'blue' | 'lilac';
+type Tone = 'primary' | 'blue' | 'lilac' | 'surface';
 
 const toneColors: Record<Tone, { bg: keyof ThemeColors; fg: keyof ThemeColors }> = {
   primary: { bg: 'primary', fg: 'onPrimary' },
   blue: { bg: 'blue', fg: 'onBlue' },
   lilac: { bg: 'lilac', fg: 'onLilac' },
+  surface: { bg: 'surface', fg: 'text' },
 };
 
 export interface DecisionTileProps {

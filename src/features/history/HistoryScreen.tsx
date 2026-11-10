@@ -12,6 +12,7 @@ const filters: { value: HistoryFilter; label: string }[] = [
   { value: 'all', label: 'Tudo' },
   { value: 'food', label: 'Comida' },
   { value: 'movie', label: 'Filmes' },
+  { value: 'activity', label: 'Atividades' },
   { value: 'wheel', label: 'Roleta' },
 ];
 
@@ -20,7 +21,7 @@ function KindArt({ kind }: { kind: DecisionKind }) {
   if (kind === 'wheel') return <WheelArt size={52} />;
   return (
     <View style={{ width: 52, height: 52, borderRadius: 16, backgroundColor: colors.primarySoft, alignItems: 'center', justifyContent: 'center' }}>
-      <Icon name={kind === 'food' ? 'food' : 'film'} color={colors.text} />
+      <Icon name={kind === 'food' ? 'food' : kind === 'activity' ? 'users' : 'film'} color={colors.text} />
     </View>
   );
 }

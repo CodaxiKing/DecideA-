@@ -18,3 +18,6 @@ Estado de cada módulo no app. A descrição completa de cada um está na [seç�
 | Preferências, antirrepetição e Deu certo? | Pronto | 9 |
 | Match a dois com veto | Pronto | 10 |
 | Convites por link e QR, voto pelo navegador, imagem do resultado | Pronto; domínio pendente | 11 |
+| Batalha de opções | Pronto (local) | 12 |
+| O Que Fazer? com sugestão por contexto e humor | Pronto | 13 |
+| Modo Surpresa | Pronto | 16 |
