@@ -25,6 +25,7 @@ interface HistoryState {
   entries: DecisionEntry[];
   addEntry: (entry: Omit<DecisionEntry, 'id' | 'createdAt'> & { createdAt?: string }) => DecisionEntry;
   clear: () => void;
+  replaceAll: (entries: DecisionEntry[]) => void;
 }
 
 export const useHistoryStore = create<HistoryState>()(
@@ -37,6 +38,7 @@ export const useHistoryStore = create<HistoryState>()(
         return entry;
       },
       clear: () => set({ entries: [] }),
+      replaceAll: (entries) => set({ entries }),
     }),
     { name: 'decideai.history', version: 1, storage: createJSONStorage(() => AsyncStorage) },
   ),

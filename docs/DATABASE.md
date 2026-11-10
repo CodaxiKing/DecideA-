@@ -43,6 +43,24 @@ Roda os testes de integração das salas com dois clientes anônimos, como se fo
 - **Expiração:** 30 minutos no plano grátis. Sala expirada recusa entrada, início e votos.
 - **Tempo real:** `rooms`, `room_participants` e `room_results` estão na publicação `supabase_realtime`. O app também confere o estado a cada 15 s e ao reconectar.
 
+## Contas (Fase 6) — `20261111000000_accounts.sql`
+
+| Tabela | Conteúdo |
+|---|---|
+| `profiles` | Perfil criado junto com a conta (gatilho em `auth.users`): nome de exibição |
+| `user_preferences` | Tema e vibração |
+| `favorite_foods`, `favorite_movies` | Favoritos, chave `(user_id, item)`: reenviar não duplica |
+| `custom_wheels`, `wheel_options` | Roletas e opções, com ids gerados no aparelho (uuid) |
+| `decision_history` | Histórico de decisões, id gerado no aparelho |
+
+### Regras
+
+- **RLS:** cada pessoa lê e escreve só o que é dela, e só contas com e-mail (`is_registered_user`). Convidados anônimos das salas não sincronizam.
+- **Convidado vira conta:** criar conta numa sessão anônima mantém o mesmo usuário, então a participação nas salas continua. O app renova o token logo depois, porque o antigo ainda diz "anônimo".
+- **Sincronização sem duplicar:** o app apaga o que foi excluído, traz o que está na conta, junta com o aparelho (vence a roleta editada por último) e envia o resultado. Tudo por id.
+- **Exclusão de conta:** `delete_account()` apaga o usuário em `auth.users` e, em cascata, perfil, preferências, favoritos, roletas, histórico e participação e votos em salas.
+- **Senha:** mínimo de 8 caracteres. Recuperação por link de e-mail (`decideai://conta/nova-senha?code=`), com troca do código por sessão (PKCE).
+
 ## Próximas tabelas
 
-As tabelas de conta e sincronização (`profiles`, favoritos, roletas, histórico) entram na Fase 6. As demais estão listadas na [seção 10 do plano](../plan.md#10-banco-de-dados).
+As demais estão listadas na [seção 10 do plano](../plan.md#10-banco-de-dados).

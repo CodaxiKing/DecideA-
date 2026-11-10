@@ -66,3 +66,15 @@ Ficaram para as fases que os usam: `AppModal`, `AppBottomSheet`, `AppInput`, `Ap
 - [x] Conferido no emulador: Ana criou a sala no app, Caio entrou por um segundo cliente, os dois votaram e o resultado chegou aos dois
 - [ ] Projeto Supabase na nuvem: pendente de conta e autorização (custo)
 - [ ] Rodada final como desempate: hoje o empate vai para sorteio
+
+## Fase 6: Contas
+
+- [x] Conta opcional com e-mail e senha (Supabase Auth); uso sem cadastro continua igual
+- [x] Convidado anônimo das salas vira conta sem trocar de usuário
+- [x] Recuperação de senha por link e tela de nova senha
+- [x] Sair, apagar dados deste aparelho e excluir conta (apaga tudo no servidor em cascata)
+- [x] Sincronização de roletas, favoritos e histórico: ao entrar, ao voltar ao app e alguns segundos depois de cada mudança; migra os dados de quem usava sem conta, sem duplicar
+- [x] 5 testes de integração (dois aparelhos na mesma conta, isolamento entre contas, convidado bloqueado, conversão de convidado, exclusão de conta)
+- [x] Conferido no emulador: criar conta → roleta, favorito e 6 decisões chegaram ao banco
+- [ ] PKCE usa o método `plain` porque o Expo Go não tem WebCrypto; avaliar um polyfill de `crypto.subtle` no development build
+- [ ] Envio real de e-mail (recuperação de senha): no local vai para o Inbucket; na nuvem precisa de SMTP próprio

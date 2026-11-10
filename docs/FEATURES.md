@@ -13,5 +13,5 @@ Estado de cada módulo no app. A descrição completa de cada um está na [seç�
 | Qual Filme? (catálogo demonstrativo, cartões, filtros, meus votos) | Pronto | 4 |
 | Passa o celular | Pronto | 4 |
 | Salas e decisão em grupo (online) | Pronto com servidor local; nuvem pendente | 5 |
-| Contas | Não iniciado | 6 |
+| Contas, sincronização e exclusão de conta | Pronto com servidor local; nuvem pendente | 6 |
 | Premium | Não iniciado | 7 |

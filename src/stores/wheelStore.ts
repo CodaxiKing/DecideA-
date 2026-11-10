@@ -9,6 +9,10 @@ import { newId } from '../utils/random';
 
 interface WheelState {
   wheels: Wheel[];
+  /** Roletas apagadas ainda não enviadas para a conta. */
+  deletedIds: string[];
+  replaceAll: (wheels: Wheel[]) => void;
+  clearDeleted: (ids: string[]) => void;
   createWheel: (draft: WheelDraft) => Wheel;
   updateWheel: (id: string, draft: WheelDraft) => void;
   duplicateWheel: (id: string) => Wheel | undefined;
@@ -22,6 +26,9 @@ export const useWheelStore = create<WheelState>()(
   persist(
     (set, get) => ({
       wheels: [],
+      deletedIds: [],
+      replaceAll: (wheels) => set({ wheels }),
+      clearDeleted: (ids) => set((s) => ({ deletedIds: s.deletedIds.filter((d) => !ids.includes(d)) })),
       createWheel: (draft) => {
         const clean = cleanDraft(draft);
         const at = now();
@@ -49,7 +56,7 @@ export const useWheelStore = create<WheelState>()(
         set((s) => ({ wheels: [copy, ...s.wheels] }));
         return copy;
       },
-      deleteWheel: (id) => set((s) => ({ wheels: s.wheels.filter((w) => w.id !== id) })),
+      deleteWheel: (id) => set((s) => ({ wheels: s.wheels.filter((w) => w.id !== id), deletedIds: [...s.deletedIds, id] })),
       markSpun: (id, at = now()) =>
         set((s) => ({ wheels: s.wheels.map((w) => (w.id === id ? { ...w, lastSpunAt: at } : w)) })),
     }),
