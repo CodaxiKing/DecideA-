@@ -91,3 +91,14 @@ Ficaram para as fases que os usam: `AppModal`, `AppBottomSheet`, `AppInput`, `Ap
 - [x] Conferido no emulador: tela Premium mostra "Loja indisponível" com o motivo
 - [ ] Compras de teste: dependem de conta RevenueCat, produtos na Play Console e development build (ver `docs/MONETIZATION.md`)
 - [ ] Salvar filtros e preferências: entra com as preferências inteligentes (Fase 9)
+
+## Fase 8: Lançamento
+
+- [x] Ícone adaptativo, ícone principal, favicon e splash com a marca (gerados a partir de `assets/brand/mark.svg`)
+- [x] Tela de erro amigável para falhas inesperadas
+- [x] Perfis do EAS (`eas.json`) e `expo-dev-client` para development build
+- [x] Política de privacidade (rascunho para revisão jurídica), texto da loja e formulário de segurança de dados
+- [x] Checklist de lançamento (`docs/RELEASE_CHECKLIST.md`)
+- [x] `expo-doctor` 20/20, TypeScript, lint e testes passando
+- [ ] APK local: bloqueado pelo `ninja` 1.10 do Android SDK com caminhos longos no Windows (ver checklist)
+- [ ] Teste em celular real e com TalkBack

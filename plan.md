@@ -6,9 +6,9 @@
 
 | | |
 |---|---|
-| **Estado atual** | Fase 1 implementada: projeto Expo SDK 58, navegação, tema e tela inicial. Conferida no emulador Android. |
+| **Estado atual** | Fases 1 a 7 implementadas e conferidas no emulador; Fase 8 preparada, com o APK local pendente. Supabase e RevenueCat na nuvem dependem de contas. |
 | **Design** | [Canvas DecideAí — Telas](https://claude.ai/artifact/6wmYMEaGpwAxT4oAxMszw1), com 92 pranchas |
-| **Próximo passo** | Fase 2: Roleta |
+| **Próximo passo** | Gerar o APK de teste e configurar Supabase, RevenueCat e Play Console |
 | **Última revisão** | 2026-11-09 |
 
 ## Sumário
@@ -480,13 +480,13 @@ Validar TypeScript, lint e testes automatizados, e testar em dispositivos Androi
 | Fase | Conteúdo | Entregável | Estado |
 |---|---|---|---|
 | **1. Fundação** | Projeto Expo, TypeScript, navegação, design system, tema claro e escuro, tela inicial e componentes | App navegável com as três seções | Implementada |
-| **2. Roleta** | Criação, edição, persistência, sorteio, animação e resultado | Roleta funcional offline | Não iniciada |
-| **3. Comidas** | Catálogo, receitas, ingredientes, filtros, sorteios e favoritos | Decisão alimentar sem backend obrigatório | Não iniciada |
-| **4. Filmes** | Catálogo, filtros, descoberta, votos, favoritos e Passa o celular | Experiência individual com provedor substituível | Não iniciada |
-| **5. Backend e salas** | Supabase, migrações, políticas, salas, participantes, votos e resultados | Decisões em grupo sincronizadas | Não iniciada |
-| **6. Contas** | Autenticação opcional, perfil e sincronização | Recuperar dados em outro dispositivo | Não iniciada |
-| **7. Premium** | RevenueCat, paywall, assinaturas e controle de recursos | Compras de teste e restauração em development build | Não iniciada |
-| **8. Lançamento** | Acessibilidade, desempenho, segurança, privacidade, falhas, testes e EAS | Build Android de teste e checklist | Não iniciada |
+| **2. Roleta** | Criação, edição, persistência, sorteio, animação e resultado | Roleta funcional offline | Implementada |
+| **3. Comidas** | Catálogo, receitas, ingredientes, filtros, sorteios e favoritos | Decisão alimentar sem backend obrigatório | Implementada |
+| **4. Filmes** | Catálogo, filtros, descoberta, votos, favoritos e Passa o celular | Experiência individual com provedor substituível | Implementada |
+| **5. Backend e salas** | Supabase, migrações, políticas, salas, participantes, votos e resultados | Decisões em grupo sincronizadas | Implementada (servidor local) |
+| **6. Contas** | Autenticação opcional, perfil e sincronização | Recuperar dados em outro dispositivo | Implementada (servidor local) |
+| **7. Premium** | RevenueCat, paywall, assinaturas e controle de recursos | Compras de teste e restauração em development build | Implementada sem loja |
+| **8. Lançamento** | Acessibilidade, desempenho, segurança, privacidade, falhas, testes e EAS | Build Android de teste e checklist | Em andamento |
 
 A Fase 8 também prepara nome e identificador do app, ícones e splash, descrições da loja, capturas de tela, política de privacidade, configuração de assinaturas e checklist de publicação.
 

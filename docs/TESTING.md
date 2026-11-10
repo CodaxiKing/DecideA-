@@ -4,18 +4,52 @@
 |---|---|
 | `npm run typecheck` | TypeScript em modo strict |
 | `npm run lint` | ESLint com `eslint-config-expo` |
-| `npm test` | Jest com `jest-expo` e Testing Library |
-| `npm run test:integration` | Salas contra o Supabase local, com dois clientes (ver `docs/DATABASE.md`) |
+| `npm test` | Testes unitários (Jest com `jest-expo` e Testing Library) |
+| `npm run test:integration` | Salas, contas e Premium contra o Supabase local |
+| `npx expo-doctor` | Dependências e configuração do Expo |
 
-Os testes ficam em `tests/`. O `tests/setup.ts` troca o AsyncStorage pelo mock oficial.
+## Unitários (`tests/`)
 
-## Cobertura atual
+O `tests/setup.ts` troca o AsyncStorage e o `expo-crypto` por versões de teste.
 
-- `tests/theme.test.ts`: escolha do tema (sistema, claro, escuro) e contraste mínimo de 4,5:1 nos pares de cor dos dois temas.
-- `tests/ui.test.tsx`: o cartão da tela inicial é um botão acessível; a tela Perfil troca e guarda o tema.
+| Arquivo | Cobre |
+|---|---|
+| `theme.test.ts` | Escolha do tema e contraste de 4,5:1 nos dois temas |
+| `ui.test.tsx` | Cartão da tela inicial acessível; troca de tema no Perfil |
+| `wheel.test.ts` | Sorteio sem viés, setor sob o ponteiro = sorteado (2 a 16 opções), parada longe das bordas, validação |
+| `history.test.ts` | Datas, agrupamento e filtro do histórico, limite, stores de roleta |
+| `food.test.ts` | Catálogo, normalização de ingredientes, filtros, sorteio sem repetir, "tenho estes ingredientes" |
+| `movies-pass.test.ts` | Catálogo e filtros de filmes, resultado em grupo (unanimidade, empate, "não"), Passa o celular (troca, sigilo, retomada) |
+| `rooms.test.ts` | Código de sala, expiração, mensagens de erro |
+| `sync.test.ts` | Mesclagem de roletas, favoritos e histórico; exclusões pendentes; token anônimo antigo; validação de conta |
+| `premium.test.ts` | Limites, loja indisponível sem compra simulada, regras do webhook do RevenueCat |
+
+## Integração (`tests-integration/`)
+
+Precisam do Supabase local (`npm run db:start`) e das variáveis:
+
+```bash
+eval "$(npx supabase status -o env | grep -E '^(API_URL|ANON_KEY|SERVICE_ROLE_KEY)=')"
+```
+
+```bash
+SUPABASE_URL="$API_URL" SUPABASE_ANON_KEY="$ANON_KEY" SUPABASE_SERVICE_ROLE_KEY="$SERVICE_ROLE_KEY" npm run test:integration
+```
+
+`SERVICE_ROLE_KEY` só existe no ambiente local de teste e nunca vai para o app.
+
+| Arquivo | Cobre |
+|---|---|
+| `rooms.int.test.ts` | Dois aparelhos: criar, entrar, votar, resultado igual para os dois; votos secretos; reentrada; sala cheia; código errado; sala iniciada; saída no meio; encerramento pelo anfitrião; escrita direta bloqueada; tempo real |
+| `accounts.int.test.ts` | Dois aparelhos na mesma conta sem duplicar; edição mais nova vence; isolamento entre contas; convidado bloqueado; convidado vira conta; exclusão de conta |
+| `entitlements.int.test.ts` | Sala grátis limitada no servidor; app não se dá Premium; direito ativo e expirado |
+
+Logo depois de `db:start`, o serviço de tempo real pode levar alguns segundos para aceitar conexões; se só o teste de tempo real falhar, rode de novo.
+
+## Manuais no emulador
+
+Cada fase registra em `docs/DEVELOPMENT_PLAN.md` o que foi conferido no emulador Android (API 36).
 
 ## Último resultado
 
-2026-11-09: TypeScript sem erros, lint sem avisos, 18 testes passando em 2 suítes, `expo-doctor` com 20 de 20 verificações e bundle Android exportado sem erro.
-
-Os testes de cada fase seguem a lista da [seção 13 do plano](../plan.md#13-testes-e-qualidade).
+2026-11-10: TypeScript e lint sem erros, 92 testes unitários em 9 suítes, 15 testes de integração em 3 suítes, `expo-doctor` com 20 de 20 verificações.

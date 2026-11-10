@@ -15,6 +15,8 @@ import { SyncManager } from '../features/sync/SyncManager';
 import { ThemeProvider, useTheme } from '../theme/ThemeProvider';
 import { fontFamily } from '../theme/tokens';
 
+export { AppErrorBoundary as ErrorBoundary } from '../features/home/AppErrorBoundary';
+
 SplashScreen.preventAutoHideAsync().catch(() => {});
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 1 } } });
