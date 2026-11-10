@@ -26,3 +26,4 @@ Estado de cada módulo no app. A descrição completa de cada um está na [seç�
 | Ranking coletivo (Borda) | Pronto | 16 |
 | Grupos permanentes e dupla fixa | Pronto | 14 |
 | Push dos convites | Pendente (credenciais) | 14 |
+| Lista de compras, Modo cozinha, Cardápio da semana, Onde pedir | Pronto; parceiros pendentes | 17 |

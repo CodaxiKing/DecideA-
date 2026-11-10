@@ -138,6 +138,27 @@ export function syncRepository(client: SupabaseClient, userId: string) {
       check(await client.from('preference_signals').delete().eq('user_id', userId));
     },
 
+    async pushMealPlan(recipeIds: string[], updatedAt: string) {
+      check(await client.from('meal_plans').upsert({ user_id: userId, recipe_ids: recipeIds, updated_at: updatedAt }));
+    },
+
+    async pullMealPlan(): Promise<{ recipeIds: string[]; updatedAt: string } | null> {
+      const row = check(await client.from('meal_plans').select('recipe_ids, updated_at').eq('user_id', userId).maybeSingle()) as
+        | { recipe_ids: string[]; updated_at: string }
+        | null;
+      return row ? { recipeIds: row.recipe_ids, updatedAt: iso(row.updated_at) } : null;
+    },
+
+    async pushAchievements(items: { id: string; at: string }[]) {
+      if (!items.length) return;
+      check(
+        await client.from('user_achievements').upsert(
+          items.map((a) => ({ user_id: userId, achievement: a.id, achieved_at: a.at })),
+          { ignoreDuplicates: true },
+        ),
+      );
+    },
+
     async setDisplayName(name: string) {
       check(await client.from('profiles').update({ display_name: name || null, updated_at: new Date().toISOString() }).eq('id', userId));
     },

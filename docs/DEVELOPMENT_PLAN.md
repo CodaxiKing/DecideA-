@@ -179,3 +179,12 @@ Ficaram para as fases que os usam: `AppModal`, `AppBottomSheet`, `AppInput`, `Ap
 - [x] 11 testes de integração da parte social e dos novos modos
 - [x] Conferido no emulador: conta, nome de usuário, pedido em tempo real, Bia online, convite para Batalha, três duelos votados pelas duas, vencedor igual nos dois lados
 - [ ] Notificação push dos convites: precisa de development build, projeto no EAS e credenciais do FCM; hoje o aviso é no app, em tempo real
+
+## Fase 17: Do resultado à ação
+
+- [x] Lista de compras de uma receita ou da semana: junta o mesmo ingrediente, soma quantidades da mesma unidade, separa o que já tem (ingredientes informados, despensa e itens marcados) e envia pelo WhatsApp
+- [x] Modo cozinha: passo a passo em letra grande, tela sempre ligada (`expo-keep-awake`), timer achado no texto do passo, que conta pelo horário de término (certo após segundo plano) e avisa por notificação local
+- [x] Cardápio da semana: 7 jantares sem repetir (relaxa com catálogo pequeno, nunca dois dias seguidos iguais), trocar um dia, lista única de compras, sincronizado com a conta (`meal_plans`)
+- [x] Fazer em casa ou pedir: receita ou busca no mapa do celular; sem parceiros, nada patrocinado
+- [x] Conferido no emulador: cardápio → lista de 30 itens; Modo cozinha com timer contando
+- [ ] Links de delivery e streaming com comissão: dependem de parcerias (seção 18 do plano)

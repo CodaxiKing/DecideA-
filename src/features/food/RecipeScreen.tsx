@@ -1,7 +1,7 @@
-import { Stack, useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { Image, Share, View } from 'react-native';
 
-import { AppBadge, AppCard, AppText, EmptyState, IconButton, Screen } from '../../components/ui';
+import { AppBadge, AppButton, AppCard, AppText, EmptyState, IconButton, Screen } from '../../components/ui';
 import { FavoriteButton } from '../../components/ui/FavoriteButton';
 import { useTheme } from '../../theme/ThemeProvider';
 import { radius, spacing } from '../../theme/tokens';
@@ -16,6 +16,7 @@ function shareText(recipe: Recipe): string {
 
 export function RecipeScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const router = useRouter();
   const { colors } = useTheme();
   const recipe = findRecipe(id);
 
@@ -90,6 +91,11 @@ export function RecipeScreen() {
           </View>
         ))}
       </View>
+      <View style={{ flexDirection: 'row', gap: spacing.sm }}>
+        <AppButton label="Modo cozinha" style={{ flex: 1 }} onPress={() => router.push({ pathname: '/comer/cozinha/[id]', params: { id: recipe.id } })} />
+        <AppButton label="Lista" variant="ghost" style={{ flex: 1 }} onPress={() => router.push({ pathname: '/comer/lista', params: { ids: recipe.id } })} />
+      </View>
+      <AppButton label="Fazer em casa ou pedir?" variant="ghost" size="sm" onPress={() => router.push({ pathname: '/comer/onde/[id]', params: { id: recipe.id } })} fullWidth />
       <View style={{ gap: spacing.md }}>
         <AppText variant="title2">Modo de preparo</AppText>
         {recipe.steps.map((step, n) => (

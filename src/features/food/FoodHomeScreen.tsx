@@ -81,6 +81,7 @@ export function FoodHomeScreen() {
       </Pressable>
       <View style={{ gap: 10, marginTop: spacing.sm }}>
         <AppButton label={drawLabel} onPress={() => draw()} disabled={poolSize === 0} fullWidth />
+        <AppButton label="Cardápio da semana" variant="ghost" onPress={() => router.push('/cardapio')} fullWidth />
         <AppButton label="Decidir em grupo" variant="ghost" onPress={() => router.push({ pathname: '/sala/criar', params: { kind: 'food' } })} fullWidth />
         {poolSize === 0 ? (
           <AppText variant="small" color="danger" style={{ textAlign: 'center' }}>

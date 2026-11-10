@@ -3,6 +3,7 @@ import { supabase } from '../../services/supabase';
 import { useFavoritesStore } from '../../stores/favoritesStore';
 import { HISTORY_STORAGE_LIMIT, useHistoryStore } from '../../stores/historyStore';
 import { useWheelStore } from '../../stores/wheelStore';
+import { useKitchenStore } from '../../stores/kitchenStore';
 import { usePreferenceSignals } from '../../stores/preferenceSignalsStore';
 import { mergeFavorites, mergeHistory, mergeSignals, mergeWheels } from './merge';
 
@@ -81,6 +82,15 @@ export function syncAll(userId: string): Promise<void> {
     useFavoritesStore.getState().clearRemoved(removedFavs);
     useHistoryStore.getState().replaceAll(history);
     usePreferenceSignals.getState().replaceSignals(signals);
+
+    // Cardápio da semana: vence o mais recente.
+    const kitchen = useKitchenStore.getState();
+    const remotePlan = await repo.pullMealPlan();
+    if (remotePlan && (!kitchen.weekCreatedAt || remotePlan.updatedAt > kitchen.weekCreatedAt)) {
+      useKitchenStore.setState({ week: remotePlan.recipeIds, weekCreatedAt: remotePlan.updatedAt });
+    } else if (kitchen.week.length && kitchen.weekCreatedAt && remotePlan?.updatedAt !== kitchen.weekCreatedAt) {
+      await repo.pushMealPlan(kitchen.week, kitchen.weekCreatedAt);
+    }
   })().finally(() => {
     running = null;
   });
