@@ -4,6 +4,7 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 
 import { emptyMovieFilters, type MovieFilters } from '../features/movies/catalog';
 import type { MovieVote } from '../features/movies/types';
+import { usePreferenceSignals } from './preferenceSignalsStore';
 
 interface MovieState {
   /** Voto da pessoa em cada título, para "Meus votos". */
@@ -20,7 +21,10 @@ export const useMovieStore = create<MovieState>()(
     (set) => ({
       votes: {},
       filters: emptyMovieFilters,
-      vote: (id, vote) => set((s) => ({ votes: { ...s.votes, [id]: { vote, at: new Date().toISOString() } } })),
+      vote: (id, vote) => {
+        if (vote !== 'maybe') usePreferenceSignals.getState().record('movie', id, vote === 'yes' ? 'accept' : 'reject');
+        set((s) => ({ votes: { ...s.votes, [id]: { vote, at: new Date().toISOString() } } }));
+      },
       clearVote: (id) =>
         set((s) => {
           const next = { ...s.votes };

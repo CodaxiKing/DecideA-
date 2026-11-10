@@ -15,3 +15,4 @@ Estado de cada módulo no app. A descrição completa de cada um está na [seç�
 | Salas e decisão em grupo (online) | Pronto com servidor local; nuvem pendente | 5 |
 | Contas, sincronização e exclusão de conta | Pronto com servidor local; nuvem pendente | 6 |
 | Premium (limites, tela, servidor) | Pronto sem loja; compras dependem de configuração externa | 7 |
+| Preferências, antirrepetição e Deu certo? | Pronto | 9 |

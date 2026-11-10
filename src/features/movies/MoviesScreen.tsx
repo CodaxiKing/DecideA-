@@ -7,6 +7,7 @@ import { AppButton, AppText, EmptyState, IconButton, LoadingState, Screen } from
 import { useMovieStore } from '../../stores/movieStore';
 import { spacing } from '../../theme/tokens';
 import { shuffle } from '../../utils/shuffle';
+import { sortByPreference } from '../preferences/smartPick';
 import { activeMovieFilterCount, movieCatalog } from './catalog';
 import { movieToDeckItem } from './deckItems';
 import type { MovieTitle } from './types';
@@ -33,7 +34,7 @@ export function MoviesScreen() {
         if (!alive) return;
         const voted = useMovieStore.getState().votes;
         // Primeiro o que a pessoa ainda não votou; depois o resto, para não acabar cedo demais.
-        const unseen = shuffle(list.filter((t) => !voted[t.id]));
+        const unseen = sortByPreference('movie', shuffle(list.filter((t) => !voted[t.id])), (t) => t.id);
         setLoaded({ key: requestKey, titles: unseen.length ? unseen : shuffle(list), error: false });
       })
       .catch(() => alive && setLoaded({ key: requestKey, titles: [], error: true }));

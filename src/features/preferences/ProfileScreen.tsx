@@ -10,6 +10,7 @@ import { useHistoryStore } from '../../stores/historyStore';
 import { useMovieStore } from '../../stores/movieStore';
 import { usePassStore } from '../../stores/passStore';
 import { usePreferencesStore, type ThemePreference } from '../../stores/preferencesStore';
+import { usePreferenceSignals } from '../../stores/preferenceSignalsStore';
 import { useProfileStore } from '../../stores/profileStore';
 import { useWheelStore } from '../../stores/wheelStore';
 import { spacing } from '../../theme/tokens';
@@ -30,6 +31,7 @@ function clearLocalData() {
   useMovieStore.setState({ votes: {} });
   usePassStore.setState({ session: undefined });
   useProfileStore.setState({ displayName: '' });
+  usePreferenceSignals.setState({ signals: {} });
 }
 
 export function ProfileScreen() {
@@ -116,6 +118,14 @@ export function ProfileScreen() {
 
       <AppCard>
         <AppInput label="Seu nome nas salas" value={name} onChangeText={setName} onBlur={saveName} onSubmitEditing={saveName} maxLength={20} placeholder="Ex.: Ana" />
+      </AppCard>
+
+      <AppCard>
+        <AppText variant="bodyStrong">Sugestões</AppText>
+        <AppText variant="small" color="textMuted">
+          O que o app aprendeu, repetições e memória de preferências.
+        </AppText>
+        <AppButton label="Suas preferências" size="sm" variant="ghost" onPress={() => router.push('/preferencias')} />
       </AppCard>
 
       <AppCard>

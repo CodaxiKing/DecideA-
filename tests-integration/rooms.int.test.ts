@@ -168,7 +168,7 @@ describe('salas em dispositivos distintos', () => {
     });
     await subscribed;
     // Dá um instante para o canal ficar pronto do lado do servidor.
-    await new Promise((r) => setTimeout(r, 500));
+    await new Promise((r) => setTimeout(r, 2000));
     await host.repo.startVoting(room.id);
     await changed;
     expect(calls).toBeGreaterThanOrEqual(2);

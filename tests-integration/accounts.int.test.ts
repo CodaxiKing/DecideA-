@@ -123,4 +123,20 @@ describe('contas', () => {
     const login = await again.auth.signInWithPassword({ email: addr, password: PASSWORD });
     expect(login.error).not.toBeNull();
   });
+
+  it('memória de preferências e "Deu certo?" sincronizam', async () => {
+    const c = client();
+    const { data } = await c.auth.signUp({ email: email(), password: PASSWORD });
+    const repo = syncRepository(c, data.user!.id);
+    const at = new Date().toISOString();
+    await repo.pushSignals([{ kind: 'food', id: 'bolo-cenoura', accepted: 3, rejected: 1, updatedAt: at }]);
+    await repo.pushSignals([{ kind: 'food', id: 'bolo-cenoura', accepted: 4, rejected: 1, updatedAt: at }]);
+    expect(await repo.pullSignals()).toEqual([{ kind: 'food', id: 'bolo-cenoura', accepted: 4, rejected: 1, updatedAt: at }]);
+    const e = { id: randomUUID(), kind: 'food' as const, title: 'Bolo', source: 'Sorteio', refId: 'bolo-cenoura', createdAt: at };
+    await repo.pushHistory([e]);
+    await repo.pushHistory([{ ...e, feedback: 'liked' }]);
+    expect((await repo.pullHistory(5))[0].feedback).toBe('liked');
+    await repo.clearSignals();
+    expect(await repo.pullSignals()).toEqual([]);
+  });
 });

@@ -1,5 +1,6 @@
 import type { DecisionEntry } from '../../stores/historyStore';
 import type { Favorite } from '../../stores/favoritesStore';
+import type { PreferenceSignal } from '../preferences/engine';
 import type { Wheel } from '../wheel/types';
 
 /**
@@ -41,6 +42,20 @@ export function mergeFavorites(local: Favorite[], remote: Favorite[], removed: P
 /** União do histórico pelo id, mais recente primeiro, com teto de tamanho. */
 export function mergeHistory(local: DecisionEntry[], remote: DecisionEntry[], limit: number): DecisionEntry[] {
   const byId = new Map<string, DecisionEntry>();
-  for (const e of [...remote, ...local]) byId.set(e.id, e);
+  for (const e of [...remote, ...local]) {
+    const prev = byId.get(e.id);
+    // A resposta do "Deu certo?" pode ter vindo de qualquer lado.
+    byId.set(e.id, prev && !e.feedback && prev.feedback ? { ...e, feedback: prev.feedback } : e);
+  }
   return [...byId.values()].sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, limit);
+}
+
+/** Memória de preferências: por item, fica o registro atualizado por último. */
+export function mergeSignals(local: Record<string, PreferenceSignal>, remote: PreferenceSignal[]): Record<string, PreferenceSignal> {
+  const out: Record<string, PreferenceSignal> = { ...local };
+  for (const r of remote) {
+    const key = `${r.kind}:${r.id}`;
+    if (!out[key] || r.updatedAt > out[key].updatedAt) out[key] = r;
+  }
+  return out;
 }

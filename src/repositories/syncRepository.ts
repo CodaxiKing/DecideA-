@@ -1,5 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 
+import type { PreferenceSignal } from '../features/preferences/engine';
 import type { Wheel } from '../features/wheel/types';
 import type { DecisionEntry } from '../stores/historyStore';
 import type { Favorite, FavoriteKind } from '../stores/favoritesStore';
@@ -100,17 +101,41 @@ export function syncRepository(client: SupabaseClient, userId: string) {
             source: e.source.slice(0, 120),
             ref_id: e.refId ?? null,
             created_at: e.createdAt,
+            feedback: e.feedback ?? null,
           })),
-          { ignoreDuplicates: true },
         ),
       );
     },
 
     async pullHistory(limit: number): Promise<DecisionEntry[]> {
       const rows = check(
-        await client.from('decision_history').select('id, kind, title, source, ref_id, created_at').order('created_at', { ascending: false }).limit(limit),
-      ) as { id: string; kind: DecisionEntry['kind']; title: string; source: string; ref_id: string | null; created_at: string }[];
-      return rows.map((r) => ({ id: r.id, kind: r.kind, title: r.title, source: r.source, refId: r.ref_id ?? undefined, createdAt: iso(r.created_at) }));
+        await client.from('decision_history').select('id, kind, title, source, ref_id, created_at, feedback').order('created_at', { ascending: false }).limit(limit),
+      ) as { id: string; kind: DecisionEntry['kind']; title: string; source: string; ref_id: string | null; created_at: string; feedback: DecisionEntry['feedback'] | null }[];
+      return rows.map((r) => ({ id: r.id, kind: r.kind, title: r.title, source: r.source, refId: r.ref_id ?? undefined, createdAt: iso(r.created_at), feedback: r.feedback ?? undefined }));
+    },
+
+    async pushSignals(signals: PreferenceSignal[]) {
+      if (!signals.length) return;
+      check(
+        await client.from('preference_signals').upsert(
+          signals.map((s) => ({ user_id: userId, kind: s.kind, item_id: s.id, accepted: s.accepted, rejected: s.rejected, updated_at: s.updatedAt })),
+        ),
+      );
+    },
+
+    async pullSignals(): Promise<PreferenceSignal[]> {
+      const rows = check(await client.from('preference_signals').select('kind, item_id, accepted, rejected, updated_at')) as {
+        kind: PreferenceSignal['kind'];
+        item_id: string;
+        accepted: number;
+        rejected: number;
+        updated_at: string;
+      }[];
+      return rows.map((r) => ({ kind: r.kind, id: r.item_id, accepted: r.accepted, rejected: r.rejected, updatedAt: iso(r.updated_at) }));
+    },
+
+    async clearSignals() {
+      check(await client.from('preference_signals').delete().eq('user_id', userId));
     },
 
     async setDisplayName(name: string) {

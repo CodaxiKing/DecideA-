@@ -102,3 +102,14 @@ Ficaram para as fases que os usam: `AppModal`, `AppBottomSheet`, `AppInput`, `Ap
 - [x] `expo-doctor` 20/20, TypeScript, lint e testes passando
 - [x] APK de release local gerado (ninja 1.12.1 no Android SDK) e validado no emulador
 - [ ] Teste em celular real e com TalkBack
+
+## Fase 9: Preferências
+
+- [x] Memória de preferências local (`decideai.preference-signals`): votos de filmes, favoritos, "Sortear outra" e "Deu certo?" viram sinais de aceite e recusa
+- [x] Antirrepetição em todos os planos, com janela de 3, 7 ou 30 dias, relaxando quando o catálogo é pequeno
+- [x] Sorteio ponderado pelo gosto e ordem dos cartões de filmes pelo gosto, no Premium ("preferências inteligentes")
+- [x] "Deu certo?" na tela inicial para decisões dos últimos 3 dias
+- [x] Tela Suas preferências: ligar e desligar o aprendizado, janela de repetição, o que costuma aceitar e recusar, o que está "sem repetir" e apagar tudo (também na conta)
+- [x] Sincronização dos sinais (`preference_signals`) e da resposta do "Deu certo?" (`decision_history.feedback`)
+- [x] Catálogo de 26 atividades para o O Que Fazer? (usado a partir da Fase 13)
+- [x] Conferido no emulador: cartão "Deu certo?" → resposta salva na conta → tela de preferências

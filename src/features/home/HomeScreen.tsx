@@ -3,6 +3,7 @@ import { View } from 'react-native';
 
 import { AppButton, AppCard, AppText, BrandMark, DecisionTile, Screen, WheelArt } from '../../components/ui';
 import { spacing } from '../../theme/tokens';
+import { DidItWorkCard } from '../preferences/DidItWorkCard';
 
 export function HomeScreen() {
   const router = useRouter();
@@ -13,6 +14,7 @@ export function HomeScreen() {
         <AppText variant="title3">DecideAí</AppText>
       </View>
       <AppText variant="title1">O que vamos decidir agora?</AppText>
+      <DidItWorkCard />
       <View accessibilityLabel="Ferramentas" style={{ gap: spacing.sm }}>
         <DecisionTile
           tone="primary"

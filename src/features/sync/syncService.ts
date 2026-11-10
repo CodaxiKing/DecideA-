@@ -3,7 +3,8 @@ import { supabase } from '../../services/supabase';
 import { useFavoritesStore } from '../../stores/favoritesStore';
 import { HISTORY_STORAGE_LIMIT, useHistoryStore } from '../../stores/historyStore';
 import { useWheelStore } from '../../stores/wheelStore';
-import { mergeFavorites, mergeHistory, mergeWheels } from './merge';
+import { usePreferenceSignals } from '../../stores/preferenceSignalsStore';
+import { mergeFavorites, mergeHistory, mergeSignals, mergeWheels } from './merge';
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -49,13 +50,15 @@ export function syncAll(userId: string): Promise<void> {
     await repo.deleteFavorites(removedFavs);
 
     // 2. Traz o que está na conta e junta com o aparelho (vence a edição mais recente).
-    const [remoteWheels, remoteFavs, remoteHistory] = await Promise.all([
+    const [remoteWheels, remoteFavs, remoteHistory, remoteSignals] = await Promise.all([
       repo.pullWheels(),
       repo.pullFavorites(),
       repo.pullHistory(HISTORY_STORAGE_LIMIT),
+      repo.pullSignals(),
     ]);
     const wheels = mergeWheels(useWheelStore.getState().wheels, remoteWheels, useWheelStore.getState().deletedIds);
     const favorites = mergeFavorites(useFavoritesStore.getState().items, remoteFavs, useFavoritesStore.getState().removed);
+    const signals = mergeSignals(usePreferenceSignals.getState().signals, remoteSignals);
     const history = mergeHistory(useHistoryStore.getState().entries, remoteHistory, HISTORY_STORAGE_LIMIT);
 
     // 3. Envia o resultado. Os ids vêm do aparelho, então reenviar não duplica.
@@ -66,8 +69,10 @@ export function syncAll(userId: string): Promise<void> {
     });
     await repo.pushWheels(changedWheels);
     await repo.pushFavorites(favorites);
-    const remoteHistoryIds = new Set(remoteHistory.map((e) => e.id));
-    await repo.pushHistory(history.filter((e) => UUID.test(e.id) && !remoteHistoryIds.has(e.id)));
+    const remoteHistory2 = new Map(remoteHistory.map((e) => [e.id, e]));
+    await repo.pushHistory(history.filter((e) => UUID.test(e.id) && (!remoteHistory2.has(e.id) || remoteHistory2.get(e.id)!.feedback !== e.feedback)));
+    const remoteSignalAt = new Map(remoteSignals.map((s) => [`${s.kind}:${s.id}`, s.updatedAt]));
+    await repo.pushSignals(Object.entries(signals).filter(([k, s]) => remoteSignalAt.get(k) !== s.updatedAt).map(([, s]) => s));
 
     // 4. Atualiza o aparelho.
     useWheelStore.getState().replaceAll(wheels);
@@ -75,6 +80,7 @@ export function syncAll(userId: string): Promise<void> {
     useFavoritesStore.getState().replaceAll(favorites);
     useFavoritesStore.getState().clearRemoved(removedFavs);
     useHistoryStore.getState().replaceAll(history);
+    usePreferenceSignals.getState().replaceSignals(signals);
   })().finally(() => {
     running = null;
   });

@@ -2,6 +2,7 @@ import * as Haptics from 'expo-haptics';
 import { Pressable } from 'react-native';
 
 import { useFavoritesStore, type FavoriteKind } from '../../stores/favoritesStore';
+import { usePreferenceSignals } from '../../stores/preferenceSignalsStore';
 import { usePreferencesStore } from '../../stores/preferencesStore';
 import { useTheme } from '../../theme/ThemeProvider';
 import { minTouch } from '../../theme/tokens';
@@ -27,7 +28,7 @@ export function FavoriteButton({ kind, id, name }: { kind: FavoriteKind; id: str
           showLimitAlert(m.title, m.message);
           return;
         }
-        toggle(kind, id);
+        if (toggle(kind, id)) usePreferenceSignals.getState().record(kind, id, 'accept');
         if (haptics) Haptics.selectionAsync().catch(() => {});
       }}
       style={({ pressed }) => ({

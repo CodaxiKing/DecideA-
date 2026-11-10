@@ -4,7 +4,10 @@ import { createJSONStorage, persist } from 'zustand/middleware';
 
 import { newId } from '../utils/random';
 
-export type DecisionKind = 'wheel' | 'food' | 'movie';
+export type DecisionKind = 'wheel' | 'food' | 'movie' | 'activity';
+
+/** Resposta do "Deu certo?". `dismissed` = a pessoa fechou sem responder. */
+export type DecisionFeedback = 'liked' | 'meh' | 'skipped' | 'dismissed';
 
 export interface DecisionEntry {
   id: string;
@@ -16,6 +19,7 @@ export interface DecisionEntry {
   createdAt: string;
   /** Referência opcional ao item (id da receita, do filme ou da roleta). */
   refId?: string;
+  feedback?: DecisionFeedback;
 }
 
 /** Quantas decisões o aparelho guarda. O que o plano grátis mostra é decidido na tela. */
@@ -26,6 +30,7 @@ interface HistoryState {
   addEntry: (entry: Omit<DecisionEntry, 'id' | 'createdAt'> & { createdAt?: string }) => DecisionEntry;
   clear: () => void;
   replaceAll: (entries: DecisionEntry[]) => void;
+  setFeedback: (id: string, feedback: DecisionFeedback) => void;
 }
 
 export const useHistoryStore = create<HistoryState>()(
@@ -39,6 +44,7 @@ export const useHistoryStore = create<HistoryState>()(
       },
       clear: () => set({ entries: [] }),
       replaceAll: (entries) => set({ entries }),
+      setFeedback: (id, feedback) => set((s) => ({ entries: s.entries.map((e) => (e.id === id ? { ...e, feedback } : e)) })),
     }),
     { name: 'decideai.history', version: 1, storage: createJSONStorage(() => AsyncStorage) },
   ),

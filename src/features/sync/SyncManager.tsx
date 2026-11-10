@@ -5,6 +5,7 @@ import { create } from 'zustand';
 import { useAuth } from '../../services/auth';
 import { useFavoritesStore } from '../../stores/favoritesStore';
 import { useHistoryStore } from '../../stores/historyStore';
+import { usePreferenceSignals } from '../../stores/preferenceSignalsStore';
 import { useWheelStore } from '../../stores/wheelStore';
 import { syncAll } from './syncService';
 
@@ -49,6 +50,7 @@ export function SyncManager() {
       useWheelStore.subscribe((s, p) => s.wheels !== p.wheels && schedule()),
       useFavoritesStore.subscribe((s, p) => s.items !== p.items && schedule()),
       useHistoryStore.subscribe((s, p) => s.entries !== p.entries && schedule()),
+      usePreferenceSignals.subscribe((s, p) => s.signals !== p.signals && schedule()),
     ];
     const app = AppState.addEventListener('change', (state) => state === 'active' && schedule());
     return () => {

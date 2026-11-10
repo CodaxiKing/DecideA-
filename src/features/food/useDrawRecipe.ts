@@ -3,7 +3,9 @@ import { Alert } from 'react-native';
 
 import { useFoodStore } from '../../stores/foodStore';
 import { useHistoryStore } from '../../stores/historyStore';
-import { drawRecipe, recipesForChoices } from './engine';
+import { usePreferenceSignals } from '../../stores/preferenceSignalsStore';
+import { smartPick } from '../preferences/smartPick';
+import { recipesForChoices } from './engine';
 import { recipes } from './recipes';
 
 /** Sorteia uma receita pelas escolhas e filtros atuais, registra no histórico e abre o resultado. */
@@ -12,7 +14,9 @@ export function useDrawRecipe() {
   return (mode: 'push' | 'replace' = 'push') => {
     const { choices, filters, lastDrawnId, setLastDrawn } = useFoodStore.getState();
     const pool = recipesForChoices(recipes, choices, filters);
-    const recipe = drawRecipe(pool, lastDrawnId);
+    // "Sortear outra" conta como recusa leve do prato anterior.
+    if (mode === 'replace' && lastDrawnId) usePreferenceSignals.getState().record('food', lastDrawnId, 'reject');
+    const recipe = smartPick('food', pool, (r) => r.id, lastDrawnId);
     if (!recipe) {
       Alert.alert('Nenhuma receita', 'Nenhum prato combina com essas categorias e filtros. Tente afrouxar os filtros.');
       return;
