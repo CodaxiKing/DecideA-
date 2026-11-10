@@ -8,13 +8,15 @@ export interface FilterChipProps {
   label: string;
   selected: boolean;
   onPress: () => void;
+  /** Várias podem ficar marcadas ao mesmo tempo (checkbox em vez de radio). */
+  multi?: boolean;
 }
 
-export function FilterChip({ label, selected, onPress }: FilterChipProps) {
+export function FilterChip({ label, selected, onPress, multi }: FilterChipProps) {
   const { colors } = useTheme();
   return (
     <Pressable
-      accessibilityRole="radio"
+      accessibilityRole={multi ? 'checkbox' : 'radio'}
       accessibilityState={{ checked: selected }}
       accessibilityLabel={label}
       onPress={onPress}

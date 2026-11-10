@@ -28,3 +28,16 @@ Ficaram para as fases que os usam: `AppModal`, `AppBottomSheet`, `AppInput`, `Ap
 - [x] Conferido no emulador: modelo → salvar → girar → resultado bate com o setor → histórico
 - [ ] Som ao girar: pendente, falta um efeito sonoro com licença livre
 - [ ] Limite de 3 roletas no plano grátis: entra com o Premium (Fase 7)
+
+## Fase 3: Comidas
+
+- [x] Catálogo local com 24 receitas completas (ingredientes, quantidades, preparo, tempo, dificuldade, porções, categorias, refeições e restrições), sem IA (`src/features/food/recipes.ts`)
+- [x] Sorteio rápido por categoria, Vegetarianas e Surpreenda-me, sem repetir o prato anterior quando há outro
+- [x] Filtros de tempo, refeição, restrições e ingredientes a evitar
+- [x] Tenho estes ingredientes: cruza o que a pessoa tem com o catálogo, ignorando acento, plural e sinônimos, e diz o que falta
+- [x] Receita completa com compartilhamento em texto
+- [x] Favoritos de pratos guardados no aparelho (`decideai.favorites`)
+- [x] Sorteios entram no histórico
+- [x] Conferido no emulador: sortear → resultado → favoritar → receita; ingredientes; aba Favoritos
+- [ ] Decisão em grupo pelo O Que Comer?: entra com as salas (Fase 5)
+- [ ] Salvar filtros para a próxima vez e limite de 20 favoritos: Premium (Fase 7)
