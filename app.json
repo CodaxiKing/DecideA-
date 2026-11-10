@@ -1,0 +1,44 @@
+{
+  "expo": {
+    "name": "DecideAí",
+    "slug": "decideai",
+    "scheme": "decideai",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "app.decideai"
+    },
+    "android": {
+      "package": "app.decideai",
+      "adaptiveIcon": {
+        "backgroundColor": "#F8F6FF",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-status-bar",
+      "expo-font",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 160,
+          "backgroundColor": "#F8F6FF",
+          "dark": {
+            "backgroundColor": "#110B20"
+          }
+        }
+      ]
+    ]
+  }
+}

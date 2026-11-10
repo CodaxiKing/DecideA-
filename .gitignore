@@ -1,8 +1,42 @@
+# dependências
 node_modules/
+
+# Expo
 .expo/
 dist/
+web-build/
+expo-env.d.ts
+
+# nativo (gerado pelo Expo)
+/ios
+/android
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.pem
+
+# Metro
+.metro-health-check*
+
+# logs
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# ambiente
 .env
 .env.*
 !.env.example
+
+# TypeScript
+*.tsbuildinfo
+
+# sistema e ferramentas
+.DS_Store
+coverage/
 .taste-skill/
 .claude/

@@ -6,9 +6,9 @@
 
 | | |
 |---|---|
-| **Estado atual** | Só o design existe. O projeto Expo ainda não foi criado e a pasta contém apenas este arquivo. |
-| **Design** | [Canvas DecideAí — Telas](https://claude.ai/artifact/FCpBGU3vPQYLRza8tcCQoN), com 92 pranchas |
-| **Próximo passo** | Fase 1: fundação em Expo |
+| **Estado atual** | Fase 1 implementada: projeto Expo SDK 58, navegação, tema e tela inicial. Conferida no emulador Android. |
+| **Design** | [Canvas DecideAí — Telas](https://claude.ai/artifact/6wmYMEaGpwAxT4oAxMszw1), com 92 pranchas |
+| **Próximo passo** | Fase 2: Roleta |
 | **Última revisão** | 2026-11-09 |
 
 ## Sumário
@@ -479,7 +479,7 @@ Validar TypeScript, lint e testes automatizados, e testar em dispositivos Androi
 
 | Fase | Conteúdo | Entregável | Estado |
 |---|---|---|---|
-| **1. Fundação** | Projeto Expo, TypeScript, navegação, design system, tema claro e escuro, tela inicial e componentes | App navegável com as três seções | Não iniciada |
+| **1. Fundação** | Projeto Expo, TypeScript, navegação, design system, tema claro e escuro, tela inicial e componentes | App navegável com as três seções | Implementada |
 | **2. Roleta** | Criação, edição, persistência, sorteio, animação e resultado | Roleta funcional offline | Não iniciada |
 | **3. Comidas** | Catálogo, receitas, ingredientes, filtros, sorteios e favoritos | Decisão alimentar sem backend obrigatório | Não iniciada |
 | **4. Filmes** | Catálogo, filtros, descoberta, votos, favoritos e Passa o celular | Experiência individual com provedor substituível | Não iniciada |
