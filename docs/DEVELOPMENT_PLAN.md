@@ -41,3 +41,15 @@ Ficaram para as fases que os usam: `AppModal`, `AppBottomSheet`, `AppInput`, `Ap
 - [x] Conferido no emulador: sortear → resultado → favoritar → receita; ingredientes; aba Favoritos
 - [ ] Decisão em grupo pelo O Que Comer?: entra com as salas (Fase 5)
 - [ ] Salvar filtros para a próxima vez e limite de 20 favoritos: Premium (Fase 7)
+
+## Fase 4: Filmes e Passa o celular
+
+- [x] Interface `MovieCatalogProvider` desacoplada da tela, com provedor demonstrativo de 22 títulos fictícios (sem dados nem capas sem licença), identificado na tela
+- [x] `SwipeDeck` reutilizável: arrastar para a direita (quero), esquerda (não) e para cima (talvez), botões sempre visíveis e troca sem animação com movimento reduzido
+- [x] Filtros de tipo, gênero, duração, época e classificação indicativa; aviso de que plataforma de streaming depende de catálogo licenciado
+- [x] Meus votos (quero, talvez, não) guardados no aparelho e página do título com troca de voto
+- [x] Favoritos de filmes na aba Favoritos
+- [x] Passa o celular: 2 a 8 pessoas, comida ou filme, 8 opções iguais para todos, votos escondidos até o fim, retomada após fechar o app (a pessoa da vez recomeça), resultado com unanimidade, empate por sorteio e ranking
+- [x] Conferido no emulador: arrastar cartão, votar por botões, fluxo completo do Passa o celular com duas pessoas
+- [ ] Vetos no Passa o celular: entram com o Match (Fase 10)
+- [ ] Catálogo licenciado: depende de contrato com um provedor (ver riscos no plano)

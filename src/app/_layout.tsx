@@ -36,7 +36,7 @@ function RootStack() {
       >
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="comer/filtros" options={{ presentation: 'modal' }} />
-        <Stack.Screen name="filmes" options={{ title: 'Qual Filme?' }} />
+        <Stack.Screen name="filmes/filtros" options={{ presentation: 'modal' }} />
       </Stack>
     </>
   );

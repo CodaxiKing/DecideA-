@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import { View } from 'react-native';
 
-import { AppText, BrandMark, DecisionTile, Screen, WheelArt } from '../../components/ui';
+import { AppButton, AppText, BrandMark, DecisionTile, Screen, WheelArt } from '../../components/ui';
 import { spacing } from '../../theme/tokens';
 
 export function HomeScreen() {
@@ -36,6 +36,7 @@ export function HomeScreen() {
           onPress={() => router.push('/roleta')}
         />
       </View>
+      <AppButton label="Estão juntos? Votem neste celular" variant="ghost" onPress={() => router.push('/passa')} fullWidth />
     </Screen>
   );
 }
