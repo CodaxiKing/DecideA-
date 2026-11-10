@@ -9,3 +9,7 @@ export { FilterChip } from './FilterChip';
 export { LoadingState } from './LoadingState';
 export { Screen } from './Screen';
 export { WheelArt } from './WheelArt';
+export { AppInput } from './AppInput';
+export { DecisionResultCard } from './DecisionResultCard';
+export { Icon } from './Icon';
+export { IconButton } from './IconButton';

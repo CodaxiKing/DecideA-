@@ -18,4 +18,13 @@ Ficaram para as fases que os usam: `AppModal`, `AppBottomSheet`, `AppInput`, `Ap
 
 ## Fase 2: Roleta
 
-- [ ] Não iniciada
+- [x] Criar, editar, duplicar e excluir roletas, guardadas no aparelho (`decideai.wheels`)
+- [x] Seis modelos prontos e roleta em branco
+- [x] Sorteio com `expo-crypto` sem viés de módulo; o ângulo final é derivado do resultado (`src/features/wheel/spin.ts`)
+- [x] Animação com Reanimated, desaceleração progressiva e giro instantâneo com movimento reduzido
+- [x] Vibração opcional (`expo-haptics`), guardada nas preferências
+- [x] Resultado com o cartão da marca e compartilhamento pelo menu do sistema
+- [x] Histórico de decisões com filtro por tipo e agrupado por dia (`decideai.history`)
+- [x] Conferido no emulador: modelo → salvar → girar → resultado bate com o setor → histórico
+- [ ] Som ao girar: pendente, falta um efeito sonoro com licença livre
+- [ ] Limite de 3 roletas no plano grátis: entra com o Premium (Fase 7)
