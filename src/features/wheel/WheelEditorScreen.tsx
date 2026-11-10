@@ -8,6 +8,9 @@ import { useWheelStore } from '../../stores/wheelStore';
 import { useTheme } from '../../theme/ThemeProvider';
 import { spacing } from '../../theme/tokens';
 import { newId } from '../../utils/random';
+import { limitMessages, showLimitAlert } from '../premium/limitAlert';
+import { canAdd, limitsFor } from '../premium/plans';
+import { usePremiumStore } from '../premium/usePremium';
 import { wheelTemplates } from './templates';
 import { WHEEL_MAX_OPTIONS, WHEEL_NAME_MAX, WHEEL_OPTION_MAX } from './types';
 import { hasErrors, validateWheelDraft, type WheelDraft } from './validation';
@@ -53,6 +56,12 @@ export function WheelEditorScreen() {
 
   const duplicate = () => {
     if (!existing) return;
+    const limits = limitsFor(usePremiumStore.getState().status.isPremium);
+    if (!canAdd(useWheelStore.getState().wheels.length, limits.wheels)) {
+      const m = limitMessages.wheels(limits.wheels);
+      showLimitAlert(m.title, m.message);
+      return;
+    }
     const copy = duplicateWheel(existing.id);
     if (copy) router.replace({ pathname: '/roleta/editar', params: { id: copy.id } });
   };

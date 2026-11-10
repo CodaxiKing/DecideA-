@@ -9,16 +9,15 @@ import { spacing } from '../../theme/tokens';
 import { BackendNotice } from './BackendNotice';
 import { buildRoomOptions } from './roomOptions';
 import { roomErrorMessage, type RoomItemType } from './types';
+import { usePremium } from '../premium/usePremium';
 import { roomsRepo } from './useRoom';
-
-/** Limite do plano grátis (seção 2, decisão 5). O Premium amplia na Fase 7. */
-export const FREE_ROOM_SIZE = 4;
 
 export function CreateRoomScreen() {
   const router = useRouter();
   const params = useLocalSearchParams<{ kind?: RoomItemType }>();
   const savedName = useProfileStore((s) => s.displayName);
   const setDisplayName = useProfileStore((s) => s.setDisplayName);
+  const { limits } = usePremium();
   const [itemType, setItemType] = useState<RoomItemType>(params.kind === 'movie' ? 'movie' : 'food');
   const [name, setName] = useState(savedName);
   const [busy, setBusy] = useState(false);
@@ -38,7 +37,7 @@ export function CreateRoomScreen() {
         itemType,
         displayName: name.trim(),
         options: buildRoomOptions(itemType),
-        maxParticipants: FREE_ROOM_SIZE,
+        maxParticipants: limits.roomSize,
       });
       router.replace({ pathname: '/sala/[id]', params: { id: room.id } });
     } catch (e) {
@@ -71,7 +70,7 @@ export function CreateRoomScreen() {
           </View>
           <AppInput label="Seu nome na sala" value={name} onChangeText={setName} maxLength={20} placeholder="Ex.: Ana" />
           <AppText variant="small" color="textMuted">
-            Até {FREE_ROOM_SIZE} pessoas. A sala expira em 30 minutos.
+            Até {limits.roomSize} pessoas. A sala expira em {limits.roomMinutes >= 120 ? '2 horas' : `${limits.roomMinutes} minutos`}.
           </AppText>
           {error ? (
             <AppText variant="small" color="danger" accessibilityLiveRegion="polite">

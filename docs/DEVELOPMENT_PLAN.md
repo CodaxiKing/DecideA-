@@ -78,3 +78,16 @@ Ficaram para as fases que os usam: `AppModal`, `AppBottomSheet`, `AppInput`, `Ap
 - [x] Conferido no emulador: criar conta → roleta, favorito e 6 decisões chegaram ao banco
 - [ ] PKCE usa o método `plain` porque o Expo Go não tem WebCrypto; avaliar um polyfill de `crypto.subtle` no development build
 - [ ] Envio real de e-mail (recuperação de senha): no local vai para o Inbucket; na nuvem precisa de SMTP próprio
+
+## Fase 7: Premium
+
+- [x] Limites do plano grátis: 3 roletas, 20 favoritos, 10 decisões no histórico, salas de 4 pessoas por 30 min
+- [x] Tela Premium com comparação de planos, preços vindos da loja, restaurar compras e Premium Dupla como "em breve"
+- [x] `SubscriptionService` com adaptador do RevenueCat e modo "loja indisponível" sem compra simulada
+- [x] Estado Premium só em memória, consultado a cada abertura e atualizado por renovação, cancelamento e expiração
+- [x] Direito Premium no servidor (`user_entitlements`), gravado só pelo webhook; salas usam esse direito para tamanho e duração
+- [x] Webhook do RevenueCat (Edge Function) com regras testadas: compra e renovação liberam, cancelamento vale até expirar, expiração remove
+- [x] 3 testes de integração: sala grátis limitada mesmo pedindo mais, app não se dá Premium, direito ativo e expirado
+- [x] Conferido no emulador: tela Premium mostra "Loja indisponível" com o motivo
+- [ ] Compras de teste: dependem de conta RevenueCat, produtos na Play Console e development build (ver `docs/MONETIZATION.md`)
+- [ ] Salvar filtros e preferências: entra com as preferências inteligentes (Fase 9)

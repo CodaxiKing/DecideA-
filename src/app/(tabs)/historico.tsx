@@ -1,1 +1,1 @@
-export { HistoryScreen as default } from '../../features/history/HistoryScreen';
+export { HistoryRoute as default } from '../../features/history/HistoryRoute';

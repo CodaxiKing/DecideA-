@@ -1,12 +1,15 @@
 import { Stack, useRouter } from 'expo-router';
 import { Pressable, View } from 'react-native';
 
-import { AppButton, AppCard, AppText, EmptyState, Screen, WheelArt } from '../../components/ui';
+import { AppBadge, AppButton, AppCard, AppText, EmptyState, Screen, WheelArt } from '../../components/ui';
 import { useHistoryStore } from '../../stores/historyStore';
 import { useWheelStore } from '../../stores/wheelStore';
 import { useTheme } from '../../theme/ThemeProvider';
 import { radius, spacing } from '../../theme/tokens';
 import { formatDayLabel, formatRelativeDay, formatTime } from '../../utils/dates';
+import { limitMessages, showLimitAlert } from '../premium/limitAlert';
+import { canAdd, usageLabel } from '../premium/plans';
+import { usePremium } from '../premium/usePremium';
 import type { Wheel } from './types';
 
 function describe(wheel: Wheel): string {
@@ -19,6 +22,14 @@ export function WheelListScreen() {
   const { colors } = useTheme();
   const wheels = useWheelStore((s) => s.wheels);
   const last = useHistoryStore((s) => s.entries.find((e) => e.kind === 'wheel'));
+  const { isPremium, limits } = usePremium();
+  const guard = (go: () => void) => () => {
+    if (canAdd(wheels.length, limits.wheels)) go();
+    else {
+      const m = limitMessages.wheels(limits.wheels);
+      showLimitAlert(m.title, m.message);
+    }
+  };
 
   return (
     <Screen edges={['bottom']}>
@@ -84,9 +95,23 @@ export function WheelListScreen() {
         </Pressable>
       ) : null}
 
+      {!isPremium && wheels.length > 0 ? (
+        <View style={{ gap: spacing.sm }}>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+            <AppText variant="smallStrong">{usageLabel(wheels.length, limits.wheels, 'roletas')}</AppText>
+            <Pressable accessibilityRole="button" accessibilityLabel="Ver Premium: roletas ilimitadas" onPress={() => router.push('/premium')} style={{ minHeight: 44, justifyContent: 'center' }}>
+              <AppBadge label="Ilimitadas" tone="strong" />
+            </Pressable>
+          </View>
+          <View style={{ height: 8, borderRadius: 4, backgroundColor: colors.surfaceStrong, overflow: 'hidden' }}>
+            <View style={{ width: `${Math.min(1, wheels.length / limits.wheels) * 100}%`, height: '100%', backgroundColor: colors.primary }} />
+          </View>
+        </View>
+      ) : null}
+
       <View style={{ gap: 10 }}>
-        <AppButton label="Nova roleta" onPress={() => router.push('/roleta/editar')} fullWidth />
-        <AppButton label="Usar um modelo pronto" variant="ghost" onPress={() => router.push('/roleta/modelos')} fullWidth />
+        <AppButton label="Nova roleta" onPress={guard(() => router.push('/roleta/editar'))} fullWidth />
+        <AppButton label="Usar um modelo pronto" variant="ghost" onPress={guard(() => router.push('/roleta/modelos'))} fullWidth />
       </View>
     </Screen>
   );

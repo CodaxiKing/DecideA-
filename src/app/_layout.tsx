@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { PremiumManager } from '../features/premium/usePremium';
 import { SyncManager } from '../features/sync/SyncManager';
 import { ThemeProvider, useTheme } from '../theme/ThemeProvider';
 import { fontFamily } from '../theme/tokens';
@@ -29,6 +30,7 @@ function RootStack() {
     <>
       <StatusBar style={scheme === 'dark' ? 'light' : 'dark'} />
       <SyncManager />
+      <PremiumManager />
       <Stack
         screenOptions={{
           headerShadowVisible: false,
