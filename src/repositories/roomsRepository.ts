@@ -2,6 +2,16 @@ import type { RealtimeChannel, SupabaseClient } from '@supabase/supabase-js';
 
 import type { Room, RoomItemType, RoomState, RoomVote } from '../features/rooms/types';
 
+export interface InvitePreview {
+  room_code: string;
+  item_type: RoomItemType;
+  decision_mode: 'vote' | 'match';
+  status: 'lobby' | 'voting' | 'closed';
+  expires_at: string;
+  participants: number;
+  max_participants: number;
+}
+
 /**
  * Acesso às salas. Recebe o cliente por parâmetro para servir ao app e aos
  * testes de integração (dois clientes = dois aparelhos).
@@ -30,6 +40,13 @@ export function roomsRepository(client: SupabaseClient) {
         p_decision_mode: input.mode ?? 'vote',
         p_vetoes: input.vetoes ?? 0,
       }),
+    createInvite: (roomId: string) => rpc<string>('create_invite', { p_room_id: roomId }),
+    invitePreview: async (token: string) => {
+      const rows = await rpc<InvitePreview[]>('invite_preview', { p_token: token });
+      return rows[0] ?? null;
+    },
+    joinByInvite: (token: string, displayName: string) =>
+      rpc<Room>('join_room_by_invite', { p_token: token, p_display_name: displayName }),
     joinRoom: (code: string, displayName: string) => rpc<Room>('join_room', { p_code: code, p_display_name: displayName }),
     startVoting: (roomId: string) => rpc<void>('start_voting', { p_room_id: roomId }),
     castVote: (roomId: string, optionId: string, vote: RoomVote) =>

@@ -35,6 +35,12 @@ Critérios da beta na [seção 17 do plano](../plan.md#17-critérios-de-conclus�
 - [ ] Conta Expo e EAS (`eas init`, `eas build --profile preview`)
 - [ ] Chave de assinatura de produção gerada pelo EAS ou pela Play (não usar a de debug)
 
+### Voto pelo navegador
+
+- [ ] `npx expo export --platform web` e publicar a pasta `dist/` num host estático com regra de reescrita de todas as rotas para `index.html`
+- [ ] Definir `EXPO_PUBLIC_WEB_URL` com o domínio (os convites passam a abrir no navegador)
+- [ ] Adicionar o domínio às URLs permitidas do Supabase Auth
+
 ### Loja
 
 - [ ] Política de privacidade publicada numa URL pública (`docs/PRIVACY_POLICY.md`, com os campos preenchidos e revisão jurídica)

@@ -1,9 +1,9 @@
 import * as Haptics from 'expo-haptics';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useMemo, useRef, useState } from 'react';
-import { Share, Switch, View, useWindowDimensions } from 'react-native';
+import { Switch, View, useWindowDimensions } from 'react-native';
 
-import { AppButton, AppText, DecisionResultCard, EmptyState, IconButton, Screen } from '../../components/ui';
+import { AppButton, AppText, DecisionResultCard, EmptyState, IconButton, Screen, ShareableResult } from '../../components/ui';
 import { SpinningWheel, type SpinningWheelHandle } from '../../components/wheel/SpinningWheel';
 import { useHistoryStore } from '../../stores/historyStore';
 import { usePreferencesStore } from '../../stores/preferencesStore';
@@ -57,9 +57,6 @@ export function WheelSpinScreen() {
     });
   };
 
-  const share = (label: string) => {
-    Share.share({ message: `Deu ${label} na roleta "${wheel.name}" do DecideAí!` }).catch(() => {});
-  };
 
   const count = labels.length;
   const idleText = `${numberWords[count] ?? count} opções, uma decisão.`;
@@ -101,7 +98,9 @@ export function WheelSpinScreen() {
           </AppText>
         )}
         {phase.kind === 'done' && (
-          <DecisionResultCard title={phase.label} caption={`Sorteada entre ${count} opções, às ${formatTime(phase.at)}.`} />
+          <ShareableResult fallbackText={`Deu ${phase.label} na roleta "${wheel.name}" do DecideAí!`}>
+            <DecisionResultCard title={phase.label} caption={`Roleta ${wheel.name}. Sorteada entre ${count} opções, às ${formatTime(phase.at)}.`} />
+          </ShareableResult>
         )}
       </View>
 
@@ -112,9 +111,6 @@ export function WheelSpinScreen() {
           disabled={phase.kind === 'spinning'}
           fullWidth
         />
-        {phase.kind === 'done' && (
-          <AppButton label="Compartilhar resultado" variant="ghost" onPress={() => share(phase.label)} fullWidth />
-        )}
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', minHeight: 44 }}>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: spacing.sm }}>
             <Switch

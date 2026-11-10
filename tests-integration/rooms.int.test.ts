@@ -221,4 +221,31 @@ describe('salas em dispositivos distintos', () => {
     const r = (await caio.repo.fetchState(room.id)).result!;
     expect(r.winner_option_id).toBeNull();
   });
+
+  it('convite por link: prévia sem login, entrada, reuso do mesmo link e limites', async () => {
+    const host = await signedIn();
+    const room = await host.repo.createRoom({ itemType: 'food', displayName: 'Ana', options, maxParticipants: 2 });
+    const token = await host.repo.createInvite(room.id);
+    expect(token).toMatch(/^[A-Za-z0-9_-]{24,64}$/);
+    expect(await host.repo.createInvite(room.id)).toBe(token); // o mesmo link serve a todos
+
+    // Prévia funciona sem sessão nenhuma (página do navegador antes de entrar).
+    const anonymousPage = roomsRepository(device());
+    const preview = await anonymousPage.invitePreview(token);
+    expect(preview).toMatchObject({ room_code: room.code, item_type: 'food', participants: 1, max_participants: 2 });
+    expect(await anonymousPage.invitePreview('naoexiste-naoexiste-naoexiste')).toBeNull();
+
+    const guest = await signedIn();
+    const joined = await guest.repo.joinByInvite(token, 'Bia');
+    expect(joined.id).toBe(room.id);
+    await guest.repo.joinByInvite(token, 'Bia'); // reentrada não gasta uso nem vaga
+
+    const third = await signedIn();
+    await expect(third.repo.joinByInvite(token, 'Caio')).rejects.toThrow('room_full');
+    await expect(third.repo.joinByInvite('token-invalido-token-invalido', 'Caio')).rejects.toThrow('invite_invalid');
+
+    // Quem não é da sala não vê os convites dela.
+    const outsider = await third.client.from('room_invites').select('token').eq('room_id', room.id);
+    expect(outsider.data).toEqual([]);
+  });
 });

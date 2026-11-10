@@ -17,3 +17,4 @@ Estado de cada módulo no app. A descrição completa de cada um está na [seç�
 | Premium (limites, tela, servidor) | Pronto sem loja; compras dependem de configuração externa | 7 |
 | Preferências, antirrepetição e Deu certo? | Pronto | 9 |
 | Match a dois com veto | Pronto | 10 |
+| Convites por link e QR, voto pelo navegador, imagem do resultado | Pronto; domínio pendente | 11 |

@@ -73,6 +73,11 @@ Roda os testes de integração das salas com dois clientes anônimos, como se fo
 - `_compute_room_result`: opções vetadas nunca vencem; no Match, só vence o que todos marcaram "quero".
 - `room_results.vetoed_option_ids` mostra o que caiu.
 
+## Convites (Fase 11) — `20261115000000_invites.sql`
+
+- `room_invites`: token de 32 caracteres, expira com a sala, `max_uses` de 2× o limite de pessoas; leitura só por membros.
+- `create_invite` reaproveita o convite válido; `invite_preview` funciona sem login e não mostra dados de ninguém; `join_room_by_invite` valida token, expiração, usos e limite de 20 entradas por hora por aparelho (`invite_joins`).
+
 ## Próximas tabelas
 
 As demais estão listadas na [seção 10 do plano](../plan.md#10-banco-de-dados).

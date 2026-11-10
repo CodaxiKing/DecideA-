@@ -1,15 +1,17 @@
-import { useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import QRCode from 'react-native-qrcode-svg';
 import * as Linking from 'expo-linking';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, Share, View } from 'react-native';
 
 import { SwipeDeck, type DeckItem, type DeckVote } from '../../components/swipe/SwipeDeck';
-import { AppButton, AppCard, AppText, DecisionResultCard, EmptyState, LoadingState, Screen } from '../../components/ui';
+import { AppButton, AppCard, AppText, DecisionResultCard, EmptyState, LoadingState, Screen, ShareableResult } from '../../components/ui';
 import { useHistoryStore } from '../../stores/historyStore';
 import { useTheme } from '../../theme/ThemeProvider';
 import { radius, spacing } from '../../theme/tokens';
 import { itemInfo } from '../catalog/items';
+import { hasWebInvites, inviteLink, inviteMessage } from './inviteLink';
 import { roomOptionToDeckItem } from './roomOptions';
 import { isRoomExpired, roomErrorMessage, type RoomState } from './types';
 import { roomsRepo, useRoomState } from './useRoom';
@@ -106,7 +108,9 @@ function LobbyView({ state, isHost }: { state: RoomState; isHost: boolean }) {
   const queryClient = useQueryClient();
   const [busy, setBusy] = useState(false);
   const { room } = state;
-  const link = Linking.createURL('/sala/entrar', { queryParams: { codigo: room.code } });
+  const invite = useQuery({ queryKey: ['invite-token', room.id], queryFn: () => roomsRepo().createInvite(room.id), staleTime: Infinity });
+  const link = invite.data ? inviteLink(invite.data) : Linking.createURL('/sala/entrar', { queryParams: { codigo: room.code } });
+  const isMatch = room.decision_mode === 'match';
 
   const start = async () => {
     setBusy(true);
@@ -136,13 +140,19 @@ function LobbyView({ state, isHost }: { state: RoomState; isHost: boolean }) {
         <AppText variant="display" accessibilityLabel={`Código ${room.code.split('').join(' ')}`} style={{ letterSpacing: 4 }}>
           {room.code}
         </AppText>
+        {invite.data ? (
+          <View accessible accessibilityLabel="QR Code do convite" style={{ backgroundColor: '#FFFFFF', padding: 12, borderRadius: 16 }}>
+            <QRCode value={link} size={168} color="#1B1036" backgroundColor="#FFFFFF" />
+          </View>
+        ) : null}
+        <AppText variant="small" color="textMuted" style={{ textAlign: 'center' }}>
+          {hasWebInvites ? 'Quem abrir o link vota pelo navegador, sem instalar nada.' : 'Quem tiver o app entra pelo link, QR Code ou código.'}
+        </AppText>
         <AppButton
           label="Compartilhar convite"
           variant="ghost"
           size="sm"
-          onPress={() =>
-            Share.share({ message: `Vamos decidir juntos no DecideAí! Entre na sala com o código ${room.code} ou pelo link ${link}` }).catch(() => {})
-          }
+          onPress={() => Share.share({ message: inviteMessage(link, room.code, isMatch) }).catch(() => {})}
         />
       </View>
       <AppText variant="title3">Quem já entrou</AppText>
@@ -302,7 +312,9 @@ function ResultView({ state }: { state: RoomState }) {
   return (
     <>
       {winner ? (
-        <DecisionResultCard eyebrow={isMatch ? 'Deu match!' : 'A sala decidiu'} title={winner.title} caption={caption} image={image} />
+        <ShareableResult fallbackText={`${isMatch ? 'Deu match' : 'Decidimos'} no DecideAí: ${winner.title}!`}>
+          <DecisionResultCard eyebrow={isMatch ? 'Deu match!' : 'A sala decidiu'} title={winner.title} caption={caption} image={image} />
+        </ShareableResult>
       ) : isMatch ? (
         <EmptyState
           title="Sem match desta vez"

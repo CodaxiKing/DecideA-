@@ -2,7 +2,7 @@ import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { View } from 'react-native';
 
 import { RecipeTags } from '../../components/food/RecipeTags';
-import { AppButton, AppText, DecisionResultCard, EmptyState, Screen } from '../../components/ui';
+import { AppButton, AppText, DecisionResultCard, EmptyState, Screen, ShareableResult } from '../../components/ui';
 import { FavoriteButton } from '../../components/ui/FavoriteButton';
 import { spacing } from '../../theme/tokens';
 import { findRecipe } from './recipes';
@@ -27,9 +27,11 @@ export function FoodResultScreen() {
       <Stack.Screen
         options={{ title: '', headerRight: () => <FavoriteButton kind="food" id={recipe.id} name={recipe.name} /> }}
       />
-      <DecisionResultCard eyebrow="Hoje vai de" title={recipe.name} image={recipe.image}>
-        <RecipeTags recipe={recipe} onPrimary />
-      </DecisionResultCard>
+      <ShareableResult fallbackText={`Hoje vai de ${recipe.name}! Decidido no DecideAí.`}>
+        <DecisionResultCard eyebrow="Hoje vai de" title={recipe.name} image={recipe.image}>
+          <RecipeTags recipe={recipe} onPrimary />
+        </DecisionResultCard>
+      </ShareableResult>
       {total ? (
         <AppText variant="small" color="textMuted" style={{ textAlign: 'center' }}>
           Sorteado entre {total} {total === '1' ? 'prato' : 'pratos'}.

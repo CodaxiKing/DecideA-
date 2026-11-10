@@ -13,3 +13,4 @@ export { AppInput } from './AppInput';
 export { DecisionResultCard } from './DecisionResultCard';
 export { Icon } from './Icon';
 export { IconButton } from './IconButton';
+export { ShareableResult } from './ShareImageButton';

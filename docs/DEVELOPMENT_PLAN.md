@@ -125,3 +125,15 @@ Ficaram para as fases que os usam: `AppModal`, `AppBottomSheet`, `AppInput`, `Ap
 - [x] `SwipeDeck` com botão Vetar e modo sem "talvez"
 - [x] 2 testes de integração (Match com veto e limite de 2 pessoas; Match sem combinação)
 - [x] Conferido no emulador: Ana vetou uma atividade, votou, Caio votou por script, deu match
+
+## Fase 11: Convites
+
+- [x] Convite por link com token aleatório (`room_invites`): expira com a sala, tem limite de usos, o mesmo link serve a todos e quem já está na sala volta sem gastar uso
+- [x] QR Code do convite na sala de espera (`react-native-qrcode-svg`)
+- [x] Página `/convite/[token]` que roda no app e no navegador: prévia da sala sem login, nome e "Entrar e votar" com sessão anônima
+- [x] Voto pelo navegador sem instalar o app (Expo web), com a mesma sala, tempo real e resultado
+- [x] Imagem do resultado com a marca para compartilhar (`react-native-view-shot` + `expo-sharing`) na roleta, comida, salas e Passa o celular; no navegador, compartilha o texto
+- [x] Limite de entradas por convite por aparelho por hora
+- [x] Teste de integração do convite (prévia anônima, entrada, reuso, sala cheia, token inválido, sigilo)
+- [x] Conferido: Ana criou a sala no emulador, Bia entrou e votou pelo navegador, o resultado chegou aos dois; imagem compartilhada pelo menu do Android
+- [ ] Publicar a versão web num domínio e definir `EXPO_PUBLIC_WEB_URL` (ver `docs/RELEASE_CHECKLIST.md`)

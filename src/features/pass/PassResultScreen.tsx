@@ -1,8 +1,8 @@
 import { Stack, useRouter } from 'expo-router';
 import { useEffect, useRef } from 'react';
-import { Share, View } from 'react-native';
+import { View } from 'react-native';
 
-import { AppButton, AppCard, AppText, DecisionResultCard, EmptyState, Screen } from '../../components/ui';
+import { AppButton, AppCard, AppText, DecisionResultCard, EmptyState, Screen, ShareableResult } from '../../components/ui';
 import { useHistoryStore } from '../../stores/historyStore';
 import { usePassStore } from '../../stores/passStore';
 import { spacing } from '../../theme/tokens';
@@ -57,7 +57,9 @@ export function PassResultScreen() {
     <Screen edges={['bottom']} contentStyle={{ gap: spacing.lg }}>
       <Stack.Screen options={{ title: 'Resultado', gestureEnabled: false }} />
       {winner ? (
-        <DecisionResultCard eyebrow="Vocês decidiram" title={title} caption={caption} image={image} />
+        <ShareableResult fallbackText={`Decidimos no DecideAí: ${title}!`}>
+          <DecisionResultCard eyebrow="Vocês decidiram" title={title} caption={caption} image={image} />
+        </ShareableResult>
       ) : (
         <EmptyState title="Ninguém quis nada" message="Todos disseram não a todas as opções. Que tal outra rodada?" />
       )}
@@ -85,14 +87,6 @@ export function PassResultScreen() {
       </View>
       <View style={{ gap: 10 }}>
         {info ? <AppButton label="Ver detalhes" onPress={() => router.push(info.href)} fullWidth /> : null}
-        {winner ? (
-          <AppButton
-            label="Compartilhar resultado"
-            variant="ghost"
-            onPress={() => Share.share({ message: `Decidimos no DecideAí: ${title}!` }).catch(() => {})}
-            fullWidth
-          />
-        ) : null}
         <AppButton label="Nova votação" variant="ghost" onPress={again} fullWidth />
       </View>
     </Screen>
