@@ -1,3 +1,48 @@
 # Banco de dados
 
-Ainda não iniciado: começa na Fase 5. Até lá, o escopo está na [seção do plano](../plan.md#10-banco-de-dados).
+Supabase (PostgreSQL). As migrações ficam em `supabase/migrations/` e são aplicadas em ordem.
+
+## Rodar localmente
+
+Precisa do Docker. O projeto usa as portas 544xx para não colidir com outros projetos Supabase locais.
+
+```bash
+npm run db:start
+```
+
+```bash
+npx supabase status
+```
+
+Copie `API_URL` e `ANON_KEY` para o `.env.local` (veja `.env.example`). No emulador Android, troque `127.0.0.1` pelo IP da máquina na rede.
+
+```bash
+npm run test:integration
+```
+
+Roda os testes de integração das salas com dois clientes anônimos, como se fossem dois aparelhos. Precisa das variáveis `SUPABASE_URL` e `SUPABASE_ANON_KEY` com os valores de `npx supabase status`.
+
+## Salas (Fase 5) — `20261110000000_rooms.sql`
+
+| Tabela | Conteúdo |
+|---|---|
+| `rooms` | Sala: código de 6 caracteres, anfitrião, tipo de item (`food`, `movie`, `activity`, `custom`), modo de decisão (`vote`, `match`, `ranking`, `battle`), estado (`lobby`, `voting`, `closed`), limite de pessoas e expiração |
+| `room_participants` | Quem está na sala, com nome de exibição, quando terminou de votar e quando saiu |
+| `room_options` | Opções votadas, com a referência ao item do catálogo e o título |
+| `room_votes` | Um voto por pessoa por opção (chave primária `option_id, user_id`) |
+| `room_results` | Resultado calculado no servidor: vencedor, ranking, unanimidade e empatados |
+
+### Regras
+
+- **Identidade:** cada aparelho entra com sessão anônima do Supabase Auth (convidado sem cadastro). Quem tiver conta usa a própria.
+- **Leitura (RLS):** só membros da sala leem sala, participantes, opções e resultado. Votos são secretos: cada pessoa só lê os próprios.
+- **Escrita:** o cliente não grava direto em nenhuma tabela. Tudo passa pelas funções `create_room`, `join_room`, `start_voting`, `cast_vote`, `finish_voting`, `leave_room` e `close_room`, que validam estado, expiração, limite de pessoas e autoria.
+- **Resultado autoritativo:** `_compute_room_result` calcula no banco (quero = 2, talvez = 1, menos "não" desempata, empate no topo vira sorteio) quando todos que ficaram terminam, quando o último pendente sai, ou quando o anfitrião encerra.
+- **Código:** 6 caracteres de um alfabeto de 32 símbolos sem I, O, 0 e 1, gerado com `gen_random_bytes` (cerca de 1 bilhão de combinações).
+- **Abuso:** no máximo 10 salas por pessoa por hora; reentrada não ocupa outra vaga; voto repetido substitui o anterior.
+- **Expiração:** 30 minutos no plano grátis. Sala expirada recusa entrada, início e votos.
+- **Tempo real:** `rooms`, `room_participants` e `room_results` estão na publicação `supabase_realtime`. O app também confere o estado a cada 15 s e ao reconectar.
+
+## Próximas tabelas
+
+As tabelas de conta e sincronização (`profiles`, favoritos, roletas, histórico) entram na Fase 6. As demais estão listadas na [seção 10 do plano](../plan.md#10-banco-de-dados).

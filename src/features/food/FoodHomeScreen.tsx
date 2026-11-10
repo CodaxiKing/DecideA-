@@ -81,6 +81,7 @@ export function FoodHomeScreen() {
       </Pressable>
       <View style={{ gap: 10, marginTop: spacing.sm }}>
         <AppButton label={drawLabel} onPress={() => draw()} disabled={poolSize === 0} fullWidth />
+        <AppButton label="Decidir em grupo" variant="ghost" onPress={() => router.push({ pathname: '/sala/criar', params: { kind: 'food' } })} fullWidth />
         {poolSize === 0 ? (
           <AppText variant="small" color="danger" style={{ textAlign: 'center' }}>
             Nenhum prato com essas escolhas. Mude as categorias ou os filtros.

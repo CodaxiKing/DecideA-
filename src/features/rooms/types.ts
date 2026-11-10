@@ -1,0 +1,94 @@
+export type RoomItemType = 'food' | 'movie' | 'activity' | 'custom';
+export type RoomStatus = 'lobby' | 'voting' | 'closed';
+export type RoomVote = 'yes' | 'maybe' | 'no';
+
+export interface Room {
+  id: string;
+  code: string;
+  host_id: string;
+  item_type: RoomItemType;
+  decision_mode: 'vote' | 'match' | 'ranking' | 'battle';
+  status: RoomStatus;
+  max_participants: number;
+  expires_at: string;
+  created_at: string;
+  closed_at: string | null;
+}
+
+export interface RoomParticipant {
+  room_id: string;
+  user_id: string;
+  display_name: string;
+  joined_at: string;
+  finished_at: string | null;
+  left_at: string | null;
+}
+
+export interface RoomOption {
+  id: string;
+  room_id: string;
+  ref_id: string;
+  title: string;
+  position: number;
+}
+
+export interface RankingRow {
+  option_id: string;
+  title: string;
+  yes: number;
+  maybe: number;
+  no: number;
+  score: number;
+}
+
+export interface RoomResult {
+  room_id: string;
+  winner_option_id: string | null;
+  ranking: RankingRow[];
+  unanimous: boolean;
+  tied_option_ids: string[];
+  voters: number;
+  computed_at: string;
+}
+
+export interface RoomState {
+  room: Room;
+  participants: RoomParticipant[];
+  options: RoomOption[];
+  myVotes: Record<string, RoomVote>;
+  result: RoomResult | null;
+  me: string;
+}
+
+/** Mensagens para os erros que o servidor devolve. */
+export const roomErrorMessages: Record<string, string> = {
+  room_not_found: 'Não achamos uma sala com esse código.',
+  room_expired: 'Essa sala já expirou.',
+  room_started: 'A votação dessa sala já começou.',
+  room_full: 'Essa sala está cheia.',
+  rate_limited: 'Você criou muitas salas agora. Espere um pouco.',
+  host_only: 'Só quem criou a sala pode fazer isso.',
+  not_voting: 'A votação não está aberta.',
+  already_finished: 'Você já terminou de votar.',
+  invalid_options: 'A sala precisa de 2 a 20 opções.',
+  backend_unavailable: 'As salas precisam do servidor, que não está configurado neste app.',
+  auth_required: 'Não deu para identificar este aparelho. Tente de novo.',
+};
+
+export function roomErrorMessage(error: unknown): string {
+  const raw = error instanceof Error ? error.message : typeof error === 'object' && error && 'message' in error ? String((error as { message: unknown }).message) : '';
+  const key = Object.keys(roomErrorMessages).find((k) => raw.includes(k));
+  if (key) return roomErrorMessages[key];
+  if (/network|fetch/i.test(raw)) return 'Sem conexão com o servidor. Confira a internet e tente de novo.';
+  return 'Algo deu errado. Tente de novo.';
+}
+
+export function isRoomExpired(room: Room, now: Date = new Date()): boolean {
+  return room.status !== 'closed' && new Date(room.expires_at).getTime() < now.getTime();
+}
+
+export const ROOM_CODE_PATTERN = /^[A-HJ-NP-Z2-9]{6}$/;
+
+export function normalizeRoomCode(input: string): string {
+  return input.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 6);
+}

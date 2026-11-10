@@ -12,6 +12,6 @@ Estado de cada módulo no app. A descrição completa de cada um está na [seç�
 | Histórico com filtros | Pronto | 2 |
 | Qual Filme? (catálogo demonstrativo, cartões, filtros, meus votos) | Pronto | 4 |
 | Passa o celular | Pronto | 4 |
-| Salas e decisão em grupo | Não iniciado | 5 |
+| Salas e decisão em grupo (online) | Pronto com servidor local; nuvem pendente | 5 |
 | Contas | Não iniciado | 6 |
 | Premium | Não iniciado | 7 |

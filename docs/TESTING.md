@@ -5,6 +5,7 @@
 | `npm run typecheck` | TypeScript em modo strict |
 | `npm run lint` | ESLint com `eslint-config-expo` |
 | `npm test` | Jest com `jest-expo` e Testing Library |
+| `npm run test:integration` | Salas contra o Supabase local, com dois clientes (ver `docs/DATABASE.md`) |
 
 Os testes ficam em `tests/`. O `tests/setup.ts` troca o AsyncStorage pelo mock oficial.
 

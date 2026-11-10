@@ -1,7 +1,7 @@
 import { useRouter } from 'expo-router';
 import { View } from 'react-native';
 
-import { AppButton, AppText, BrandMark, DecisionTile, Screen, WheelArt } from '../../components/ui';
+import { AppButton, AppCard, AppText, BrandMark, DecisionTile, Screen, WheelArt } from '../../components/ui';
 import { spacing } from '../../theme/tokens';
 
 export function HomeScreen() {
@@ -36,7 +36,16 @@ export function HomeScreen() {
           onPress={() => router.push('/roleta')}
         />
       </View>
-      <AppButton label="Estão juntos? Votem neste celular" variant="ghost" onPress={() => router.push('/passa')} fullWidth />
+      <AppCard style={{ gap: spacing.sm }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: spacing.sm }}>
+          <AppText variant="bodyStrong" style={{ flex: 1 }}>
+            Decidir em grupo
+          </AppText>
+          <AppButton label="Criar sala" size="sm" onPress={() => router.push('/sala/criar')} />
+        </View>
+        <AppButton label="Tenho um código de sala" variant="ghost" size="sm" onPress={() => router.push('/sala/entrar')} />
+        <AppButton label="Estão juntos? Votem neste celular" variant="ghost" size="sm" onPress={() => router.push('/passa')} />
+      </AppCard>
     </Screen>
   );
 }

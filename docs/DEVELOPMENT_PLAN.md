@@ -53,3 +53,16 @@ Ficaram para as fases que os usam: `AppModal`, `AppBottomSheet`, `AppInput`, `Ap
 - [x] Conferido no emulador: arrastar cartão, votar por botões, fluxo completo do Passa o celular com duas pessoas
 - [ ] Vetos no Passa o celular: entram com o Match (Fase 10)
 - [ ] Catálogo licenciado: depende de contrato com um provedor (ver riscos no plano)
+
+## Fase 5: Backend e salas
+
+- [x] Supabase local pela CLI (Docker), portas 544xx, login anônimo ligado
+- [x] Migração das salas com RLS, votos secretos e escrita só por funções no servidor (`docs/DATABASE.md`)
+- [x] Resultado calculado no banco, com desempate por sorteio, saída de participante e encerramento pelo anfitrião
+- [x] Código difícil de adivinhar, expiração de 30 min, limite de 4 pessoas no grátis, limite de criação por hora
+- [x] App: criar sala, entrar por código ou link (`decideai://sala/entrar?codigo=`), sala de espera, votação com o `SwipeDeck`, espera pelos outros e resultado ao mesmo tempo para todos, em tempo real com TanStack Query
+- [x] Modo local claramente identificado quando o app não tem servidor configurado
+- [x] 7 testes de integração com dois aparelhos simulados contra o Supabase local
+- [x] Conferido no emulador: Ana criou a sala no app, Caio entrou por um segundo cliente, os dois votaram e o resultado chegou aos dois
+- [ ] Projeto Supabase na nuvem: pendente de conta e autorização (custo)
+- [ ] Rodada final como desempate: hoje o empate vai para sorteio

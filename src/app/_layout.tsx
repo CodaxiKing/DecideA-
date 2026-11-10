@@ -1,5 +1,6 @@
 import { BricolageGrotesque_700Bold } from '@expo-google-fonts/bricolage-grotesque';
 import { Figtree_400Regular, Figtree_500Medium, Figtree_600SemiBold } from '@expo-google-fonts/figtree';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -13,6 +14,8 @@ import { ThemeProvider, useTheme } from '../theme/ThemeProvider';
 import { fontFamily } from '../theme/tokens';
 
 SplashScreen.preventAutoHideAsync().catch(() => {});
+
+const queryClient = new QueryClient({ defaultOptions: { queries: { retry: 1 } } });
 
 function RootStack() {
   const { scheme, colors } = useTheme();
@@ -60,9 +63,11 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
+        <QueryClientProvider client={queryClient}>
         <ThemeProvider>
           <RootStack />
         </ThemeProvider>
+        </QueryClientProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );
