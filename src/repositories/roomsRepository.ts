@@ -55,6 +55,8 @@ export function roomsRepository(client: SupabaseClient) {
       rpc<void>('vote_duel', { p_room_id: roomId, p_duel_no: duelNo, p_option_id: optionId }),
     submitRanking: (roomId: string, optionIds: string[]) => rpc<void>('submit_ranking', { p_room_id: roomId, p_option_ids: optionIds }),
     spinLiveWheel: (roomId: string) => rpc<string>('spin_live_wheel', { p_room_id: roomId }),
+    progress: async (roomId: string) =>
+      (await rpc<{ participants: number; finished: number; duel_votes: number }[]>('room_progress', { p_room_id: roomId }))[0],
     castVeto: (roomId: string, optionId: string) => rpc<void>('cast_veto', { p_room_id: roomId, p_option_id: optionId }),
     finishVoting: (roomId: string) => rpc<void>('finish_voting', { p_room_id: roomId }),
     leaveRoom: (roomId: string) => rpc<void>('leave_room', { p_room_id: roomId }),

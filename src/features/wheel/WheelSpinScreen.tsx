@@ -1,3 +1,4 @@
+import { useAudioPlayer } from 'expo-audio';
 import * as Haptics from 'expo-haptics';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useMemo, useRef, useState } from 'react';
@@ -15,6 +16,16 @@ import { planSpin } from './spin';
 
 type Phase = { kind: 'idle' } | { kind: 'spinning' } | { kind: 'done'; label: string; at: string };
 
+/** Toca do começo; falha de áudio nunca atrapalha o giro. */
+function play(player: { seekTo: (s: number) => Promise<void>; play: () => void }) {
+  try {
+    player.seekTo(0).catch(() => {});
+    player.play();
+  } catch {
+    // sem áudio
+  }
+}
+
 const numberWords = ['', 'Uma', 'Duas', 'Três', 'Quatro', 'Cinco', 'Seis', 'Sete', 'Oito', 'Nove', 'Dez'];
 
 export function WheelSpinScreen() {
@@ -27,6 +38,10 @@ export function WheelSpinScreen() {
   const addEntry = useHistoryStore((s) => s.addEntry);
   const hapticsEnabled = usePreferencesStore((s) => s.hapticsEnabled);
   const setHapticsEnabled = usePreferencesStore((s) => s.setHapticsEnabled);
+  const soundEnabled = usePreferencesStore((s) => s.soundEnabled ?? true);
+  const setSoundEnabled = usePreferencesStore((s) => s.setSoundEnabled);
+  const spinSound = useAudioPlayer(require('../../../assets/sounds/spin.wav'));
+  const winSound = useAudioPlayer(require('../../../assets/sounds/win.wav'));
   const wheelRef = useRef<SpinningWheelHandle>(null);
   const [phase, setPhase] = useState<Phase>({ kind: 'idle' });
 
@@ -48,12 +63,14 @@ export function WheelSpinScreen() {
     const label = labels[plan.index];
     setPhase({ kind: 'spinning' });
     if (hapticsEnabled) Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {});
+    if (soundEnabled) play(spinSound);
     wheelRef.current.spinTo(plan.targetRotation, () => {
       const at = new Date().toISOString();
       setPhase({ kind: 'done', label, at });
       markSpun(wheel.id, at);
       addEntry({ kind: 'wheel', title: label, source: `Roleta ${wheel.name}`, refId: wheel.id, createdAt: at });
       if (hapticsEnabled) Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success).catch(() => {});
+      if (soundEnabled) play(winSound);
     });
   };
 
@@ -121,6 +138,14 @@ export function WheelSpinScreen() {
               thumbColor="#FFFFFF"
             />
             <AppText variant="small">Vibrar</AppText>
+            <Switch
+              accessibilityLabel="Som ao girar"
+              value={soundEnabled}
+              onValueChange={setSoundEnabled}
+              trackColor={{ true: colors.primary, false: colors.surfaceStrong }}
+              thumbColor="#FFFFFF"
+            />
+            <AppText variant="small">Som</AppText>
           </View>
           <AppButton label="Histórico" variant="ghost" size="sm" onPress={() => router.push('/historico')} />
         </View>

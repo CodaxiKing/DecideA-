@@ -40,7 +40,8 @@
         }
       ],
       "expo-sharing",
-      "expo-audio"
+      "expo-audio",
+      "expo-asset"
     ]
   }
 }

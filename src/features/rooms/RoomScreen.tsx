@@ -185,6 +185,9 @@ function LobbyView({ state, isHost }: { state: RoomState; isHost: boolean }) {
           Chame pelo menos mais uma pessoa para começar.
         </AppText>
       ) : null}
+      {isHost ? (
+        <AppButton label="Modo festa (tela grande)" variant="ghost" size="sm" onPress={() => router.push({ pathname: '/festa/[id]', params: { id: room.id } })} fullWidth />
+      ) : null}
       <AppButton label="Sair da sala" variant="ghost" size="sm" onPress={leave} fullWidth />
     </>
   );

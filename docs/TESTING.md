@@ -23,6 +23,8 @@ O `tests/setup.ts` troca o AsyncStorage e o `expo-crypto` por versões de teste.
 | `rooms.test.ts` | Código de sala, expiração, mensagens de erro |
 | `sync.test.ts` | Mesclagem de roletas, favoritos e histórico; exclusões pendentes; token anônimo antigo; validação de conta |
 | `premium.test.ts` | Limites, loja indisponível sem compra simulada, regras do webhook do RevenueCat |
+| `packs.test.ts` | Pacotes cabem numa roleta, cores dos temas, contraste do texto |
+| `crypto-polyfill.test.ts` | SHA-256 do PKCE quando o motor não tem `crypto.subtle` |
 
 ## Integração (`tests-integration/`)
 
@@ -52,4 +54,4 @@ Cada fase registra em `docs/DEVELOPMENT_PLAN.md` o que foi conferido no emulador
 
 ## Último resultado
 
-2026-11-10: TypeScript e lint sem erros, 92 testes unitários em 9 suítes, 15 testes de integração em 3 suítes, `expo-doctor` com 20 de 20 verificações.
+2026-11-10: TypeScript e lint sem erros, 155 testes unitários em 16 suítes, 31 testes de integração em 4 suítes, `expo-doctor` com 20 de 20 verificações.

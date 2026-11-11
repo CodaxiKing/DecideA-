@@ -248,4 +248,18 @@ describe('salas em dispositivos distintos', () => {
     const outsider = await third.client.from('room_invites').select('token').eq('room_id', room.id);
     expect(outsider.data).toEqual([]);
   });
+
+  it('Modo festa: andamento conta quem terminou sem revelar votos', async () => {
+    const ana = await signedIn();
+    const caio = await signedIn();
+    const intruso = await signedIn();
+    const room = await ana.repo.createRoom({ itemType: 'food', displayName: 'Ana', options, maxParticipants: 4 });
+    await caio.repo.joinRoom(room.code, 'Caio');
+    expect(await ana.repo.progress(room.id)).toEqual({ participants: 2, finished: 0, duel_votes: 0 });
+    await ana.repo.startVoting(room.id);
+    await ana.repo.finishVoting(room.id);
+    expect(await caio.repo.progress(room.id)).toEqual({ participants: 2, finished: 1, duel_votes: 0 });
+    // Quem não está na sala não vê o andamento.
+    await expect(intruso.repo.progress(room.id)).rejects.toThrow();
+  });
 });

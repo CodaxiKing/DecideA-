@@ -5,6 +5,7 @@ import { Alert, View } from 'react-native';
 import { AppButton, AppInput, AppText, IconButton, Screen } from '../../components/ui';
 import { sectorColor } from '../../components/wheel/WheelSvg';
 import { useWheelStore } from '../../stores/wheelStore';
+import { usePreferencesStore } from '../../stores/preferencesStore';
 import { useTheme } from '../../theme/ThemeProvider';
 import { spacing } from '../../theme/tokens';
 import { newId } from '../../utils/random';
@@ -26,6 +27,7 @@ export function WheelEditorScreen() {
   const { id, template } = useLocalSearchParams<{ id?: string; template?: string }>();
   const router = useRouter();
   const { colors } = useTheme();
+  const wheelTheme = usePreferencesStore((s) => s.wheelTheme ?? 'classica');
   const existing = useWheelStore((s) => s.wheels.find((w) => w.id === id));
   const { createWheel, updateWheel, duplicateWheel, deleteWheel } = useWheelStore.getState();
   const [draft, setDraft] = useState<WheelDraft>(() => initialDraft(existing, template));
@@ -106,7 +108,7 @@ export function WheelEditorScreen() {
                 width: 16,
                 height: 16,
                 borderRadius: 8,
-                backgroundColor: sectorColor(i, draft.options.length),
+                backgroundColor: sectorColor(i, draft.options.length, wheelTheme),
                 borderWidth: 1,
                 borderColor: colors.textMuted,
               }}

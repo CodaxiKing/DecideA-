@@ -37,6 +37,16 @@ export function WheelTemplatesScreen() {
         <Row key={t.id} title={t.name} subtitle={templateSummary(t)} art={<WheelArt size={56} />} onPress={() => open(t.id)} />
       ))}
       <Row
+        title="Pacotes temáticos"
+        subtitle="Noite de terror, primeiro encontro e mais · Premium"
+        art={
+          <View style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: colors.primary, alignItems: 'center', justifyContent: 'center' }}>
+            <Icon name="heart" color={colors.onPrimary} />
+          </View>
+        }
+        onPress={() => router.push('/pacotes')}
+      />
+      <Row
         title="Roleta em branco"
         subtitle="Comece do zero"
         art={

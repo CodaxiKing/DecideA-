@@ -29,3 +29,7 @@ Estado de cada módulo no app. A descrição completa de cada um está na [seç�
 | Lista de compras, Modo cozinha, Cardápio da semana, Onde pedir | Pronto; parceiros pendentes | 17 |
 | Lembretes, Retrospectiva e Conquistas | Pronto | 18 |
 | Widgets do Android | Avaliado; precisa de development build | 18 |
+| Modo festa (tela grande com QR e andamento) | Pronto | 19 |
+| Pacotes temáticos e temas de roleta | Pronto (Premium) | 19 |
+| Som ao girar | Pronto | 2 |
+| Premium Dupla | Não construído; validar regras das lojas | 15 |

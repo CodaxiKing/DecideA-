@@ -1,15 +1,14 @@
 import { memo } from 'react';
 import Svg, { Circle, G, Path, Text as SvgText } from 'react-native-svg';
 
-import { fontFamily, wheelColors } from '../../theme/tokens';
+import { themeSectorColor, themeTextColor, type WheelThemeId } from '../../features/packs/packs';
+import { usePremiumStore } from '../../features/premium/usePremium';
+import { usePreferencesStore } from '../../stores/preferencesStore';
+import { fontFamily } from '../../theme/tokens';
 
-const LIGHT_FILLS = new Set(['#B9A2FF', '#C9DCFF']);
-
-/** Cor de cada setor, evitando que o último repita a cor do primeiro. */
-export function sectorColor(index: number, count: number): string {
-  let color = wheelColors[index % wheelColors.length];
-  if (count > 1 && index === count - 1 && color === wheelColors[0]) color = wheelColors[2];
-  return color;
+/** Cor de cada setor no tema atual, evitando que o último repita a cor do primeiro. */
+export function sectorColor(index: number, count: number, theme: WheelThemeId = 'classica'): string {
+  return themeSectorColor(theme, index, count);
 }
 
 function arcPath(c: number, r: number, start: number, end: number): string {
@@ -36,19 +35,22 @@ export const WheelSvg = memo(function WheelSvg({ labels, size, accessibilityLabe
   const n = Math.max(labels.length, 1);
   const c = size / 2;
   const step = 360 / n;
+  const stored = usePreferencesStore((s) => s.wheelTheme ?? 'classica');
+  // Tema é do Premium: se a assinatura acabar, volta para a clássica.
+  const theme = usePremiumStore((s) => s.status.isPremium) ? stored : 'classica';
   const fontSize = n <= 6 ? size * 0.06 : n <= 10 ? size * 0.05 : size * 0.042;
   const maxChars = n <= 6 ? 12 : n <= 10 ? 10 : 8;
 
   return (
     <Svg width={size} height={size} accessibilityLabel={accessibilityLabel} accessibilityRole="image">
       {labels.length === 1 ? (
-        <Circle cx={c} cy={c} r={c} fill={wheelColors[0]} />
+        <Circle cx={c} cy={c} r={c} fill={sectorColor(0, 1, theme)} />
       ) : (
-        labels.map((_, i) => <Path key={i} d={arcPath(c, c, i * step, (i + 1) * step)} fill={sectorColor(i, n)} />)
+        labels.map((_, i) => <Path key={i} d={arcPath(c, c, i * step, (i + 1) * step)} fill={sectorColor(i, n, theme)} />)
       )}
       {labels.map((label, i) => {
         const mid = i * step + step / 2;
-        const fill = LIGHT_FILLS.has(sectorColor(i, n)) ? '#1B1036' : '#FFFFFF';
+        const fill = themeTextColor(theme, sectorColor(i, n, theme));
         // Texto radial, da borda para o centro, legível em qualquer quantidade de opções.
         return (
           <G key={`t${i}`} rotation={mid} originX={c} originY={c}>

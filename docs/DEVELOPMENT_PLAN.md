@@ -26,7 +26,7 @@ Ficaram para as fases que os usam: `AppModal`, `AppBottomSheet`, `AppInput`, `Ap
 - [x] Resultado com o cartão da marca e compartilhamento pelo menu do sistema
 - [x] Histórico de decisões com filtro por tipo e agrupado por dia (`decideai.history`)
 - [x] Conferido no emulador: modelo → salvar → girar → resultado bate com o setor → histórico
-- [ ] Som ao girar: pendente, falta um efeito sonoro com licença livre
+- [x] Som ao girar: cliques que desaceleram com a roleta e acorde no resultado, gerados por `scripts/generate-sounds.py` (sons próprios), com chave Som na tela
 - [ ] Limite de 3 roletas no plano grátis: entra com o Premium (Fase 7)
 
 ## Fase 3: Comidas
@@ -76,7 +76,7 @@ Ficaram para as fases que os usam: `AppModal`, `AppBottomSheet`, `AppInput`, `Ap
 - [x] Sincronização de roletas, favoritos e histórico: ao entrar, ao voltar ao app e alguns segundos depois de cada mudança; migra os dados de quem usava sem conta, sem duplicar
 - [x] 5 testes de integração (dois aparelhos na mesma conta, isolamento entre contas, convidado bloqueado, conversão de convidado, exclusão de conta)
 - [x] Conferido no emulador: criar conta → roleta, favorito e 6 decisões chegaram ao banco
-- [ ] PKCE usa o método `plain` porque o Expo Go não tem WebCrypto; avaliar um polyfill de `crypto.subtle` no development build
+- [x] PKCE com S256: `src/services/cryptoPolyfill.ts` instala `crypto.subtle.digest('SHA-256')` com o `expo-crypto` (Hermes não tem WebCrypto)
 - [ ] Envio real de e-mail (recuperação de senha): no local vai para o Inbucket; na nuvem precisa de SMTP próprio
 
 ## Fase 7: Premium
@@ -196,3 +196,13 @@ Ficaram para as fases que os usam: `AppModal`, `AppBottomSheet`, `AppInput`, `Ap
 - [x] Conquistas leves, sem sequência diária obrigatória, salvas na conta (`user_achievements`)
 - [x] Conferido no emulador: lembrete semanal agendado no Android para o próximo domingo, 11:30; retrospectiva vazia correta
 - [ ] Widgets do Android: avaliado. Exigem código nativo (por exemplo `react-native-android-widget` com config plugin) e development build; não rodam no Expo Go. Fica para depois da beta, junto com o development build da Fase 7
+
+## Fase 19: Modo festa e pacotes
+
+- [x] Modo festa (`/festa/[id]`): tela grande com código, QR Code do convite, quantos estão na sala e quantos já votaram, duelo atual da Batalha e o vencedor; os votos continuam secretos (`room_progress` só devolve contagens)
+- [x] Botão "Modo festa (tela grande)" no lobby, só para quem criou a sala
+- [x] Pacotes temáticos (Premium): Noite de terror, Primeiro encontro, Noite de jogos e Férias de verão viram uma roleta pronta
+- [x] Temas de roleta (Premium): Clássica, Meia-noite e Céu; sem Premium a roleta volta para a Clássica
+- [x] Testes: cores dos temas e pacotes; integração do andamento da festa (quem não está na sala não vê)
+- [ ] Premium Dupla (Fase 15): não construído. Antes, confirmar nas regras da App Store e do Google Play como compartilhar uma assinatura entre duas contas
+- [ ] Outras categorias (O Que Jogar, Onde Ir, O Que Conversar): ficam para depois da beta, reaproveitando o catálogo e a Batalha
