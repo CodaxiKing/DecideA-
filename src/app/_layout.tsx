@@ -12,6 +12,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { PresenceManager } from '../features/friends/useSocial';
 import { PremiumManager } from '../features/premium/usePremium';
+import { RetentionManager } from '../features/retention/RetentionManager';
 import { SyncManager } from '../features/sync/SyncManager';
 import { ThemeProvider, useTheme } from '../theme/ThemeProvider';
 import { fontFamily } from '../theme/tokens';
@@ -35,6 +36,7 @@ function RootStack() {
       <SyncManager />
       <PremiumManager />
       <PresenceManager />
+      <RetentionManager />
       <Stack
         screenOptions={{
           headerShadowVisible: false,

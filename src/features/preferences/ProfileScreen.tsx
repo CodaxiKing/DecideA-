@@ -123,6 +123,9 @@ export function ProfileScreen() {
       <AppCard>
         <AppText variant="bodyStrong">Seus favoritos</AppText>
         <AppButton label="Ver favoritos" size="sm" variant="ghost" onPress={() => router.push('/favoritos')} />
+        <AppButton label="Retrospectiva do mês" size="sm" variant="ghost" onPress={() => router.push('/retrospectiva')} />
+        <AppButton label="Conquistas" size="sm" variant="ghost" onPress={() => router.push('/conquistas')} />
+        <AppButton label="Lembretes" size="sm" variant="ghost" onPress={() => router.push('/lembretes')} />
       </AppCard>
 
       <AppCard>

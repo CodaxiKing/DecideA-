@@ -4,6 +4,7 @@ import { useFavoritesStore } from '../../stores/favoritesStore';
 import { HISTORY_STORAGE_LIMIT, useHistoryStore } from '../../stores/historyStore';
 import { useWheelStore } from '../../stores/wheelStore';
 import { useKitchenStore } from '../../stores/kitchenStore';
+import { achievements } from '../retention/insights';
 import { usePreferenceSignals } from '../../stores/preferenceSignalsStore';
 import { mergeFavorites, mergeHistory, mergeSignals, mergeWheels } from './merge';
 
@@ -82,6 +83,10 @@ export function syncAll(userId: string): Promise<void> {
     useFavoritesStore.getState().clearRemoved(removedFavs);
     useHistoryStore.getState().replaceAll(history);
     usePreferenceSignals.getState().replaceSignals(signals);
+
+    // Conquistas alcançadas (a data da primeira vez fica no servidor).
+    const at = new Date().toISOString();
+    await repo.pushAchievements(achievements(history).filter((a) => a.done).map((a) => ({ id: a.id, at })));
 
     // Cardápio da semana: vence o mais recente.
     const kitchen = useKitchenStore.getState();

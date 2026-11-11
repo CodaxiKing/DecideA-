@@ -188,3 +188,11 @@ Ficaram para as fases que os usam: `AppModal`, `AppBottomSheet`, `AppInput`, `Ap
 - [x] Fazer em casa ou pedir: receita ou busca no mapa do celular; sem parceiros, nada patrocinado
 - [x] Conferido no emulador: cardápio → lista de 30 itens; Modo cozinha com timer contando
 - [ ] Links de delivery e streaming com comissão: dependem de parcerias (seção 18 do plano)
+
+## Fase 18: Retorno
+
+- [x] Lembretes com consentimento e desligamento por tipo: jantar (dias e horário escolhidos), cardápio da semana (domingo 11:30), "Deu certo?" no dia seguinte a uma decisão e retrospectiva no dia 1; tocar na notificação abre a tela certa
+- [x] Retrospectiva do mês: total de decisões, categoria campeã, item que mais saiu e decisões em grupo, com imagem para compartilhar
+- [x] Conquistas leves, sem sequência diária obrigatória, salvas na conta (`user_achievements`)
+- [x] Conferido no emulador: lembrete semanal agendado no Android para o próximo domingo, 11:30; retrospectiva vazia correta
+- [ ] Widgets do Android: avaliado. Exigem código nativo (por exemplo `react-native-android-widget` com config plugin) e development build; não rodam no Expo Go. Fica para depois da beta, junto com o development build da Fase 7
